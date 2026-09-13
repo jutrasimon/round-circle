@@ -120,3 +120,11 @@ La nouvelle maison utilise les HP, la régénération et la production courants;
 **Start**, à côté de Pause, recommence une partie avec les réglages actuels : HP restaurés, monstres et soldats retirés, trois wagons initiaux, compteurs remis à zéro et nouvelles positions aléatoires des maisons. Il quitte la pause et remet le vortex au rayon initial. Il relance le dernier mode choisi (vortex par défaut, playlist ou manuel). Les vagues, profils, couleurs et caméra sont conservés.
 
 Les maisons initiales comme les pops suivants tirent uniformément un emplacement parmi les places jamais occupées, sans doublon. Les ruines restent occupées jusqu’à la prochaine partie. Avec 12 maisons initiales, toutes les places sont forcément remplies.
+
+## Annonce NEW WAVE
+
+Chaque nouveau seuil atteint par le vortex déclenche WAVE 1, WAVE 2, etc. Plusieurs vagues assignées au même rayon produisent une seule annonce. Plusieurs rayons franchis d’un coup mettent les annonces en file sans retarder les monstres. Le numéro repart à 1 à la relance du mode vortex.
+
+Dans **Vagues → NEW WAVE · effets**, **Tester NEW WAVE** joue seulement l’annonce, même en pause. Choisir le numéro de test puis ouvrir **Ajuster les effets** : durée, taille du texte, vibration écran, intensité du flash, aberration chromatique, coup de contraste et couleur. Les modifications s’appliquent à l’effet en cours et sont mémorisées automatiquement dans ce navigateur (`round-circle-wave-feedback-v1`), séparément des stats de combat.
+
+L’effet se superpose à l’ambiance choisie puis revient aux valeurs visuelles courantes, sans déplacer la caméra. Start/reset annule l’effet et sa file. Aucun changement de dégâts, vitesse ou timing des vagues.

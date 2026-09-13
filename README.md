@@ -59,3 +59,8 @@ node --test tests/simulation.test.cjs
 
 - Emplacements aléatoires des maisons initiales et des pops.
 - Start à côté de Pause : recommencer la partie avec les réglages courants.
+
+## Gym 011
+
+- Annonce WAVE X aux seuils du vortex : texte animé, flash, vibration, contraste et aberration chromatique.
+- Test et réglages des effets dans Vagues, sauvegardés localement.
