@@ -1,0 +1,17 @@
+'use strict';
+window.buildRoundCircleMonster=function(B,scene,parent,e,m){
+const limbs=[];
+function primitive(type,name,opts,mat,pos,scale){const o=B.MeshBuilder[type](name,opts,scene);o.parent=parent;o.material=mat;if(pos)o.position.set(...pos);if(scale)o.scaling.set(...scale);return o;}
+const sphere=(name,d,mat,pos,scale)=>primitive('CreateSphere',name,{diameter:d,segments:10},mat,pos,scale);
+const tooth=(pos,diameter,height,rotation=0)=>{const t=primitive('CreateCylinder','fang',{diameterTop:0,diameterBottom:diameter,height,tessellation:5},m.body,pos);t.rotation.z=rotation;return t;};
+function leg(x,z,lift=0){const p=[new B.Vector3(x*.35,.5,z*.3),new B.Vector3(x,.7+lift,z),new B.Vector3(x*1.3,.06,z*1.2)];const o=primitive('CreateTube','jointed-limb',{path:p,radius:.055,tessellation:5},m.trim);limbs.push(o);}
+function eye(x,y,z,size=.22){sphere('eyeball',size,m.body,[x,y,z]);sphere('pupil',size*.48,m.dark,[x,y,z-size*.43]);}
+function mouth(y,z,width=.65){sphere('mouth-cavity',width,m.dark,[0,y,z],[1,.75,.24]);for(let i=0;i<7;i++){const a=i/6*Math.PI;tooth([Math.cos(a)*width*.39,y+Math.sin(a)*width*.27,z-.08],.08,.19,Math.PI);tooth([Math.cos(a)*width*.39,y-Math.sin(a)*width*.27,z-.08],.075,.16);}}
+if(['crawler','runner','brute'].includes(e.type)){sphere('torso',.8,m.skin,[0,.6,0],[.9,e.type==='brute'?1.3:1,.8]);eye(0,.8,-.35,.3);mouth(.46,-.33,.45);leg(-.55,-.2);leg(.55,-.2);}
+if(e.type==='maw'){sphere('jaw-body',1,m.skin,[0,.35,0],[1.3,.55,1]);mouth(.35,-.48,1.1);eye(-.38,.66,-.2,.17);eye(.38,.66,-.2,.17);for(let i=0;i<3;i++){leg(-.7,(i-1)*.3,-.3);leg(.7,(i-1)*.3,-.3);}}
+if(e.type==='spitter'){sphere('swollen-sac',.9,m.skin,[0,.65,.05],[1,1.4,.9]);sphere('toxic-blister',.4,m.light,[.35,.82,.1]);mouth(.7,-.42,.5);for(let i=0;i<4;i++)eye((i-1.5)*.18,1.15,-.22,.13);leg(-.55,.2);leg(.55,.2);leg(0,-.7);}
+if(e.type==='carapace'){primitive('CreatePolyhedron','carapace',{type:1,size:.65},m.dark,[0,.62,0],[1.2,.85,1.25]);for(let i=0;i<5;i++)tooth([(i-2)*.19,.99,0],.15,.38);for(let i=0;i<3;i++){leg(-.7,(i-1)*.45);leg(.7,(i-1)*.45);eye((i-1)*.22,.56,-.52,.16);}mouth(.3,-.56,.55);}
+if(e.type==='cathedral'){sphere('great-body',.9,m.skin,[0,.85,0],[1.1,1.8,.9]);mouth(.85,-.4,.85);for(let i=0;i<5;i++){const a=i*2.4;sphere('pulsing-organ',.22,m.trim,[Math.cos(a)*.38,1.25+i*.11,Math.sin(a)*.23]);eye(Math.cos(a)*.24,1.3+i*.1,-.33,.16);}for(let i=0;i<4;i++){leg(-.65,(i-1.5)*.23,.1);leg(.65,(i-1.5)*.23,.1);}tooth([-.4,1.65,0],.15,.75,-.3);tooth([.4,1.65,0],.15,.75,.3);}
+if(e.type==='widow'){sphere('abdomen',.8,m.dark,[0,.55,.35],[1,1,1.35]);sphere('head',.58,m.skin,[0,.55,-.35],[1,1.2,.8]);mouth(.43,-.61,.48);for(let i=0;i<4;i++)eye((i-1.5)*.13,.78,-.56,.12);for(let i=0;i<4;i++){leg(-1,(i-1.5)*.45,.1);leg(1,(i-1.5)*.45,.1);}tooth([-.18,.34,-.64],.1,.45,2.8);tooth([.18,.34,-.64],.1,.45,3.5);}
+const form=new B.TransformNode('monster-form',scene);form.parent=parent;for(const child of parent.getChildren())if(child!==form)child.parent=form;form.scaling.setAll(e.size);return {limbs,form};
+};
