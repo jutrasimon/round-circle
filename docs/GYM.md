@@ -96,3 +96,15 @@ La sauvegarde locale appartient à ce navigateur. **Exporter le JSON des vagues 
 | Veuve du seuil · élite | Abdomen, huit longues pattes et crocs | Chasse rapidement les soldats à pied |
 
 Les cinq nouveaux monstres sont assemblés en volumes simples. Leurs stats initiales et comportements sont dans `dist/sim.js`; leurs silhouettes sont dans `dist/enemies.js`.
+
+## Stats par défaut au démarrage
+
+En haut de **Mode jeu**, **Save stats to default** mémorise les réglages de simulation, le profil des prochains soldats, les stats des prochains monstres et les réglages initiaux du vortex. Ils sont rechargés automatiquement à la prochaine ouverture dans ce navigateur. Sauvegarder ne réinitialise pas le combat. Les HP restants et les modifications individuelles de bâtiments, soldats ou wagons ne constituent pas des stats de départ.
+
+**Exporter defaults.json** télécharge `stats-defaults.json` avec les réglages actuels. **Importer defaults.json** valide un fichier et en fait le nouveau défaut local; recharger ensuite la page. Le fichier de référence du dépôt est `dist/stats-defaults.json`. Le bouton ne réécrit pas ce fichier serveur : pour partager un défaut entre navigateurs, exporter/importer le fichier ou intégrer son contenu au dépôt.
+
+Le nombre de maisons s’applique au démarrage et à la réinitialisation. Les réglages de production concernent les prochains soldats; les soldats déjà présents conservent leur profil. Les outils de sauvegarde visuelle existants restent séparés.
+
+## Interception des ennemis
+
+Un ennemi lent qui vise le train rejoint maintenant un point fixe sur les rails pour l’intercepter. Il ne poursuit plus indéfiniment sa position instantanée près du vortex. Les assiégeants conservent leur priorité aux bâtiments.

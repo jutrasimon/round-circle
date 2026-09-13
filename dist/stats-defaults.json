@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "simulation": {
+    "trainHp": 200,
+    "trainDamage": 12,
+    "trainSpeed": 1.4,
+    "trainRange": 6,
+    "trainCooldown": 1.1,
+    "ramDamage": 6,
+    "ramSelfDamage": 0.04,
+    "wagonHp": 100,
+    "capacity": 4,
+    "actorHp": 35,
+    "actorDamage": 7,
+    "actorSpeed": 2.8,
+    "actorRange": 5,
+    "actorCooldown": 0.8,
+    "actorLimit": 160,
+    "monsterLimit": 160,
+    "buildingHp": 160,
+    "buildingCount": 12,
+    "buildingRegen": 1,
+    "buildingSpawnRate": 3,
+    "production": true,
+    "useBudget": true,
+    "vortexRadius": 1.2
+  },
+  "profile": {
+    "budget": 100,
+    "shares": {
+      "hp": 20,
+      "damage": 25,
+      "speed": 15,
+      "range": 20,
+      "rate": 20
+    },
+    "weights": {
+      "hp": 1,
+      "damage": 1.5,
+      "speed": 1,
+      "range": 1.5,
+      "rate": 2
+    }
+  },
+  "monsters": {
+    "crawler": {
+      "name": "Rampant",
+      "hp": 35,
+      "damage": 5,
+      "speed": 0.8,
+      "range": 0.9,
+      "cooldown": 1.2,
+      "size": 0.55
+    },
+    "runner": {
+      "name": "Sprinteur",
+      "hp": 18,
+      "damage": 3,
+      "speed": 1.8,
+      "range": 0.8,
+      "cooldown": 0.7,
+      "size": 0.38
+    },
+    "brute": {
+      "name": "Colosse",
+      "hp": 150,
+      "damage": 16,
+      "speed": 0.42,
+      "range": 1.3,
+      "cooldown": 1.8,
+      "size": 1
+    },
+    "maw": {
+      "name": "Gueule traînante",
+      "hp": 65,
+      "damage": 9,
+      "speed": 1.2,
+      "range": 0.65,
+      "cooldown": 0.9,
+      "size": 0.85,
+      "behavior": "hunter"
+    },
+    "spitter": {
+      "name": "Crache-bile",
+      "hp": 48,
+      "damage": 7,
+      "speed": 0.6,
+      "range": 3.5,
+      "cooldown": 1.8,
+      "size": 0.8,
+      "behavior": "siege"
+    },
+    "carapace": {
+      "name": "Porte-cadavres",
+      "hp": 180,
+      "damage": 13,
+      "speed": 0.45,
+      "range": 1,
+      "cooldown": 1.5,
+      "size": 1.1,
+      "behavior": "siege",
+      "armor": 0.4
+    },
+    "cathedral": {
+      "name": "Cathédrale de chair",
+      "hp": 650,
+      "damage": 22,
+      "speed": 0.32,
+      "range": 2.4,
+      "cooldown": 2.4,
+      "size": 1.85,
+      "elite": true,
+      "behavior": "siege",
+      "splash": 1.6
+    },
+    "widow": {
+      "name": "Veuve du seuil",
+      "hp": 420,
+      "damage": 15,
+      "speed": 1.45,
+      "range": 1.2,
+      "cooldown": 0.8,
+      "size": 1.5,
+      "elite": true,
+      "behavior": "hunter"
+    }
+  },
+  "vortex": {
+    "rate": 0.3,
+    "startRadius": 1.2
+  }
+}

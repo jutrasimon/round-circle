@@ -44,3 +44,9 @@ node --test tests/simulation.test.cjs
 - Bouton pour tuer tous les soldats, à pied comme à bord.
 - Vortex : croissance par minute et vagues assignées à des seuils de rayon, en alternative à la playlist.
 - Seuils sauvegardés et exportables avec les vagues; anciens exports compatibles.
+
+## Gym 008
+
+- Interception des cibles mobiles : les ennemis lents rejoignent leur trajectoire.
+- Save stats to default, chargement automatique local et export/import JSON.
+- Nombre de maisons au démarrage clarifié.

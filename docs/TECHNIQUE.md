@@ -91,3 +91,7 @@ L’état du combat n’est pas persisté. Les documents, le code et les checkpo
 Le JSON version 1 accepte un objet `vortex` : `rate` (unités de rayon/minute), `startRadius` et `triggers` (`waveId`, `radius`). Les anciens exports sans cet objet reçoivent des valeurs par défaut et aucun seuil. Les imports valident les références de vagues, les rayons (0,2 à 6) et le taux (0 à 10). Les modes automatiques sont exclusifs. Le temps de simulation pilote la croissance; une nouvelle génération de scène arrête le lecteur même si son horloge était encore à zéro.
 
 Les profils répartissent 100 points entiers, minimum 1 chacun; les restes d’arrondi sont distribués par plus grande fraction. La mobilité et la cadence finales commencent à 1. Le chargement des anciens profils normalise les allocations.
+
+## Gym 008
+
+`dist/stats-defaults.json` fournit les stats initiales; `dist/stats-settings.js` valide les fichiers. La clé locale `round-circle-default-stats-v1` prend priorité au démarrage. Un fichier invalide ne remplace pas un défaut valide. La lecture du fichier serveur est bornée à 5 secondes et le jeu dispose de valeurs intégrées de secours.
