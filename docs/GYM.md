@@ -114,3 +114,9 @@ Un ennemi lent qui vise le train rejoint maintenant un point fixe sur les rails 
 Dans **Mode jeu → Maisons et collisions**, **Pop maison : toutes les X secondes** ajoute une maison sur un emplacement jamais occupé. Défaut : 30 secondes; 0 désactive. Le compte à rebours utilise le temps de simulation (la pause le suspend), repart à zéro après une création, un changement de délai ou un reset. Aucun cumul quand les 12 places sont occupées. Les ruines restent occupées : une maison détruite n’est pas reconstruite.
 
 La nouvelle maison utilise les HP, la régénération et la production courants; sa production de soldats démarre à zéro. Le délai est inclus dans Save stats to default et les exports JSON. Pour tester, choisir moins de 12 maisons au démarrage puis réinitialiser la scène.
+
+## Start et positions des maisons
+
+**Start**, à côté de Pause, recommence une partie avec les réglages actuels : HP restaurés, monstres et soldats retirés, trois wagons initiaux, compteurs remis à zéro et nouvelles positions aléatoires des maisons. Il quitte la pause et remet le vortex au rayon initial. Il relance le dernier mode choisi (vortex par défaut, playlist ou manuel). Les vagues, profils, couleurs et caméra sont conservés.
+
+Les maisons initiales comme les pops suivants tirent uniformément un emplacement parmi les places jamais occupées, sans doublon. Les ruines restent occupées jusqu’à la prochaine partie. Avec 12 maisons initiales, toutes les places sont forcément remplies.

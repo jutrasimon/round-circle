@@ -15,3 +15,5 @@ nav{flex-wrap:wrap}nav button{flex:1 1 28%;font-size:12px}.tab h2{font-size:19px
 .soldier-stat{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;margin:16px 0}.soldier-stat>b{font-size:14px}.soldier-stat>input{grid-column:1/-1;width:100%;height:28px;margin:0}.stat-stepper{display:flex;gap:4px;align-items:center}.stat-stepper button{min-width:32px;height:34px;padding:0;font-size:20px}.stat-stepper input{width:55px!important;min-width:0;text-align:center;font-size:16px;height:34px}.danger{border-color:#d56687;color:#ffb7c7;margin-top:12px}.vortex-thresholds{margin:12px 0}.wave-status{position:sticky;bottom:0;background:#181923;padding:12px;border:1px solid #d795c04d;font-size:13px}
 
 .defaults-box{padding:12px;border:1px solid #d795c04d;border-radius:8px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:6px}.defaults-box .primary{width:100%}.defaults-box p{margin:4px 0 0;font-size:12px}
+
+.session-controls{display:flex;gap:6px;flex-shrink:0}.session-controls #start{border-color:#d795c0;color:#ffd8f0}

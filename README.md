@@ -54,3 +54,8 @@ node --test tests/simulation.test.cjs
 ## Gym 009
 
 - Pop automatique de maisons toutes les X secondes sur les emplacements libres, compte à rebours et sauvegarde du délai dans les stats par défaut.
+
+## Gym 010
+
+- Emplacements aléatoires des maisons initiales et des pops.
+- Start à côté de Pause : recommencer la partie avec les réglages courants.
