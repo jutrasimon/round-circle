@@ -12,7 +12,9 @@
 | Bâtiment détruit = perdu pour la partie | Implémenté jusqu’au reset |
 | Soldat sort de sa maison et embarque seulement lors d’un croisement | Implémenté |
 | Designer de vagues et playlist sauvegardables | Implémenté |
-| Profil pondéré pour les prochains soldats | Implémenté |
+| Profil pondéré pour les prochains soldats | Implémenté : allocations entières, minimum 1 |
+| Tuer tous les soldats pour tester | Implémenté, maisons conservées |
+| Croissance du vortex et vagues par seuil de rayon | Implémenté, mode alternatif à la playlist |
 | Conserver les paramètres exposés et les outils du gym | Implémenté |
 | Aucune progression officielle pour le moment | Respecté : idées dans VISION.md |
 

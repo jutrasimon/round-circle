@@ -11,6 +11,8 @@
 - [x] Designer de vagues et playlist importable/exportable.
 - [x] Profil des prochaines naissances à budget pondéré.
 - [x] Tests des règles critiques et documentation.
+- [x] Profils entiers, réglages fins accessibles et mort groupée des soldats.
+- [x] Croissance réglable du vortex et vagues assignées par rayon.
 
 ## À concevoir ensuite
 
@@ -22,7 +24,7 @@
 | Habitants | Réparateurs, ouvriers, banquiers, cour | Chaque rôle a une fonction et un déplacement distincts |
 | Moral | Définir le lien entre entourage, pertes et efficacité | Sacrifier la cour constitue un choix compréhensible |
 | Table | Placement des aristocrates, synergies et buffs | Le placement modifie réellement la ville ou le train |
-| Vortex | Croissance, urgence et engloutissement | Le joueur lit le temps restant sans dépendre d’un compteur |
+| Vortex | Équilibrer la croissance, concevoir urgence et engloutissement | Le joueur lit le temps restant sans dépendre d’un compteur |
 | Narration | Portraits 2D, événements et décisions | Les choix restent lisibles pendant le mouvement du jeu |
 | Diplomatie | Définir des conditions étranges mais compréhensibles | L’harmonie devient une stratégie découvrable |
 | Force | Construire les synergies et la victoire militaire | Un build exceptionnel peut gagner avant la catastrophe |

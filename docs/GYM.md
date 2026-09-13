@@ -14,7 +14,7 @@ Un wagon libre doit croiser le soldat pour qu’il embarque. Si le train est ple
 
 ### Profil pondéré
 
-Dans **Mode jeu**, répartir les points entre résistance, puissance, mobilité, portée et cadence. Monter une allocation redistribue proportionnellement les autres. Le total reste 100 %.
+Dans **Mode jeu**, répartir les points entre résistance, puissance, mobilité, portée et cadence. Monter une allocation redistribue proportionnellement les autres. Le total reste 100 points entiers, avec un minimum de 1 et un maximum de 96 par allocation. Les boutons −/+ changent un point; le champ permet la saisie directe. Le slider réserve davantage de course aux petites valeurs.
 
 Les points utiles d’une stat valent `budget × allocation / 100 / pondération`. Les courbes actuelles sont :
 
@@ -22,13 +22,15 @@ Les points utiles d’une stat valent `budget × allocation / 100 / pondération
 |---|---|
 | HP | `arrondi(15 + points × 2)` |
 | Dégâts | `2 + points × 0,4` |
-| Vitesse | `0,8 + points × 0,08` |
+| Vitesse | `1 + points × 0,08` |
 | Portée | `1 + points × 0,12` |
-| Tirs/seconde | `0,25 + points × 0,06` |
+| Tirs/seconde | `1 + points × 0,06` |
 
 Pondérations par défaut : HP 1; dégâts 1,5; vitesse 1; portée 1,5; cadence 2. Tout cela reste un réglage de design, sans progression officielle.
 
 Le bouton de naissance du Mode jeu utilise ce profil. Le spawn manuel de **Simulation** utilise les sliders libres. La production des maisons peut être basculée du profil pondéré vers ces valeurs libres.
+
+**Tuer tous les soldats** tue les soldats à pied et à bord, libère les places et conserve les maisons. La production continue : la désactiver pour garder la scène sans soldats.
 
 ## 3. Construire une vague
 
@@ -37,12 +39,27 @@ Le bouton de naissance du Mode jeu utilise ce profil. Le spawn manuel de **Simul
 3. Ajouter un ou plusieurs groupes.
 4. Choisir le monstre, sa quantité, son délai et l’intervalle entre ses apparitions.
 5. Ouvrir les stats du groupe pour régler HP, dégâts, vitesse, portée et intervalle d’attaque.
-6. **Spawn wave** teste le brouillon courant, même avant sauvegarde.
+6. **Faire apparaître cette vague** teste le brouillon courant, même avant sauvegarde, en arrêtant le mode automatique actif.
 7. **Sauvegarder** enregistre ou remplace cette vague. **Dupliquer** crée un nouveau brouillon.
 
 Les trois exemples fournis sont des séquences de test. Ce ne sont pas les vagues officielles du jeu.
 
-## 4. Assembler la playlist
+## 4. Déclencher par taille du vortex
+
+1. Choisir une vague en haut de **Vagues**, ou modifier sa composition.
+2. Régler **Rayon actuel / taille à assigner**, par exemple 2.
+3. Cliquer **Assigner cette vague au rayon actuel**. Cela sauvegarde aussi la composition affichée.
+4. Refaire pour les autres seuils. Plusieurs vagues peuvent partager un rayon.
+5. Régler le rayon initial (ex. 1,2) et la croissance (ex. 0,6 unité/minute).
+6. **Lancer / relancer la croissance** remet le vortex au rayon initial et arme les seuils. Les monstres existants restent en scène.
+
+Un rayon de 2 est atteint après 80 secondes avec ces valeurs. Chaque seuil déclenche une seule fois par lancement. Le délai de chaque groupe commence au déclenchement de sa vague. Les seuils inférieurs au rayon initial sont ignorés; ceux égaux au départ se déclenchent immédiatement.
+
+La croissance s’arrête à 6 (limite actuelle du gym), sans engloutissement. Le taux est modifiable pendant le test; 0 suspend la croissance. Changer le rayon actuel vers le haut déclenche les seuils atteints au prochain pas de simulation. Le réduire ne réarme aucun seuil. Modifier les assignations ou les vagues demande une relance; le mode en cours conserve sa copie.
+
+Le prochain seuil et les apparitions en attente sont affichés. Pause suspend tout. Arrêter annule la croissance et les apparitions futures. Une réinitialisation ou un chargement arrête le mode. Lancer la playlist remplace le mode vortex et inversement.
+
+## 5. Assembler la playlist
 
 Ajouter les vagues sauvegardées et les réordonner avec les flèches.
 
@@ -54,11 +71,11 @@ Ajouter les vagues sauvegardées et les réordonner avec les flèches.
 
 Si la limite de monstres est atteinte, les apparitions restent en attente. Elles ne disparaissent pas de la séquence.
 
-## 5. Sauvegarder son travail
+## 6. Sauvegarder son travail
 
 | Données | Sauvegarde |
 |---|---|
-| Vagues et ordre de playlist | Automatique après sauvegarde d’une vague ou changement de playlist |
+| Vagues, playlist, seuils, rayon initial et croissance | Automatique après modification ou sauvegarde d’une vague |
 | Bibliothèque complète | Export/import JSON dans Vagues |
 | Réglages visuels, simulation et profil soldats | Sauver/charger dans Visuel |
 | État exact du combat | Non sauvegardé |

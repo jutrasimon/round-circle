@@ -5,7 +5,7 @@
 | Fichier | Responsabilité |
 |---|---|
 | `dist/sim.js` | Entités, HP, production, profils, déplacements, tirs et collisions |
-| `dist/waves.js` | Validation des données, planification et lecture des vagues |
+| `dist/waves.js` | Validation des données, playlist et déclenchement par rayon |
 | `dist/designer.js` | Interface de budget, éditeur de vagues et playlist |
 | `dist/driving-panel.js` | Déplacement, redimensionnement et mémoire du panneau de vitesse |
 | `dist/app.js` | Scène Babylon, rendu, interactions et raccordement du gym |
@@ -82,6 +82,12 @@ Pour revenir en production, créer un nouveau commit de restauration après vér
 
 - `round-circle-driving-layout-v1` : position et taille du panneau de vitesse.
 - `round-circle-gym` : configuration visuelle, simulation et profil soldats.
-- `round-circle-waves-v1` : bibliothèque des vagues et playlist.
+- `round-circle-waves-v1` : bibliothèque des vagues, playlist et configuration vortex.
 
 L’état du combat n’est pas persisté. Les documents, le code et les checkpoints sont dans GitHub; les vagues créées par le designer doivent aussi être exportées puis ajoutées au dépôt pour une conservation indépendante du navigateur.
+
+## Gym 007 : compatibilité
+
+Le JSON version 1 accepte un objet `vortex` : `rate` (unités de rayon/minute), `startRadius` et `triggers` (`waveId`, `radius`). Les anciens exports sans cet objet reçoivent des valeurs par défaut et aucun seuil. Les imports valident les références de vagues, les rayons (0,2 à 6) et le taux (0 à 10). Les modes automatiques sont exclusifs. Le temps de simulation pilote la croissance; une nouvelle génération de scène arrête le lecteur même si son horloge était encore à zéro.
+
+Les profils répartissent 100 points entiers, minimum 1 chacun; les restes d’arrondi sont distribués par plus grande fraction. La mobilité et la cadence finales commencent à 1. Le chargement des anciens profils normalise les allocations.

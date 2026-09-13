@@ -37,3 +37,10 @@ Le checkpoint `checkpoint/gym-004` conserve la simulation manuelle, les 24 ambia
 ```sh
 node --test tests/simulation.test.cjs
 ```
+
+## Gym 007
+
+- Profils : points entiers, minimum 1, boutons −/+ et sliders précis dans les petites valeurs.
+- Bouton pour tuer tous les soldats, à pied comme à bord.
+- Vortex : croissance par minute et vagues assignées à des seuils de rayon, en alternative à la playlist.
+- Seuils sauvegardés et exportables avec les vagues; anciens exports compatibles.

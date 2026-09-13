@@ -43,7 +43,7 @@ En plus des HP, de la vitesse et des collisions déjà testables : spécialisati
 
 ## Vortex et narration
 
-Le vortex possède une cadence d’apparition, une file d’ennemis et des moments narratifs. Le designer de vagues prépare cette séquence. Son rayon est réglable; sa croissance automatique et l’engloutissement ne sont pas implémentés.
+Le vortex possède une cadence d’apparition, une file d’ennemis et des moments narratifs. Le designer de vagues prépare cette séquence. Son rayon et sa croissance sont réglables dans le gym, avec déclenchement de vagues par seuil. L’engloutissement n’est pas implémenté.
 
 Les conversations envisagées utilisent de grands portraits 2D devant le jeu en mouvement, avec quelques décisions clés. Une forte décélération pendant les choix est une proposition à tester, pas une règle définitive.
 

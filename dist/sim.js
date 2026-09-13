@@ -6,12 +6,23 @@ const defaults={trainHp:200,trainDamage:12,trainSpeed:1.4,trainRange:6,trainCool
 const types={crawler:{name:'Rampant',hp:35,damage:5,speed:.8,range:.9,cooldown:1.2,size:.55},runner:{name:'Sprinteur',hp:18,damage:3,speed:1.8,range:.8,cooldown:.7,size:.38},brute:{name:'Colosse',hp:150,damage:16,speed:.42,range:1.3,cooldown:1.8,size:1},maw:{name:'Gueule traînante',hp:65,damage:9,speed:1.2,range:.65,cooldown:.9,size:.85,behavior:'hunter'},spitter:{name:'Crache-bile',hp:48,damage:7,speed:.6,range:3.5,cooldown:1.8,size:.8,behavior:'siege'},carapace:{name:'Porte-cadavres',hp:180,damage:13,speed:.45,range:1,cooldown:1.5,size:1.1,behavior:'siege',armor:.4},cathedral:{name:'Cathédrale de chair',hp:650,damage:22,speed:.32,range:2.4,cooldown:2.4,size:1.85,elite:true,behavior:'siege',splash:1.6},widow:{name:'Veuve du seuil',hp:420,damage:15,speed:1.45,range:1.2,cooldown:.8,size:1.5,elite:true,behavior:'hunter'}};
 const profileDefaults={budget:100,shares:{hp:20,damage:25,speed:15,range:20,rate:20},weights:{hp:1,damage:1.5,speed:1,range:1.5,rate:2}};
 function clone(x){return JSON.parse(JSON.stringify(x));}
-function redistribute(shares,key,value){if(!(key in shares))throw Error('Stat inconnue');const keys=Object.keys(shares).filter(k=>k!==key),next=Math.max(0,Math.min(100,Number(value)));if(!Number.isFinite(next))throw Error('Allocation invalide');const total=keys.reduce((n,k)=>n+shares[k],0);for(const k of keys)shares[k]=total?shares[k]/total*(100-next):(100-next)/keys.length;shares[key]=next;return shares;}
-function profileStats(p){const points=k=>p.budget*p.shares[k]/100/Math.max(.1,p.weights[k]);return {maxHp:Math.round(15+points('hp')*2),damage:+(2+points('damage')*.4).toFixed(2),speed:+(.8+points('speed')*.08).toFixed(2),range:+(1+points('range')*.12).toFixed(2),cooldown:+(1/(.25+points('rate')*.06)).toFixed(3)};}
+// Integer allocations, total 100, floor 1 per stat; largest remainder keeps rounding fair.
+function redistribute(shares,key,value){
+ if(!(key in shares)||!Number.isFinite(Number(value)))throw Error('Allocation invalide');
+ const keys=Object.keys(shares).filter(k=>k!==key),next=Math.max(1,Math.min(100-keys.length,Math.round(Number(value)))),remaining=100-next-keys.length;
+ const weights=keys.map(k=>Math.max(0,(Number(shares[k])||1)-1)),total=weights.reduce((a,b)=>a+b,0);
+ const portions=keys.map((k,i)=>({k,value:remaining*(total?weights[i]/total:1/keys.length)}));
+ for(const p of portions)shares[p.k]=1+Math.floor(p.value);
+ let rest=100-next-keys.reduce((n,k)=>n+shares[k],0);
+ portions.sort((a,b)=>(b.value%1)-(a.value%1));
+ for(let i=0;i<rest;i++)shares[portions[i].k]++;
+ shares[key]=next;return shares;
+}
+function profileStats(p){const points=k=>p.budget*p.shares[k]/100/Math.max(.1,p.weights[k]);return {maxHp:Math.round(15+points('hp')*2),damage:+(2+points('damage')*.4).toFixed(2),speed:+(1+points('speed')*.08).toFixed(2),range:+(1+points('range')*.12).toFixed(2),cooldown:+(1/(1+points('rate')*.06)).toFixed(3)};}
 class Simulation{
  constructor(cfg={}){this.cfg={...defaults,...cfg};this.profile=clone(profileDefaults);this.nextId=1;this.reset();}
  entity(kind,name,stats){return {id:this.nextId++,kind,name,hp:stats.maxHp,maxHp:stats.maxHp,damage:0,speed:0,range:0,cooldown:1,timer:0,x:0,z:0,angle:0,...stats};}
- reset(){this.cfg.trainSpeed=clampTrainSpeed(this.cfg.trainSpeed);this.events=[];this.time=0;this.angle=0;this.kills=0;this.collisions=0;this.contacts=new Set();this.train=this.entity('train','Locomotive',{maxHp:this.cfg.trainHp,damage:this.cfg.trainDamage,speed:this.cfg.trainSpeed,range:this.cfg.trainRange,cooldown:this.cfg.trainCooldown});this.wagons=[];this.actors=[];this.monsters=[];this.buildings=Array.from({length:Math.max(0,Math.min(12,this.cfg.buildingCount))},(_,i)=>{let a=i/12*TAU+.3;return this.entity('building','Bâtiment '+(i+1),{maxHp:this.cfg.buildingHp,regen:this.cfg.buildingRegen,spawnRate:this.cfg.buildingSpawnRate,spawnProgress:i/12,angle:a,x:Math.cos(a)*9,z:Math.sin(a)*9,dead:false});});for(let i=0;i<3;i++)this.addWagon();this.positionTrain();}
+ reset(){this.resetId=(this.resetId||0)+1;this.cfg.trainSpeed=clampTrainSpeed(this.cfg.trainSpeed);this.events=[];this.time=0;this.angle=0;this.kills=0;this.collisions=0;this.contacts=new Set();this.train=this.entity('train','Locomotive',{maxHp:this.cfg.trainHp,damage:this.cfg.trainDamage,speed:this.cfg.trainSpeed,range:this.cfg.trainRange,cooldown:this.cfg.trainCooldown});this.wagons=[];this.actors=[];this.monsters=[];this.buildings=Array.from({length:Math.max(0,Math.min(12,this.cfg.buildingCount))},(_,i)=>{let a=i/12*TAU+.3;return this.entity('building','Bâtiment '+(i+1),{maxHp:this.cfg.buildingHp,regen:this.cfg.buildingRegen,spawnRate:this.cfg.buildingSpawnRate,spawnProgress:i/12,angle:a,x:Math.cos(a)*9,z:Math.sin(a)*9,dead:false});});for(let i=0;i<3;i++)this.addWagon();this.positionTrain();}
  all(){return [this.train,...this.wagons,...this.actors,...this.monsters,...this.buildings];}
  get(id){return this.all().find(e=>e.id===id);}
  living(){return [this.train,...this.wagons,...this.actors,...this.buildings].filter(e=>e.hp>0&&!e.dead);}
@@ -26,6 +37,7 @@ class Simulation{
  positionTrain(){[this.train,...this.wagons].forEach((w,i)=>{w.angle=this.angle-i*.22;w.x=Math.cos(w.angle)*RAIL;w.z=Math.sin(w.angle)*RAIL;});for(const a of this.actors)if(a.wagonId){const w=this.wagons.find(w=>w.id===a.wagonId);if(w){a.x=w.x;a.z=w.z;a.angle=w.angle;}}}
  damage(target,n){if(target.hp<=0||target.dead)return;target.hp=Math.max(0,target.hp-Math.max(0,n));this.events.push({type:'hit',id:target.id,x:target.x,z:target.z,amount:n});if(target.hp===0){this.events.push({type:'death',id:target.id,x:target.x,z:target.z});if(target.kind==='monster')this.kills++;if(target.kind==='building')target.dead=true;if(target.kind==='wagon')this.removeWagon(target.id);}}
  fire(source,target){this.events.push({type:'shot',from:{x:source.x,z:source.z},to:{x:target.x,z:target.z},hostile:source.kind==='monster'});this.damage(target,source.damage*(1-(target.armor||0)));if(source.splash)for(const other of this.living())if(other.id!==target.id&&(other.kind!=='actor'||!other.wagonId)&&this.distance(other,target)<=source.splash)this.damage(other,source.damage*.4);source.timer=Math.max(.05,source.cooldown);}
+ killSoldiers(){const alive=this.actors.filter(a=>a.hp>0);for(const a of alive){this.damage(a,a.hp);a.wagonId=null;}return alive.length;}
  heal(){this.living().forEach(e=>e.hp=e.maxHp);if(this.train.hp<=0)this.train.hp=this.train.maxHp;}
  tick(dt){let remaining=Math.min(.25,Math.max(0,dt));while(remaining>1e-7){const step=Math.min(.02,remaining);this.step(step);remaining-=step;}}
  step(dt){this.time+=dt;const previous=this.angle;this.train.speed=clampTrainSpeed(this.train.speed);const speed=this.train.hp>0?this.train.speed:0;this.angle+=speed/RAIL*dt;this.positionTrain();
