@@ -5,7 +5,7 @@
 | Décision | État |
 |---|---|
 | Cassette interdite au démarrage | Implémenté |
-| Vitesse très largement modulable dans l’interface normale | Implémenté : 0 à 60 unités/s |
+| Vitesse très largement modulable dans l’interface normale | Implémenté : 1 à 60 unités/s |
 | Dégâts de collision liés à la vitesse | Implémenté |
 | Locomotive et wagons subissent une très petite usure lors de leurs collisions | Implémenté, coefficient exposé |
 | Bâtiments avec HP, régénération et production de soldats | Implémenté |

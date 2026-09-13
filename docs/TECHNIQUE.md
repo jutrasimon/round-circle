@@ -7,6 +7,7 @@
 | `dist/sim.js` | Entités, HP, production, profils, déplacements, tirs et collisions |
 | `dist/waves.js` | Validation des données, planification et lecture des vagues |
 | `dist/designer.js` | Interface de budget, éditeur de vagues et playlist |
+| `dist/driving-panel.js` | Déplacement, redimensionnement et mémoire du panneau de vitesse |
 | `dist/app.js` | Scène Babylon, rendu, interactions et raccordement du gym |
 | `dist/enemies.js` | Formes et membres des monstres |
 | `dist/vortex.js` | Vortex procédural, débris et particules |
@@ -79,6 +80,7 @@ Pour revenir en production, créer un nouveau commit de restauration après vér
 
 ## Sauvegardes locales
 
+- `round-circle-driving-layout-v1` : position et taille du panneau de vitesse.
 - `round-circle-gym` : configuration visuelle, simulation et profil soldats.
 - `round-circle-waves-v1` : bibliothèque des vagues et playlist.
 

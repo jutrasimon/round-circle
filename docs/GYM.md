@@ -2,7 +2,7 @@
 
 ## 1. Conduire
 
-Le contrôle de vitesse reste au bas de la scène, quel que soit l’onglet. Les raccourcis vont de l’arrêt à la vitesse maximale. Les dégâts bruts d’impact et l’usure par contact sont affichés sous le contrôle.
+Le panneau de vitesse se déplace par son titre et se redimensionne par son coin inférieur droit (souris ou tactile, flèches au clavier). Sa position et sa taille sont mémorisées dans le navigateur et restent dans la scène. La vitesse va de 1 à 60 : aucun arrêt ni raccourci de vitesse. Les dégâts bruts d’impact et l’usure par contact sont affichés sous le contrôle.
 
 Augmenter la vitesse ne modifie pas les dégâts des tirs. Les collisions ajoutent une autre source de dégâts. Les coefficients sont exposés dans **Mode jeu → Maisons et collisions**.
 

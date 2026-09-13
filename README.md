@@ -19,7 +19,7 @@ Le checkpoint `checkpoint/gym-004` conserve la simulation manuelle, les 24 ambia
 
 ## Gym 005
 
-- Vitesse permanente de 0 à 60, impacts et usure du train.
+- Vitesse permanente de 1 à 60, impacts et usure du train.
 - Maisons productrices, régénération et destruction définitive avant reset.
 - Soldats à budget pondéré; embarquement au croisement.
 - Huit ennemis au total, dont cinq nouveaux et deux élites.
