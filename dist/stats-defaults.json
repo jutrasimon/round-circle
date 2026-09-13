@@ -23,7 +23,8 @@
     "buildingSpawnRate": 3,
     "production": true,
     "useBudget": true,
-    "vortexRadius": 1.2
+    "vortexRadius": 1.2,
+    "buildingPopInterval": 30
   },
   "profile": {
     "budget": 100,

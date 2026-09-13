@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 const key='round-circle-default-stats-v1',clone=x=>JSON.parse(JSON.stringify(x));
-const limits={trainHp:[1,5000],trainDamage:[0,500],trainSpeed:[1,60],trainRange:[0,15],trainCooldown:[.1,10],ramDamage:[0,30],ramSelfDamage:[0,1],wagonHp:[1,2000],capacity:[0,12],actorHp:[1,500],actorDamage:[0,100],actorSpeed:[0,8],actorRange:[0,15],actorCooldown:[.1,5],actorLimit:[1,300],monsterLimit:[1,300],buildingHp:[1,3000],buildingCount:[0,12],buildingRegen:[0,20],buildingSpawnRate:[0,60],vortexRadius:[.2,6]};
+const limits={trainHp:[1,5000],trainDamage:[0,500],trainSpeed:[1,60],trainRange:[0,15],trainCooldown:[.1,10],ramDamage:[0,30],ramSelfDamage:[0,1],wagonHp:[1,2000],capacity:[0,12],actorHp:[1,500],actorDamage:[0,100],actorSpeed:[0,8],actorRange:[0,15],actorCooldown:[.1,5],actorLimit:[1,300],monsterLimit:[1,300],buildingHp:[1,3000],buildingCount:[0,12],buildingPopInterval:[0,300],buildingRegen:[0,20],buildingSpawnRate:[0,60],vortexRadius:[.2,6]};
 function validate(data){
  const {defaults,profileDefaults,types,redistribute}=root.RoundCircleSimulation;
  if(!data||data.version!==1||!data.simulation||!data.profile||!data.monsters)throw Error('Fichier de stats invalide');

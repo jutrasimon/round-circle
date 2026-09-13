@@ -50,3 +50,7 @@ node --test tests/simulation.test.cjs
 - Interception des cibles mobiles : les ennemis lents rejoignent leur trajectoire.
 - Save stats to default, chargement automatique local et export/import JSON.
 - Nombre de maisons au démarrage clarifié.
+
+## Gym 009
+
+- Pop automatique de maisons toutes les X secondes sur les emplacements libres, compte à rebours et sauvegarde du délai dans les stats par défaut.

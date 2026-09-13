@@ -108,3 +108,9 @@ Le nombre de maisons s’applique au démarrage et à la réinitialisation. Les 
 ## Interception des ennemis
 
 Un ennemi lent qui vise le train rejoint maintenant un point fixe sur les rails pour l’intercepter. Il ne poursuit plus indéfiniment sa position instantanée près du vortex. Les assiégeants conservent leur priorité aux bâtiments.
+
+## Pop de maisons
+
+Dans **Mode jeu → Maisons et collisions**, **Pop maison : toutes les X secondes** ajoute une maison sur un emplacement jamais occupé. Défaut : 30 secondes; 0 désactive. Le compte à rebours utilise le temps de simulation (la pause le suspend), repart à zéro après une création, un changement de délai ou un reset. Aucun cumul quand les 12 places sont occupées. Les ruines restent occupées : une maison détruite n’est pas reconstruite.
+
+La nouvelle maison utilise les HP, la régénération et la production courants; sa production de soldats démarre à zéro. Le délai est inclus dans Save stats to default et les exports JSON. Pour tester, choisir moins de 12 maisons au démarrage puis réinitialiser la scène.
