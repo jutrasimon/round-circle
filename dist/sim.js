@@ -53,12 +53,38 @@ class Simulation{
  for(const a of this.actors){if(a.hp<=0||a.wagonId)continue;const old=a.angle;if(a.radius>STREET){a.radius=Math.max(STREET,a.radius-Math.min(a.speed,1.2)*dt);}else{a.angle+=a.speed/STREET*dt;for(let i=0;i<this.wagons.length;i++){const w=this.wagons[i];if(w.hp<=0||this.passengers(w).length>=w.capacity)continue;const start=previous-(i+1)*.22;const d=this.angleDelta(start,old),relative=(this.angle-previous)-(a.angle-old);const crossed=relative>=0?d>=-.09&&d<=relative+.09:d<=.09&&d>=relative-.09;if(crossed||Math.abs(this.angleDelta(a.angle,w.angle))<.09){a.wagonId=w.id;this.events.push({type:'board',id:a.id});break;}}}a.x=Math.cos(a.angle)*a.radius;a.z=Math.sin(a.angle)*a.radius;}
  this.positionTrain();
  for(const s of [this.train,...this.actors]){if(s.hp<=0)continue;s.timer-=dt;if(s.timer<=0){const t=this.nearest(s,this.monsters.filter(e=>e.hp>0));if(t&&this.distance(s,t)<=this.attackRange(s))this.fire(s,t);}}
- for(const m of this.monsters){if(m.hp<=0)continue;m.timer-=dt;let choices=this.living().filter(e=>e.kind!=='actor'||!e.wagonId);if(m.behavior==='siege'){const b=choices.filter(e=>e.kind==='building');if(b.length)choices=b;}if(m.behavior==='hunter'){const prey=choices.filter(e=>e.kind==='actor');if(prey.length)choices=prey;}const target=this.nearest(m,choices);if(!target)continue;const d=this.distance(m,target);// Intercept circular movers at a fixed point instead of orbiting behind them.
- const moving=target.kind==='train'||target.kind==='wagon'||(target.kind==='actor'&&target.speed>0&&target.radius<=STREET+.01);
- let goal=target,stop=m.range;
- if(d>m.range&&moving){const radius=target.kind==='actor'?STREET:RAIL;if(!m.intercept||m.intercept.radius!==radius){const angle=Math.hypot(m.x,m.z)>.01?Math.atan2(m.z,m.x):m.angle;m.intercept={radius,x:Math.cos(angle)*radius,z:Math.sin(angle)*radius};}goal=m.intercept;stop=0;}else m.intercept=null;
+ for(const m of this.monsters){
+ if(m.hp<=0)continue;m.timer-=dt;
+ let choices=this.living().filter(e=>e.kind!=='actor'||!e.wagonId);
+ const homes=choices.filter(e=>e.kind==='building');
+ const committed=homes.find(e=>e.id===m.siegeTargetId);
+ if(m.behavior==='siege'&&homes.length)choices=homes;
+ else if(m.behavior==='hunter'){const prey=choices.filter(e=>e.kind==='actor');if(prey.length)choices=prey;}
+ let target=committed||this.nearest(m,choices);
+ if(!target){m.targetId=null;m.intercept=null;continue;}
+ // An interception is only valid for this live, moving target.
+ if(m.targetId!==target.id){m.intercept=null;m.idleTime=0;}m.targetId=target.id;
+ let d=this.distance(m,target);
+ const inRange=d<=Math.max(0,m.range)+1e-6;
+ const moving=((target.kind==='train'||target.kind==='wagon')&&this.train.hp>0&&this.train.speed>0)||(target.kind==='actor'&&target.speed>0&&target.radius<=STREET+.01);
+ let goal=target,stop=Math.max(0,m.range-.02);
+ if(!inRange&&moving&&this.time>=(m.pursuitUntil||0)){
+  const radius=target.kind==='actor'?STREET:RAIL;
+  if(!m.intercept){const angle=Math.hypot(m.x,m.z)>.01?Math.atan2(m.z,m.x):m.angle;m.intercept={targetId:target.id,radius,x:Math.cos(angle)*radius,z:Math.sin(angle)*radius};}
+  goal=m.intercept;stop=0;
+ }else m.intercept=null;
  m.angle=Math.atan2(goal.z-m.z,goal.x-m.x);
- if(d>m.range){const distance=this.distance(m,goal);if(distance>stop){const step=Math.min(Math.max(0,m.speed)*dt,distance-stop);m.x+=(goal.x-m.x)/distance*step;m.z+=(goal.z-m.z)/distance*step;}}else if(m.timer<=0)this.fire(m,target);}
+ if(inRange){m.idleTime=0;if(m.timer<=0)this.fire(m,target);}
+ else{
+  const distance=this.distance(m,goal),step=Math.min(Math.max(0,m.speed)*dt,Math.max(0,distance-stop));
+  if(step>1e-8){m.x+=(goal.x-m.x)/distance*step;m.z+=(goal.z-m.z)/distance*step;m.idleTime=0;}
+  else m.idleTime=(m.idleTime||0)+dt;
+  // Do not camp forever at an empty interception point. Besiege an existing home,
+  // or chase the actual target for a while if no home remains.
+  if(m.idleTime>=2&&m.speed>0){m.siegeTargetId=this.nearest(m,homes)?.id??null;m.intercept=null;m.pursuitUntil=this.time+3;m.idleTime=0;}
+ }
+ }
+
  this.ram(previous,speed);
  }
  ram(previous,speed){const current=new Set(),vehicles=[this.train,...this.wagons];for(let i=0;i<vehicles.length;i++){const w=vehicles[i];if(w.hp<=0)continue;const end=this.angle-i*.22,start=previous-i*.22;for(const m of this.monsters){if(m.hp<=0)continue;const radius=Math.hypot(m.x,m.z),hitRadius=.43+m.size*.34;if(Math.abs(radius-RAIL)>hitRadius)continue;const angle=Math.atan2(m.z,m.x),delta=this.angleDelta(start,angle),travel=end-start,half=Math.sqrt(Math.max(0,hitRadius**2-(radius-RAIL)**2))/RAIL+.04;const swept=delta>=-half&&delta<=travel+half;const contact=Math.abs(this.angleDelta(end,angle))<=half;const key=w.id+':'+m.id;if(contact)current.add(key);if(speed>.01&&swept&&!this.contacts.has(key)){this.damage(m,speed*this.cfg.ramDamage*this.multiplier('ram')*(1-(m.armor||0)));this.damage(w,speed*this.cfg.ramSelfDamage);this.collisions++;this.events.push({type:'ram',x:m.x,z:m.z,speed,id:w.id});if(w.hp<=0)break;}}}this.contacts=current;}

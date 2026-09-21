@@ -45,6 +45,14 @@ Lors du changement d’adresse, les sauvegardes du navigateur ne sont pas transf
 
 [Guide des deux ateliers](docs/FEATURES.md).
 
+## Gym 013 · Ciblage, relief et ciel
+
+Les ennemis quittent les points d’interception vides après deux secondes et se rabattent sur une maison existante. Les attaques tolèrent l’arrondi à la limite de portée ; les wagons arrêtés et les bâtiments détruits sont correctement retargetés.
+
+Dans **Visuel → Réglages avancés** : **Disque de la ville** et **Fond extérieur** ont des couleurs séparées. Le **Ciel illustré** peut être désactivé ou atténué. **Relief des monstres** règle leur lumière de remplissage ; le cuirassé possède une carapace à facettes contrastées et des détails dorsaux visibles de haut.
+
+[Image du ciel et prompt de création](docs/SKY-ASSET.md).
+
 ## Documentation
 
 [Ouvrir le carnet de conception](docs/README.md) : vision, idées futures, décisions, guide du gym, plan de développement et architecture.
