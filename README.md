@@ -15,7 +15,15 @@ Ouvrir http://localhost:8000. Le moteur Babylon.js 9.26.0 est récupéré avec u
 
 Le checkpoint `checkpoint/gym-004` conserve la simulation manuelle, les 24 ambiances, le vortex animé, les paramètres exposés et l’inspection des entités avant l’intégration des mécaniques de jeu.
 
-[Gym hébergé](https://round-circle-lab.jutrasimon.chatgpt.site)
+[Jouer à Round Circle sur GitHub Pages](https://jutrasimon.github.io/round-circle/).
+
+## Hébergement GitHub Pages
+
+Le workflow `.github/workflows/pages.yml` teste le jeu, récupère le moteur Babylon.js avec vérification SHA-256 et publie uniquement `dist` à chaque mise à jour de `main`. Le jeu fonctionne alors sans ChatGPT et sans CDN pendant la partie.
+
+Activation initiale : dans **Settings → Pages → Build and deployment**, choisir **GitHub Actions**, puis lancer le workflow **Test and deploy game to GitHub Pages** depuis **Actions**. Un dépôt privé nécessite une offre GitHub compatible avec Pages ; il n’est pas nécessaire de rendre le code public si cette offre est disponible.
+
+Lors du changement d’adresse, les sauvegardes du navigateur ne sont pas transférées automatiquement. Exporter les réglages et vagues souhaités depuis l’ancien site, puis les importer sur le nouveau. Retirer l’ancien hébergement seulement après vérification du nouveau site.
 
 ## Gym 005
 
