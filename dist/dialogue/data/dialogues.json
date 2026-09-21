@@ -1,0 +1,247 @@
+{
+  "version": 1,
+  "characters": {
+    "monsieur": {
+      "name": "VOUS · MONSIEUR",
+      "role": "player",
+      "poses": {
+        "neutral": "assets/portraits/monsieur-neutral.png",
+        "satisfied": "assets/portraits/monsieur-satisfied.png",
+        "worried": "assets/portraits/monsieur-worried.png"
+      }
+    },
+    "locataire": {
+      "name": "LA LOCATAIRE",
+      "role": "npc",
+      "poses": {
+        "neutral": "assets/portraits/locataire-neutral.png",
+        "hostile": "assets/portraits/locataire-hostile.png",
+        "curious": "assets/portraits/locataire-curious.png"
+      }
+    }
+  },
+  "backplates": {
+    "default": "assets/ui/backplate.svg"
+  },
+  "dialogues": [
+    {
+      "id": "first_contact",
+      "title": "Le seuil de propriété",
+      "start": "arrival",
+      "nodes": {
+        "arrival": {
+          "type": "line",
+          "speaker": "locataire",
+          "pose": "neutral",
+          "backplate": "default",
+          "text": "Vous appelez ça votre maison. Nous appelons ça une intrusion.",
+          "next": "answer"
+        },
+        "answer": {
+          "type": "choice",
+          "speaker": "monsieur",
+          "pose": "neutral",
+          "backplate": "default",
+          "text": "Que lui répondez-vous ?",
+          "choices": [
+            {
+              "id": "papers",
+              "text": "Une intrusion ? Nous avons les papiers.",
+              "next": "proud",
+              "effects": [
+                {
+                  "type": "add",
+                  "key": "tension",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "id": "before",
+              "text": "Qui habitait ici avant nous ?",
+              "next": "curious",
+              "effects": [
+                {
+                  "type": "set",
+                  "key": "listened",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "id": "drink",
+              "text": "Puis-je vous offrir un verre ?",
+              "next": "offer",
+              "effects": [
+                {
+                  "type": "set",
+                  "key": "offered_drink",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        },
+        "proud": {
+          "type": "line",
+          "speaker": "monsieur",
+          "pose": "satisfied",
+          "backplate": "default",
+          "text": "Trois signatures. Deux cachets. Une maison parfaitement légitime.",
+          "next": "angry"
+        },
+        "angry": {
+          "type": "line",
+          "speaker": "locataire",
+          "pose": "hostile",
+          "backplate": "default",
+          "text": "Vous avez fait signer la porte. Vous auriez dû demander à ceux qui dormaient derrière.",
+          "next": "unease"
+        },
+        "unease": {
+          "type": "line",
+          "speaker": "monsieur",
+          "pose": "worried",
+          "backplate": "default",
+          "text": "La porte… savait signer ?",
+          "next": "second"
+        },
+        "curious": {
+          "type": "line",
+          "speaker": "locataire",
+          "pose": "curious",
+          "backplate": "default",
+          "text": "Ma mère. Puis sa mère. Puis quelque chose que nous appelions toutes les deux notre mère.",
+          "next": "second",
+          "effects": [
+            {
+              "type": "add",
+              "key": "trust",
+              "value": 1
+            }
+          ]
+        },
+        "offer": {
+          "type": "line",
+          "speaker": "monsieur",
+          "pose": "satisfied",
+          "backplate": "default",
+          "text": "Il est local. Enfin, le verre est local.",
+          "next": "accept"
+        },
+        "accept": {
+          "type": "line",
+          "speaker": "locataire",
+          "pose": "curious",
+          "backplate": "default",
+          "text": "Gardez le verre. Versez le reste dans la serrure.",
+          "next": "second",
+          "effects": [
+            {
+              "type": "add",
+              "key": "trust",
+              "value": 1
+            }
+          ]
+        },
+        "second": {
+          "type": "choice",
+          "speaker": "monsieur",
+          "pose": "worried",
+          "backplate": "default",
+          "text": "Comment poursuivre ?",
+          "choices": [
+            {
+              "id": "listen",
+              "text": "Alors dites-moi ce que serait une invitation.",
+              "next": "invitation",
+              "effects": [
+                {
+                  "type": "add",
+                  "key": "trust",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "id": "defend",
+              "text": "Je ne peux pas abandonner les habitants.",
+              "next": "inhabitants"
+            },
+            {
+              "id": "mother",
+              "text": "Votre mère voudrait-elle nous rencontrer ?",
+              "next": "mother",
+              "when": {
+                "key": "listened",
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "invitation": {
+          "type": "line",
+          "speaker": "locataire",
+          "pose": "curious",
+          "backplate": "default",
+          "text": "Une place à table. Pas un titre de propriété.",
+          "next": "end-peace"
+        },
+        "inhabitants": {
+          "type": "line",
+          "speaker": "locataire",
+          "pose": "neutral",
+          "backplate": "default",
+          "text": "Moi non plus. Voilà enfin une chose que vous comprenez.",
+          "next": "end-tense"
+        },
+        "mother": {
+          "type": "line",
+          "speaker": "locataire",
+          "pose": "curious",
+          "backplate": "default",
+          "text": "Elle vous rencontre déjà. Pourquoi croyez-vous que le sol respire ?",
+          "next": "end-peace"
+        },
+        "end-peace": {
+          "type": "end",
+          "speaker": "monsieur",
+          "pose": "worried",
+          "backplate": "default",
+          "text": "Nous allons devoir agrandir la table.",
+          "effects": [
+            {
+              "type": "set",
+              "key": "door_open",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "name": "dialogue_outcome",
+              "payload": {
+                "outcome": "invitation"
+              }
+            }
+          ]
+        },
+        "end-tense": {
+          "type": "end",
+          "speaker": "monsieur",
+          "pose": "neutral",
+          "backplate": "default",
+          "text": "Nous reparlerons de cette… mitoyenneté.",
+          "effects": [
+            {
+              "type": "emit",
+              "name": "dialogue_outcome",
+              "payload": {
+                "outcome": "stalemate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

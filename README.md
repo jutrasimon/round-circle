@@ -36,6 +36,15 @@ Lors du changement d’adresse, les sauvegardes du navigateur ne sont pas transf
 
 **Pas de progression officielle ni de campagne pour le moment.**
 
+## Gym 012 · Bonus et dialogues
+
+- Après l’élimination d’une vague : trois bonus au choix, combat en pause, puis un artefact en haut de l’écran. Dix effets puissants, cumulatifs : ×1,5, ×2 ou ×3.
+- Onglet **Bonus** : tester un tirage, régler les multiplicateurs, créer des bonus dans le catalogue JSON, importer/exporter.
+- Onglet **Dialogue** : rencontre du kit avec Monsieur et La Locataire, six portraits, choix conditionnels et historique. Lecture manuelle, au rayon choisi ou après une vague ; temps normal, ralenti ou pause.
+- **Start** remet à zéro les bonus et les conversations, en conservant les réglages du laboratoire.
+
+[Guide des deux ateliers](docs/FEATURES.md).
+
 ## Documentation
 
 [Ouvrir le carnet de conception](docs/README.md) : vision, idées futures, décisions, guide du gym, plan de développement et architecture.
@@ -43,7 +52,7 @@ Lors du changement d’adresse, les sauvegardes du navigateur ne sont pas transf
 ## Tests
 
 ```sh
-node --test tests/simulation.test.cjs
+node --test tests/*.test.cjs tests/*.test.mjs
 ```
 
 ## Gym 007
