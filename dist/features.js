@@ -19,7 +19,7 @@ async function install(){
  const bonusTab=tab('bonuses','Bonus'),dialogueTab=tab('dialogues','Dialogue');
  status=el('p','',dialogueTab);status.setAttribute('role','status');
  const {Rewards,seed,effects,validate}=RoundCircleRewards;
- let catalog=seed;try{const saved=localStorage.getItem('round-circle-bonuses-v1');if(saved)catalog=validate(JSON.parse(saved));}catch{}
+ let catalog=seed;try{const saved=localStorage.getItem('round-circle-bonuses-v2'),legacy=localStorage.getItem('round-circle-bonuses-v1');if(saved)catalog=validate(JSON.parse(saved));else if(legacy){catalog=RoundCircleRewards.migrateCatalog(JSON.parse(legacy));localStorage.setItem('round-circle-bonuses-v2',JSON.stringify(catalog));}}catch{}
  const rewards=new Rewards(sim,{catalog});
  const shelf=el('div',undefined,stage);shelf.className='artifact-shelf';shelf.setAttribute('aria-label','Artefacts de cette partie');
  const overlay=el('div',undefined,stage);overlay.className='reward-overlay';overlay.hidden=true;
@@ -50,9 +50,9 @@ async function install(){
  const enabled=select(bonusTab,'Après chaque vague',[['yes','Proposer 3 bonus'],['no','Désactivé']], 'yes');enabled.onchange=()=>rewards.enabled=enabled.value==='yes';
  button(bonusTab,'Tester un choix de 3 bonus',()=>{rewards.offer({id:'test-'+(++testId),name:'Terrain d’essai',test:true});});
  let chosen=select(bonusTab,'Bonus à régler',rewards.catalog.map(b=>[b.id,b.name]),rewards.catalog[0].id);
- const multiplier=numeric(bonusTab,'Multiplicateur',rewards.catalog[0].factor,1.5,10,.5);
+ const multiplier=numeric(bonusTab,'Multiplicateur',rewards.catalog[0].factor,1.25,10,.25);
  chosen.onchange=()=>multiplier.value=rewards.catalog.find(b=>b.id===chosen.value).factor;
- const saveCatalog=data=>{const valid=validate(data);localStorage.setItem('round-circle-bonuses-v1',JSON.stringify(valid));rewards.catalog=valid;chosen.replaceChildren();for(const b of valid){const o=el('option',b.name,chosen);o.value=b.id;}chosen.onchange();};
+ const saveCatalog=data=>{const valid=validate(data);localStorage.setItem('round-circle-bonuses-v2',JSON.stringify(valid));rewards.catalog=valid;chosen.replaceChildren();for(const b of valid){const o=el('option',b.name,chosen);o.value=b.id;}chosen.onchange();};
  button(bonusTab,'Enregistrer le multiplicateur',()=>{const id=chosen.value;saveCatalog(rewards.catalog.map(b=>b.id===id?{...b,factor:Number(multiplier.value)}:b));bonusEditor.value=JSON.stringify(rewards.catalog,null,2);bonusSummary.textContent='Catalogue enregistré. Les prochains tirages utiliseront ces valeurs.';});
  const bonusEditor=jsonWorkshop(bonusTab,'Catalogue de bonus',()=>rewards.catalog,saveCatalog);
  el('p','Pour créer un bonus : ajouter un objet au catalogue avec un ID unique, un nom, une description, une icône, un effet et un multiplicateur. Effets : '+Object.keys(effects).join(', ')+'. Les tirages en cours gardent leurs valeurs.',bonusTab);

@@ -7,7 +7,7 @@
     "trainRange": 6,
     "trainCooldown": 1.1,
     "ramDamage": 6,
-    "ramSelfDamage": 0.04,
+    "ramSelfDamage": 0.4,
     "wagonHp": 100,
     "capacity": 4,
     "actorHp": 35,
@@ -130,5 +130,6 @@
     "rate": 0.3,
     "startRadius": 1.2
   },
-  "combatVersion": 2
+  "combatVersion": 2,
+  "balanceVersion": 1
 }

@@ -22,7 +22,7 @@ test('combat uses damage, range, cadence, ram, production and regeneration modif
 });
 test('three distinct choices, snapshot, queue and stale clicks',()=>{
  const s=make(),r=new Rewards(s,{random:()=>0});assert(r.offer({id:'one',name:'One'}));assert(!r.offer({id:'one'}));assert.equal(new Set(r.pending.choices.map(b=>b.id)).size,3);
- const revision=r.revision,id=r.pending.choices[0].id;r.catalog[0].factor=3;r.offer({id:'two',name:'Two'});assert(!r.choose(id,revision));const rev=r.revision;assert(r.choose(id,rev));assert.equal(s.multiplier('actorDamage'),2);assert(!r.choose(id,rev));assert.equal(r.artifacts.length,1);assert(r.pending);
+ const revision=r.revision,id=r.pending.choices[0].id;r.catalog[0].factor=3;r.offer({id:'two',name:'Two'});assert(!r.choose(id,revision));const rev=r.revision;assert(r.choose(id,rev));assert.equal(s.multiplier('actorDamage'),1.5);assert(!r.choose(id,rev));assert.equal(r.artifacts.length,1);assert(r.pending);
  s.reset();assert(!r.choose(r.pending.choices[0].id,r.revision));assert.equal(r.pending,null);assert.equal(r.artifacts.length,0);
 });
 test('playlist waits for deaths and delayed spawns, then blocks the next wave until reward selected',()=>{
