@@ -1,3 +1,4 @@
 dist/babylon.js
 .sites-runtime/
 node_modules/
+.local-audio-preview/

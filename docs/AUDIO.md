@@ -31,3 +31,10 @@ limités à quatre départs par 100 ms, douze voix simultanées et un délai pro
 Réglages : Mode jeu → Musique et sons. Volumes séparés, bouton de coupure rapide
 dans le pied de l'écran et huit boutons de test. Préférences locales conservées.
 Les signaux déclenchés avant activation ou en arrière-plan ne sont pas rejoués.
+
+## Gym019
+
+Interrupteurs séparés Musique et Effets sonores, volumes indépendants et
+préférences mémorisées. Les effets sont désactivés par défaut, y compris lors
+de la migration des anciens réglages. Le bouton global conserve ces choix.
+Les boutons de test demandent de réactiver explicitement les effets.
