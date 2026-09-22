@@ -34,6 +34,8 @@ class Simulation{
  living(){return [this.train,...this.wagons,...this.actors,...this.buildings].filter(e=>e.hp>0&&!e.dead);}
  addWagon(){if(this.wagons.length>=16)return null;let w=this.entity('wagon','Wagon '+this.nextId,{maxHp:this.cfg.wagonHp,capacity:this.cfg.capacity});this.wagons.push(w);this.positionTrain();return w;}
  passengers(w){return w?this.actors.filter(a=>a.hp>0&&a.wagonId===w.id):[];}
+ population(){const alive=this.actors.filter(a=>a.hp>0),aboard=alive.filter(a=>a.wagonId).length;return {aboard,walking:alive.length-aboard,total:alive.length,limit:this.cfg.actorLimit,seats:this.wagons.filter(w=>w.hp>0).reduce((sum,w)=>sum+w.capacity,0)};}
+ produce(home){if(!home||home.hp<=0||home.dead)return null;const p=this.population();if(this.train.hp>0&&this.cfg.capacity>0&&p.aboard>=p.seats&&this.wagons.length<16){const w=this.addWagon();if(w)this.events.push({type:'wagon-born',id:w.id,homeId:home.id,x:w.x,z:w.z});return w;}return this.spawnActor(home);}
  disembark(a,w){a.wagonId=null;a.angle=w.angle;a.radius=STREET;a.x=Math.cos(a.angle)*STREET;a.z=Math.sin(a.angle)*STREET;}
  removeWagon(id){let i=id===undefined?this.wagons.length-1:this.wagons.findIndex(w=>w.id===id);if(i<0)return;const w=this.wagons[i];this.passengers(w).forEach(a=>this.disembark(a,w));this.wagons.splice(i,1);this.positionTrain();}
  capacity(w,n){w.capacity=Math.max(0,Math.min(12,Math.floor(n)));this.passengers(w).slice(w.capacity).forEach(a=>this.disembark(a,w));}
@@ -51,7 +53,7 @@ class Simulation{
  tick(dt){let remaining=Math.min(.25,Math.max(0,dt));while(remaining>1e-7){const step=Math.min(.02,remaining);this.step(step);remaining-=step;}}
  step(dt){this.time+=dt;const previous=this.angle;this.train.speed=clampTrainSpeed(this.train.speed);const speed=this.train.hp>0?this.train.speed:0;this.angle+=speed/RAIL*dt;this.positionTrain();
  this.popBuildings(dt);
- for(const b of this.buildings){if(b.hp<=0){b.dead=true;continue;}if(b.dead)continue;b.hp=Math.min(b.maxHp,b.hp+Math.max(0,b.regen)*this.multiplier('regen')*dt);if(this.cfg.production&&b.spawnRate>0){b.spawnProgress=Math.min(1,b.spawnProgress+dt*b.spawnRate*this.multiplier('production')/60);if(b.spawnProgress>=1&&this.spawnActor(b))b.spawnProgress=0;}}
+ for(const b of this.buildings){if(b.hp<=0){b.dead=true;continue;}if(b.dead)continue;b.hp=Math.min(b.maxHp,b.hp+Math.max(0,b.regen)*this.multiplier('regen')*dt);if(this.cfg.production&&b.spawnRate>0){b.spawnProgress=Math.min(1,b.spawnProgress+dt*b.spawnRate*this.multiplier('production')/60);if(b.spawnProgress>=1&&this.produce(b))b.spawnProgress=0;}}
  for(const a of this.actors){if(a.hp<=0||a.wagonId)continue;const old=a.angle;if(a.radius>STREET){a.radius=Math.max(STREET,a.radius-Math.min(a.speed,1.2)*dt);}else{a.angle+=a.speed/STREET*dt;for(let i=0;i<this.wagons.length;i++){const w=this.wagons[i];if(w.hp<=0||this.passengers(w).length>=w.capacity)continue;const start=previous-(i+1)*.22;const d=this.angleDelta(start,old),relative=(this.angle-previous)-(a.angle-old);const crossed=relative>=0?d>=-.09&&d<=relative+.09:d<=.09&&d>=relative-.09;if(crossed||Math.abs(this.angleDelta(a.angle,w.angle))<.09){a.wagonId=w.id;this.events.push({type:'board',id:a.id});break;}}}a.x=Math.cos(a.angle)*a.radius;a.z=Math.sin(a.angle)*a.radius;}
  this.positionTrain();
  for(const s of [this.train,...this.actors]){if(s.hp<=0)continue;s.timer-=dt;if(s.timer<=0){const t=this.nearest(s,this.monsters.filter(e=>e.hp>0));if(t&&this.distance(s,t)<=this.attackRange(s))this.fire(s,t);}}
