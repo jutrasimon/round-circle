@@ -105,3 +105,7 @@ Les commandes audio sont ouvertes par défaut, avec volumes musique/effets en po
 Deux couches du ciel illustré se déplacent doucement à des vitesses différentes, sans raccord visible. Les commandes « Animer le ciel » et « Vitesse du ciel » se trouvent dans Visuel → réglages avancés → Ciel illustré et sont incluses dans Save stats to default. La pause et la désactivation des animations figent leur mouvement.
 
 Le rayon initial 1,2 atteint 6 en 300 secondes de simulation avec une croissance de 0,96/min. Les pauses, choix de bonus et ralentissements narratifs suivent toujours le temps de jeu. L’ancien taux par défaut de 0,3/min est migré une fois; les taux personnalisés restent conservés.
+
+## Gym 025 — Start garantit cinq minutes
+
+Start recalcule la croissance à partir du rayon initial choisi et remet le temps de simulation à zéro. Les anciens taux sauvegardés, y compris une croissance arrêtée, ne raccourcissent plus une nouvelle partie. Les commandes de croissance du laboratoire restent disponibles pour les tests manuels.

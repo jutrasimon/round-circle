@@ -29,3 +29,13 @@ test('five-minute defaults migrate legacy growth once while preserving custom ra
  const s=new Simulation({production:false,buildingCount:0,buildingPopInterval:0}),r=new WaveRunner(s);r.startVortex(structuredClone(seed));
  for(let i=0;i<1200;i++){s.tick(.25);r.tick();}assert(Math.abs(s.cfg.vortexRadius-6)<1e-8);assert.equal(formatRemaining(vortexRemaining(s.cfg.vortexRadius,r.vortexPlan.rate)),'00:00');
 });
+
+test('Start always resets to five minutes despite saved radii, rates or a finished run',()=>{
+ for(const [radius,rate] of [[1.6,1],[1.78,.96],[1.2,.3],[3,0],[6,10]]){
+  const s=new Simulation({production:false,buildingCount:0,buildingPopInterval:0}),r=new WaveRunner(s),lib=structuredClone(seed);lib.vortex.startRadius=radius;lib.vortex.rate=rate;
+  s.tick(1);s.finishRun();const initial=r.startRun(lib);assert.equal(s.time,0);assert.equal(s.ended,false);assert.equal(formatRemaining(vortexRemaining(s.cfg.vortexRadius,r.vortexPlan.rate)),'05:00');
+  for(let i=0;i<1200;i++){s.tick(.25);r.tick();}assert(Math.abs(s.cfg.vortexRadius-6)<1e-8);
+  r.startRun({...lib,vortex:initial});assert.equal(formatRemaining(vortexRemaining(s.cfg.vortexRadius,r.vortexPlan.rate)),'05:00');
+  assert.equal(lib.vortex.rate,rate);
+ }
+});
