@@ -17,6 +17,8 @@ class Gate{
 }
 const defaultFiles={"ui":"select_1","shot":"laser_1","impact":"hurt_1","death":"soft_destruction","spawn":"bubble","wave":"siren","reward":"collect_1","dialogue":"note_C"};
 function mixSettings(saved={}){return Object.fromEntries(Object.keys(cues).map(id=>[id,{file:typeof saved[id]?.file==='string'?saved[id].file:'arcade/'+defaultFiles[id]+'.wav',volume:Number.isFinite(saved[id]?.volume)?Math.max(0,Math.min(1,saved[id].volume)):.5}]));}
+// Quadratic taper gives fine control at low volume; full scale is capped at half gain.
+function musicGain(value){const level=Number.isFinite(value)?Math.max(0,Math.min(1,value)):0;return .5*level*level;}
 function install(){
  const music=new Audio('assets/audio/fortress-of-bone.mp3');music.loop=true;music.preload='none';music.id='backgroundMusic';music.hidden=true;document.body.append(music);
  let settings={enabled:true,musicEnabled:true,effectsEnabled:true,music:.28,effects:.25};try{const saved=JSON.parse(localStorage.getItem('round-circle-audio-v1'));if(saved){settings.enabled=saved.enabled!==false;settings.musicEnabled=saved.musicEnabled!==false;settings.effectsEnabled=saved.effectsEnabled===true;for(const k of ['music','effects'])if(Number.isFinite(saved[k]))settings[k]=Math.max(0,Math.min(1,saved[k]));}}catch{}
@@ -29,7 +31,7 @@ function install(){
  const status=document.createElement('p');status.setAttribute('role','status');box.append(status);
  const quick=document.createElement('button');quick.type='button';quick.style.pointerEvents='auto';document.querySelector('#stage footer').append(quick);
  function save(){try{localStorage.setItem('round-circle-audio-v1',JSON.stringify(settings));}catch{}}
- function sync(){for(const key in switches)switches[key].checked=settings[key];music.volume=settings.music*(duck?.35:1);if(bus)bus.gain.setTargetAtTime(settings.effects,ctx.currentTime,.03);const label=settings.enabled&&unlocked?'Couper le son':'Activer le son';toggle.textContent=quick.textContent=label;toggle.setAttribute('aria-pressed',String(settings.enabled&&unlocked));quick.setAttribute('aria-pressed',String(settings.enabled&&unlocked));}
+ function sync(){for(const key in switches)switches[key].checked=settings[key];music.volume=musicGain(settings.music)*(duck?.35:1);if(bus)bus.gain.setTargetAtTime(settings.effects,ctx.currentTime,.03);const label=settings.enabled&&unlocked?'Couper le son':'Activer le son';toggle.textContent=quick.textContent=label;toggle.setAttribute('aria-pressed',String(settings.enabled&&unlocked));quick.setAttribute('aria-pressed',String(settings.enabled&&unlocked));}
  async function playMusic(){if(!settings.enabled||!settings.musicEnabled||!unlocked||document.hidden||settings.music===0){music.pause();status.textContent=settings.enabled&&settings.effectsEnabled?'Effets actifs · musique coupée.':'Audio coupé.';return;}try{await music.play();status.textContent=settings.effectsEnabled?'Musique et effets actifs.':'Musique active · effets coupés.';}catch{status.textContent='Lecture bloquée : clique sur Activer le son pour réessayer.';}}
  function loadFile(file){if(buffers[file])return Promise.resolve(buffers[file]);if(pending[file])return pending[file];return pending[file]=(async()=>{try{const response=await fetch('assets/audio/'+file);if(!response.ok)throw Error();return buffers[file]=await ctx.decodeAudioData(await response.arrayBuffer());}catch{status.textContent='Impossible de charger '+file;return null;}finally{delete pending[file];}})();}
  function load(){return Promise.all(Object.values(mix).map(m=>loadFile(m.file)));}
@@ -60,7 +62,7 @@ function install(){
  root.roundCircleAudio={captureSettings:()=>({settings:{...settings},mix:JSON.parse(JSON.stringify(mix))}),event(e){const id=cueFor(e);if(id)sound(id);},dialogue(state){duck=!!state;sync();if(state)sound('dialogue');}};
  status.textContent='Clique sur Activer le son. Les volumes à 0 % restent silencieux.';sync();
 }
-root.RoundCircleAudio={cues,cueFor,Gate,mixSettings};
+root.RoundCircleAudio={cues,cueFor,Gate,mixSettings,musicGain};
 if(typeof module!=='undefined')module.exports=root.RoundCircleAudio;
 if(typeof window!=='undefined'){if(root.roundCircleLab)install();else window.addEventListener('round-circle-ready',install,{once:true});}
 })(typeof window!=='undefined'?window:globalThis);

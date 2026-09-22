@@ -26,3 +26,11 @@ test('audio gate suppresses bursts and repeated contacts, then releases',()=>{
  const gate=new Gate();assert(gate.allow('shot',0));assert(!gate.allow('shot',.05));assert(gate.allow('shot',.13));
  const burst=new Gate();for(const id of ['shot','impact','spawn','ui'])assert(burst.allow(id,0));assert(!burst.allow('death',0));assert(burst.allow('death',.11));assert(!burst.allow('invalid',1));
 });
+
+test('music slider has fine low-volume control and a half-gain ceiling',()=>{
+ const {musicGain}=require('../dist/audio.js');
+ assert.equal(musicGain(0),0);assert(Math.abs(musicGain(.05)-.00125)<1e-12);
+ assert.equal(musicGain(.5),.125);assert.equal(musicGain(1),.5);
+ assert.equal(musicGain(2),.5);assert.equal(musicGain(-1),0);assert.equal(musicGain(NaN),0);
+ for(let n=1;n<=100;n++)assert(musicGain(n/100)>musicGain((n-1)/100));
+});
