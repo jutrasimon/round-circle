@@ -10,7 +10,7 @@ function validateLibrary(data,types){if(!data||data.version!==1||!Array.isArray(
 class WaveRunner{
  constructor(sim){this.sim=sim;this.stop();}
  stop(){this.records=[];this.serial=(this.serial||0)+1;this.nextWave=0;this.waveNumber=0;this.vortexPlan=null;this.resetId=this.sim.resetId;this.jobs=[];this.plan=null;this.active=null;this.index=0;this.state='Arrêtée';this.previous=this.sim.time;}
- track(w){const record={owner:'wave-'+this.serial+'-'+(++this.nextWave),number:this.nextWave,name:w.name,ids:[],done:false};this.records.push(record);return record.owner;}
+ track(w){const record={owner:'wave-'+this.serial+'-'+(++this.nextWave),number:this.nextWave,name:w.name,ids:[],done:false};this.records.push(record);this.sim.events.push({type:'wave-launched',id:record.owner,name:w.name});return record.owner;}
  complete(){for(const r of this.records){if(!r.done&&!this.jobs.some(j=>j.owner===r.owner)&&r.ids.every(id=>!this.sim.get(id)||this.sim.get(id).hp<=0)){r.done=true;const event={type:'wave-complete',id:r.owner,name:r.name,number:r.number};this.sim.events.push(event);this.onWaveComplete?.(event);}}}
  schedule(w,owner){const now=this.sim.time;for(const g of w.groups)for(let i=0;i<g.count;i++)this.jobs.push({at:now+g.delay+i*g.interval,type:g.type,stats:clone(g.stats),owner});this.jobs.sort((a,b)=>a.at-b.at);}
  runWave(w){const valid=validateWave(w,root.RoundCircleSimulation.types);this.schedule(valid,this.track(valid));this.state='Vague manuelle : '+w.name;}

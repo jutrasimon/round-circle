@@ -20,7 +20,7 @@ class Rewards{
  reset(){this.resetId=this.sim.resetId;this.queue=[];this.artifacts=[];this.seen=new Set();this.revision=(this.revision||0)+1;this.onChange();}
  offer(event){if(this.resetId!==this.sim.resetId)this.reset();if(!this.enabled||this.seen.has(event.id))return false;this.seen.add(event.id);const pool=this.catalog.map(b=>({...b})),choices=[];while(choices.length<3)choices.push(pool.splice(Math.min(pool.length-1,Math.floor(this.random()*pool.length)),1)[0]);this.queue.push({event:{...event},choices});this.revision++;this.onChange();return true;}
  get pending(){return this.queue[0]||null;}
- choose(id,revision){if(this.resetId!==this.sim.resetId){this.reset();return false;}if(revision!==this.revision)return false;const bonus=this.pending?.choices.find(b=>b.id===id);if(!bonus)return false;this.sim.applyRunBonus(bonus.effect,bonus.factor);this.artifacts.push({...bonus,wave:this.pending.event.name});this.queue.shift();this.revision++;this.onChange();return true;}
+ choose(id,revision){if(this.resetId!==this.sim.resetId){this.reset();return false;}if(revision!==this.revision)return false;const bonus=this.pending?.choices.find(b=>b.id===id);if(!bonus)return false;this.sim.applyRunBonus(bonus.effect,bonus.factor);this.sim.events.push({type:'reward-chosen',id:bonus.id});this.artifacts.push({...bonus,wave:this.pending.event.name});this.queue.shift();this.revision++;this.onChange();return true;}
 }
 root.RoundCircleRewards={Rewards,seed,effects,validate,migrateCatalog};if(typeof module!=='undefined')module.exports=root.RoundCircleRewards;
 })(typeof window!=='undefined'?window:globalThis);
