@@ -61,13 +61,13 @@ class Simulation{
  if(m.hp<=0)continue;m.timer-=dt;
  let choices=this.living().filter(e=>e.kind!=='actor'||!e.wagonId);
  const homes=choices.filter(e=>e.kind==='building');
- const committed=homes.find(e=>e.id===m.siegeTargetId);
+ const reachable=choices.filter(e=>this.distance(m,e)<=Math.max(0,m.range)+1e-6);const committed=homes.find(e=>e.id===m.siegeTargetId);
  if(m.behavior==='siege'&&homes.length)choices=homes;
  else if(m.behavior==='hunter'){const prey=choices.filter(e=>e.kind==='actor');if(prey.length)choices=prey;}
- let target=committed||this.nearest(m,choices);
+ let target=this.nearest(m,reachable)||committed||this.nearest(m,choices);
  if(!target){m.targetId=null;m.intercept=null;continue;}
  // An interception is only valid for this live, moving target.
- if(m.targetId!==target.id){m.intercept=null;m.idleTime=0;}m.targetId=target.id;
+ if(m.targetId!==target.id){m.intercept=null;}m.targetId=target.id;
  let d=this.distance(m,target);
  const inRange=d<=Math.max(0,m.range)+1e-6;
  const moving=((target.kind==='train'||target.kind==='wagon')&&this.train.hp>0&&this.train.speed>0)||(target.kind==='actor'&&target.speed>0&&target.radius<=STREET+.01);

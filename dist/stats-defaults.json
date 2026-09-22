@@ -127,9 +127,10 @@
     }
   },
   "vortex": {
-    "rate": 0.3,
+    "rate": 0.96,
     "startRadius": 1.2
   },
   "combatVersion": 2,
-  "balanceVersion": 1
+  "balanceVersion": 1,
+  "durationVersion": 1
 }

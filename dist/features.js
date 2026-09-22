@@ -14,13 +14,13 @@ function jsonWorkshop(parent,label,getData,apply){const box=el('details',undefin
 }
 let status;
 async function install(){
- const lab=window.roundCircleLab,{sim,designer}=lab,stage=$('#stage');
+ const lab=window.roundCircleLab,{sim,designer}=lab,stage=$('#stage'),saved=lab.startupSettings?.features;
  function tab(id,title){const b=el('button',title,$('aside nav'));b.dataset.tab=id;const panel=el('section',undefined,$('aside'));panel.id=id;panel.className='tab';$('aside').insertBefore(panel,$('.panel-foot'));b.onclick=()=>{document.querySelectorAll('aside nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('aside .tab').forEach(x=>x.classList.toggle('active',x===panel));};return panel;}
  const bonusTab=tab('bonuses','Bonus'),dialogueTab=tab('dialogues','Dialogue');
  status=el('p','',dialogueTab);status.setAttribute('role','status');
  const {Rewards,seed,effects,validate}=RoundCircleRewards;
  let catalog=seed;try{const saved=localStorage.getItem('round-circle-bonuses-v2'),legacy=localStorage.getItem('round-circle-bonuses-v1');if(saved)catalog=validate(JSON.parse(saved));else if(legacy){catalog=RoundCircleRewards.migrateCatalog(JSON.parse(legacy));localStorage.setItem('round-circle-bonuses-v2',JSON.stringify(catalog));}}catch{}
- const rewards=new Rewards(sim,{catalog});
+ if(saved?.catalog)catalog=validate(saved.catalog);const rewards=new Rewards(sim,{catalog});
  const shelf=el('div',undefined,stage);shelf.className='artifact-shelf';shelf.setAttribute('aria-label','Artefacts de cette partie');
  const overlay=el('div',undefined,stage);overlay.className='reward-overlay';overlay.hidden=true;
  const panel=el('section',undefined,overlay);panel.className='reward-panel';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','reward-title');
@@ -47,7 +47,7 @@ async function install(){
  const previousReset=sim.onReset;sim.onReset=()=>{previousReset?.();dialogEngine?.reset();rewards.reset();};
  el('h2','Des bonus franchement cassés',bonusTab);
  el('p','Les bonus affectent les unités actuelles et futures. ×2 puis ×2 = ×4. Les stats de base restent intactes. Start efface les artefacts. Plafond de laboratoire : ×1 000 000 ; cadence maximale : un tir par pas de simulation ; la limite de population reste active.',bonusTab);
- const enabled=select(bonusTab,'Après chaque vague',[['yes','Proposer 3 bonus'],['no','Désactivé']], 'yes');enabled.onchange=()=>rewards.enabled=enabled.value==='yes';
+ const enabled=select(bonusTab,'Après chaque vague',[['yes','Proposer 3 bonus'],['no','Désactivé']], 'yes');enabled.value=saved?.rewardsEnabled===false?'no':'yes';rewards.enabled=enabled.value==='yes';enabled.onchange=()=>rewards.enabled=enabled.value==='yes';
  button(bonusTab,'Tester un choix de 3 bonus',()=>{rewards.offer({id:'test-'+(++testId),name:'Terrain d’essai',test:true});});
  let chosen=select(bonusTab,'Bonus à régler',rewards.catalog.map(b=>[b.id,b.name]),rewards.catalog[0].id);
  const multiplier=numeric(bonusTab,'Multiplicateur',rewards.catalog[0].factor,1.25,10,.25);
@@ -70,17 +70,19 @@ async function install(){
  async function useLibrary(data){const valid=validateLibrary(data),revision=++loadRevision;await preloadAssets(valid,'dialogue/');if(revision!==loadRevision)return;view?.destroy();library=valid;dialogEngine=new DialogueEngine(valid,{onEffect:e=>{el('p',e.name+' : '+JSON.stringify(e.payload),effectsLog);},onError:e=>status.textContent=e.message});view=new DialogueView(dialogueHost,dialogEngine,{assetBase:'dialogue/',lettersPerSecond:45});const renderDialogue=dialogEngine.onChange;dialogEngine.onChange=state=>{renderDialogue(state);window.roundCircleAudio?.dialogue(state);};autoFired=false;if(storySelect){storySelect.replaceChildren();for(const d of valid.dialogues){const o=el('option',d.title||d.id,storySelect);o.value=d.id;}renderNodes();}renderRewards();}
  function renderNodes(){nodeSelect.replaceChildren();const story=library.dialogues.find(d=>d.id===storySelect.value);for(const id of Object.keys(story.nodes)){const o=el('option',id,nodeSelect);o.value=id;}nodeSelect.value=story.start;}
  try{
-  const response=await fetch('dialogue/data/dialogues.json',{signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Bibliothèque introuvable');await useLibrary(await response.json());
+  const response=await fetch('dialogue/data/dialogues.json',{signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Bibliothèque introuvable');await useLibrary(saved?.library||await response.json());
   storySelect=select(dialogueTab,'Dialogue',library.dialogues.map(d=>[d.id,d.title||d.id]),library.dialogues[0].id);
   nodeSelect=select(dialogueTab,'Nœud de départ',[], '');renderNodes();storySelect.onchange=renderNodes;
   button(dialogueTab,'Lancer la rencontre',()=>{dialogEngine.cancel();dialogEngine.start(storySelect.value);renderRewards();});
   button(dialogueTab,'Tester ce nœud',()=>{dialogEngine.cancel();dialogEngine.start(storySelect.value,nodeSelect.value);renderRewards();});
   button(dialogueTab,'Fermer le dialogue',()=>dialogEngine.cancel());
   button(dialogueTab,'Réarmer les rencontres',()=>{dialogEngine.reset();autoFired=false;effectsLog.replaceChildren();});
-  jsonWorkshop(dialogueTab,'Bibliothèque de dialogues',()=>library,useLibrary);
+  const dialogueEditor=jsonWorkshop(dialogueTab,'Bibliothèque de dialogues',()=>library,useLibrary);if(saved?.dialogueEditor)dialogueEditor.value=saved.dialogueEditor;controller.dialogueEditor=dialogueEditor;
   status.textContent='Kit chargé · 6 portraits · rencontre prête. Échap révèle le texte ; Tab navigue entre les réponses.';
  }catch(e){status.textContent='Dialogue indisponible : '+e.message+' Le jeu et les bonus restent disponibles.';}
+ if(saved){if([0,.15,1].includes(saved.dialogueSpeed)){dialogueSpeed=saved.dialogueSpeed;speed.value=String(dialogueSpeed);}if(['radius','wave','manual'].includes(saved.trigger))trigger.value=saved.trigger;if(Number.isFinite(saved.threshold))threshold.value=saved.threshold;if(storySelect&&library.dialogues.some(d=>d.id===saved.story)){storySelect.value=saved.story;renderNodes();if([...nodeSelect.options].some(o=>o.value===saved.node))nodeSelect.value=saved.node;}if(saved.bonusEditor)bonusEditor.value=saved.bonusEditor;if(rewards.catalog.some(b=>b.id===saved.chosenBonus))chosen.value=saved.chosenBonus;if(Number.isFinite(saved.bonusMultiplier))multiplier.value=saved.bonusMultiplier;}
+ controller.captureSettings=()=>({catalog:rewards.catalog,rewardsEnabled:rewards.enabled,dialogueSpeed,trigger:trigger.value,threshold:Number(threshold.value),library,story:storySelect?.value,node:nodeSelect?.value,bonusEditor:bonusEditor.value,dialogueEditor:controller.dialogueEditor?.value,chosenBonus:chosen.value,bonusMultiplier:Number(multiplier.value)});
  renderRewards();
 }
 if(!window.roundCircleLab)await new Promise(resolve=>window.addEventListener('round-circle-ready',resolve,{once:true}));
-install().catch(e=>{console.error(e);if(status)status.textContent='Erreur des ateliers : '+e.message;});
+window.roundCircleFeaturesReady=install().catch(e=>{console.error(e);if(status)status.textContent='Erreur des ateliers : '+e.message;}).finally(()=>window.dispatchEvent(new Event('round-circle-features-ready')));

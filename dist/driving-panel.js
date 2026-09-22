@@ -1,6 +1,6 @@
 /* Floating controls: pointer capture supports mouse, pen and touch. */
-window.installDrivingPanel=function(panel,stage){
- const key='round-circle-driving-layout-v1';
+window.installDrivingPanel=function(panel,stage,options={}){
+ const key=options.key||'round-circle-driving-layout-v1';
  let layout=null,gesture=null;
  const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
  function apply(next){
@@ -15,7 +15,7 @@ window.installDrivingPanel=function(panel,stage){
  const rect=panel.getBoundingClientRect(),bounds=stage.getBoundingClientRect();
  let initial={x:rect.left-bounds.left,y:rect.top-bounds.top,width:rect.width,height:rect.height};
  try{const stored=JSON.parse(localStorage.getItem(key));if(stored&&['x','y','width','height'].every(k=>Number.isFinite(stored[k])))initial=stored;}catch{}
- apply(initial);
+ apply(initial);panel.roundCircleLayout=()=>({...layout});
  function bind(handle,resize){
   handle.addEventListener('pointerdown',e=>{if(e.button!==0||gesture)return;e.preventDefault();handle.focus();gesture={id:e.pointerId,x:e.clientX,y:e.clientY,start:{...layout}};handle.setPointerCapture(e.pointerId);});
   handle.addEventListener('pointermove',e=>{if(!gesture||gesture.id!==e.pointerId)return;const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y,start=gesture.start;apply(resize?{...start,width:start.width+dx,height:start.height+dy}:{...start,x:start.x+dx,y:start.y+dy});});
@@ -23,6 +23,6 @@ window.installDrivingPanel=function(panel,stage){
   handle.addEventListener('pointerup',finish);handle.addEventListener('pointercancel',finish);handle.addEventListener('lostpointercapture',finish);
   handle.addEventListener('keydown',e=>{const delta={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!delta)return;e.preventDefault();const step=e.shiftKey?30:10;apply(resize?{...layout,width:layout.width+delta[0]*step,height:layout.height+delta[1]*step}:{...layout,x:layout.x+delta[0]*step,y:layout.y+delta[1]*step});save();});
  }
- bind(panel.querySelector('#driveHandle'),false);bind(panel.querySelector('#driveResize'),true);
+ bind(panel.querySelector(options.handle||'#driveHandle'),false);bind(panel.querySelector(options.resize||'#driveResize'),true);
  new ResizeObserver(()=>{apply(layout);}).observe(stage);
 };

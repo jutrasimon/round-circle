@@ -89,3 +89,19 @@ node --test tests/*.test.cjs tests/*.test.mjs
 
 - Annonce WAVE X aux seuils du vortex : texte animé, flash, vibration, contraste et aberration chromatique.
 - Test et réglages des effets dans Vagues, sauvegardés localement.
+
+## Gym 023 — session, réglages et production
+
+Le vortex démarre automatiquement après le chargement des dialogues. Son minuteur reste visible dans le jeu; une vague manuelle ne coupe plus sa croissance. Start et la réinitialisation repartent du rayon initial, jamais d’un rayon maximal enregistré pendant une partie. Le bilan final fige la simulation au rayon 6.
+
+La fenêtre « Production en cours » est déplaçable et redimensionnable : prochaine maison, soldat ou wagon, et réparations actives. Les ennemis privilégient une cible réelle à portée avant de poursuivre une cible mobile.
+
+« Save stats to default » enregistre simulation, profils, monstres, visuel et caméra, vagues et brouillon, bonus, bibliothèque et déclencheurs de dialogue, volumes et fichiers des sons, effets de vague et positions des fenêtres. Les bibliothèques JSON en cours d’édition sont conservées séparément de leur version validée. Exporter/importer defaults.json transporte ces réglages entre navigateurs ou entre localhost et GitHub Pages; le stockage local reste propre à chaque origine.
+
+Les commandes audio sont ouvertes par défaut, avec volumes musique/effets en pourcentage. « Activer le son » ou une interaction dans le jeu débloque la lecture autorisée par le navigateur. Un volume individuel à zéro est signalé en préécoute.
+
+## Gym 024 — ciel en mouvement et parties de cinq minutes
+
+Deux couches du ciel illustré se déplacent doucement à des vitesses différentes, sans raccord visible. Les commandes « Animer le ciel » et « Vitesse du ciel » se trouvent dans Visuel → réglages avancés → Ciel illustré et sont incluses dans Save stats to default. La pause et la désactivation des animations figent leur mouvement.
+
+Le rayon initial 1,2 atteint 6 en 300 secondes de simulation avec une croissance de 0,96/min. Les pauses, choix de bonus et ralentissements narratifs suivent toujours le temps de jeu. L’ancien taux par défaut de 0,3/min est migré une fois; les taux personnalisés restent conservés.

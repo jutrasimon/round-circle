@@ -15,8 +15,18 @@ function validate(data){
  if(Math.abs(Object.values(profile.shares).reduce((a,b)=>a+b,0)-100)>.01)throw Error('Le profil doit totaliser 100 points');redistribute(profile.shares,'hp',profile.shares.hp);
  const monsters=clone(types);for(const k of Object.keys(types))for(const [stat,min,max] of [['hp',1,2000],['damage',0,200],['speed',0,6],['range',.2,10],['cooldown',.1,5]])if(data.monsters[k]?.[stat]!==undefined)monsters[k][stat]=num(data.monsters[k][stat],min,max);
  for(const k of Object.keys(monsters))monsters[k].range=root.RoundCircleSimulation.migrateRange(k,monsters[k].range,data.combatVersion);
- const vortex=data.vortex?{rate:num(data.vortex.rate,0,10),startRadius:num(data.vortex.startRadius,.2,6)}:{rate:.3,startRadius:simulation.vortexRadius};
- return {version:1,combatVersion:2,balanceVersion:1,simulation,profile,monsters,vortex};
+ const vortex=data.vortex?{rate:num(data.vortex.rate,0,10),startRadius:num(data.vortex.startRadius,.2,6)}:{rate:(6-simulation.vortexRadius)/5,startRadius:simulation.vortexRadius};
+ if(vortex.startRadius>=6)vortex.startRadius=1.2;if(data.durationVersion!==1&&(!data.vortex||vortex.rate===.3))vortex.rate=(6-vortex.startRadius)/5;simulation.vortexRadius=vortex.startRadius;const result={version:1,combatVersion:2,balanceVersion:1,durationVersion:1,simulation,profile,monsters,vortex};
+ if(data.settings){
+  const settings=clone(data.settings),object=x=>x&&typeof x==='object'&&!Array.isArray(x);
+  if(!object(settings))throw Error('Réglages complets invalides');
+  for(const key of ['visual','waves','features','storage'])if(settings[key]!==undefined&&!object(settings[key]))throw Error('Réglages '+key+' invalides');
+  if(settings.waves){settings.waves.library=root.RoundCircleWaves.validateLibrary(settings.waves.library,types);if(settings.waves.draft)settings.waves.draft=root.RoundCircleWaves.validateWave(settings.waves.draft,types);}
+  if(settings.features?.catalog)settings.features.catalog=root.RoundCircleRewards.validate(settings.features.catalog);
+  if(settings.visual)for(const value of Object.values(settings.visual))if(!['number','string','boolean'].includes(typeof value)||typeof value==='number'&&!Number.isFinite(value))throw Error('Réglage visuel invalide');
+  result.settings=settings;
+ }
+ return result;
 }
 root.RoundCircleStats={key,validate};if(typeof module!=='undefined')module.exports=root.RoundCircleStats;
 })(typeof window!=='undefined'?window:globalThis);

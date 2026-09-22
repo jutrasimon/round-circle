@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
-const defaults={duration:1.8,textScale:1,shake:10,flash:.35,chromatic:24,contrast:.65,color:'#ffb0e1'};
-function sanitize(data={}){const out={...defaults};for(const [key,min,max] of [['duration',.4,5],['textScale',.5,1.8],['shake',0,30],['flash',0,1],['chromatic',0,80],['contrast',0,2]])if(Number.isFinite(data[key]))out[key]=Math.max(min,Math.min(max,data[key]));if(/^#[\da-f]{6}$/i.test(data.color))out.color=data.color;return out;}
+const defaults={duration:1.8,textScale:1,shake:10,flash:.35,chromatic:24,contrast:.65,color:'#ffb0e1',previewNumber:1};
+function sanitize(data={}){const out={...defaults};for(const [key,min,max] of [['previewNumber',1,99],['duration',.4,5],['textScale',.5,1.8],['shake',0,30],['flash',0,1],['chromatic',0,80],['contrast',0,2]])if(Number.isFinite(data[key]))out[key]=Math.max(min,Math.min(max,data[key]));if(/^#[\da-f]{6}$/i.test(data.color))out.color=data.color;return out;}
 function install({stage,host,control,group,scene,pipeline,getVisual}){
  const key='round-circle-wave-feedback-v1';let settings={...defaults};try{settings=sanitize(JSON.parse(localStorage.getItem(key))||{});}catch{}
  const overlay=document.createElement('div');overlay.className='wave-feedback';overlay.setAttribute('aria-hidden','true');overlay.innerHTML='<div class="wave-flash"></div><div class="wave-title"><span class="wave-kicker">LE SEUIL EST FRANCHI</span><strong></strong><span class="wave-underline"></span></div>';stage.append(overlay);
@@ -12,7 +12,7 @@ function install({stage,host,control,group,scene,pipeline,getVisual}){
  const help=document.createElement('p');help.textContent='Teste l’annonce sans faire apparaître de monstres, même en pause. Les réglages sont mémorisés dans ce navigateur.';panel.append(help);
  let active=null,queue=[],sessionId=null;
  function save(){try{localStorage.setItem(key,JSON.stringify(settings));}catch{}}
- const preview={number:1};control(panel,'Numéro de vague à tester',preview,'number',1,99,1);
+ const preview={number:settings.previewNumber};control(panel,'Numéro de vague à tester',preview,'number',1,99,1,()=>{settings.previewNumber=preview.number;save();});
  const button=document.createElement('button');button.type='button';button.className='primary';button.textContent='▶ Tester NEW WAVE';panel.append(button);button.onclick=()=>{queue=[];begin({number:preview.number,preview:true});};
  const tweaks=group(panel,'Ajuster les effets');tweaks.open=false;
  for(const [k,n,min,max,step] of [['duration','Durée (s)',.4,5,.1],['textScale','Taille du texte',.5,1.8,.05],['shake','Vibration écran (px)',0,30,1],['flash','Intensité du flash',0,1,.05],['chromatic','Aberration chromatique',0,80,1],['contrast','Coup de contraste',0,2,.05]])control(tweaks,n,settings,k,min,max,step,save);
