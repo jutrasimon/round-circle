@@ -48,7 +48,7 @@ function renderEditor(){edit.innerHTML='';el('summary','Modifier la composition 
   button('Assigner cette vague au rayon actuel',vortexHost,()=>{if(library.vortex.triggers.length>=100)throw Error('Maximum 100 seuils');saveDraft();library.vortex.triggers.push({waveId:draft.id,radius:+sim.cfg.vortexRadius.toFixed(2)});persist();renderSaved();renderPlaylist();renderVortex();notice('Vague assignée. Lance la croissance pour tester les seuils.');});
   control(vortexHost,'Rayon initial au lancement',library.vortex,'startRadius',.2,6,.05,persist);
   control(vortexHost,'Croissance du rayon / minute',library.vortex,'rate',0,10,.1,n=>{runner.setGrowthRate(n);persist();});
-  el('p','Exemple : +0,6 / min mène de 1,2 à 1,8 en une minute. Le taux est modifiable pendant le test. Rayon maximal : 6, sans engloutissement pour le moment.',vortexHost);
+  el('p','Exemple : +0,6 / min mène de 1,2 à 1,8 en une minute. Le taux est modifiable pendant le test. Rayon maximal : 6. La partie se termine à ce seuil et affiche le bilan.',vortexHost);
   const list=el('div',null,vortexHost);list.className='vortex-thresholds';
   if(!library.vortex.triggers.length)el('p','Aucun seuil assigné.',list);
   library.vortex.triggers.map((t,index)=>({t,index})).sort((a,b)=>a.t.radius-b.t.radius).forEach(({t,index})=>{
