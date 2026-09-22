@@ -2,6 +2,17 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const {cues,cueFor,Gate}=require('../dist/audio.js');
+test('individual mixer settings retain silent volumes and selected files',()=>{
+ const {mixSettings}=require('../dist/audio.js');
+ const mix=mixSettings({shot:{file:'arcade/laser_2.wav',volume:0},impact:{volume:5}});
+ assert.equal(mix.shot.file,'arcade/laser_2.wav');assert.equal(mix.shot.volume,0);assert.equal(mix.impact.volume,1);
+ assert.equal(mix.ui.volume,.5);assert.deepEqual(mixSettings(JSON.parse(JSON.stringify(mix))),mix);
+});
+test('all arcade choices decode as PCM WAV with complete catalog entries',()=>{
+ const vm=require('node:vm'),context={window:{}};vm.runInNewContext(fs.readFileSync('dist/arcade-catalog.js','utf8'),context);
+ const files=context.window.RoundCircleSoundFiles;assert.equal(files.length,100);
+ for(const f of files){const b=fs.readFileSync('dist/assets/audio/'+f.file);assert.equal(b.toString('ascii',0,4),'RIFF');assert(f.duration>0);}
+});
 test('eight reusable effects and music assets are present',()=>{
  assert.equal(Object.keys(cues).length,8);
  for(const c of Object.values(cues)){const b=fs.readFileSync('dist/assets/audio/'+c.file);assert.equal(b.toString('ascii',0,4),'RIFF');assert.equal(b.toString('ascii',8,12),'WAVE');}

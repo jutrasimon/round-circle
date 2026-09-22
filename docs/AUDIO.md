@@ -38,3 +38,14 @@ Interrupteurs séparés Musique et Effets sonores, volumes indépendants et
 préférences mémorisées. Les effets sont désactivés par défaut, y compris lors
 de la migration des anciens réglages. Le bouton global conserve ces choix.
 Les boutons de test demandent de réactiver explicitement les effets.
+
+## Gym020 — mixeur individuel
+
+Les 100 WAV du ZIP Arcade_Sound_FX fourni par l’utilisateur sont disponibles
+dans les huit sélecteurs. Chaque déclencheur conserve un fichier et un volume
+individuel (0–100 %) dans round-circle-mix-v1. Le bouton ▶ joue uniquement le
+fichier sélectionné ; une nouvelle préécoute arrête la précédente.
+Les WAV sont convertis en PCM mono 16 bits, silences externes réduits, niveaux
+atténués et micro-fondus ajoutés. Les effets complets sont conservés.
+La musique Fortress of Bone conserve ses réglages indépendants.
+Les sons HAP restent exclusivement dans la prévisualisation locale ignorée par Git.

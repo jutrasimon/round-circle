@@ -20,7 +20,7 @@ SOUNDS = {
     'dialogue': 'SFX/Speech/Text_Short.wav',
 }
 
-def prepare(data):
+def prepare(data, max_duration=1.9):
     with wave.open(io.BytesIO(data)) as source:
         channels, width, rate, count, *_ = source.getparams()
         if width not in (2, 3, 4):
@@ -35,7 +35,8 @@ def prepare(data):
     if not audible:
         raise ValueError('Silent sample')
     samples = samples[max(0, audible[0]-int(rate*.002)):min(len(samples), audible[-1]+int(rate*.012)+1)]
-    samples = samples[:int(rate*1.9)]
+    if max_duration is not None:
+        samples = samples[:int(rate*max_duration)]
     peak = max(abs(value) for value in samples)
     rms = math.sqrt(sum(value*value for value in samples)/len(samples))
     gain = min(.6/peak, .16/rms, 4)
