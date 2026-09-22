@@ -13,8 +13,9 @@ function validate(data){
  for(const k of Object.keys(profile.shares)){profile.shares[k]=num(data.profile.shares?.[k],1,96);profile.weights[k]=num(data.profile.weights?.[k],.25,5);}
  if(Math.abs(Object.values(profile.shares).reduce((a,b)=>a+b,0)-100)>.01)throw Error('Le profil doit totaliser 100 points');redistribute(profile.shares,'hp',profile.shares.hp);
  const monsters=clone(types);for(const k of Object.keys(types))for(const [stat,min,max] of [['hp',1,2000],['damage',0,200],['speed',0,6],['range',.2,10],['cooldown',.1,5]])if(data.monsters[k]?.[stat]!==undefined)monsters[k][stat]=num(data.monsters[k][stat],min,max);
+ for(const k of Object.keys(monsters))monsters[k].range=root.RoundCircleSimulation.migrateRange(k,monsters[k].range,data.combatVersion);
  const vortex=data.vortex?{rate:num(data.vortex.rate,0,10),startRadius:num(data.vortex.startRadius,.2,6)}:{rate:.3,startRadius:simulation.vortexRadius};
- return {version:1,simulation,profile,monsters,vortex};
+ return {version:1,combatVersion:2,simulation,profile,monsters,vortex};
 }
 root.RoundCircleStats={key,validate};if(typeof module!=='undefined')module.exports=root.RoundCircleStats;
 })(typeof window!=='undefined'?window:globalThis);

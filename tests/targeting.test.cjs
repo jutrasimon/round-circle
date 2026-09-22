@@ -25,5 +25,5 @@ test('destroying a committed building retargets an existing live building',()=>{
  advance(s,2);assert.equal(m.targetId,next.id);assert(next.hp<next.maxHp);assert.equal(old.hp,0);
 });
 test('without buildings or other living targets enemies never target unbuilt slots',()=>{
- const s=make();s.train.hp=0;s.wagons=[];const m=s.spawn('carapace');advance(s,3);assert.equal(m.targetId,null);const b=s.addBuilding();b.regen=0;advance(s,35);assert.equal(m.targetId,b.id);assert(b.hp<b.maxHp);
+ const s=make();s.train.hp=0;s.wagons=[];const m=s.spawn('carapace');advance(s,3);assert.equal(m.targetId,null);const b=s.addBuilding();b.regen=0;b.hp=b.maxHp=10000;advance(s,35);assert.equal(m.targetId,b.id);assert(b.hp<b.maxHp);
 });

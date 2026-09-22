@@ -49,7 +49,7 @@
       "hp": 35,
       "damage": 5,
       "speed": 0.8,
-      "range": 0.9,
+      "range": 3,
       "cooldown": 1.2,
       "size": 0.55
     },
@@ -58,7 +58,7 @@
       "hp": 18,
       "damage": 3,
       "speed": 1.8,
-      "range": 0.8,
+      "range": 3,
       "cooldown": 0.7,
       "size": 0.38
     },
@@ -67,7 +67,7 @@
       "hp": 150,
       "damage": 16,
       "speed": 0.42,
-      "range": 1.3,
+      "range": 3.5,
       "cooldown": 1.8,
       "size": 1
     },
@@ -76,7 +76,7 @@
       "hp": 65,
       "damage": 9,
       "speed": 1.2,
-      "range": 0.65,
+      "range": 3.5,
       "cooldown": 0.9,
       "size": 0.85,
       "behavior": "hunter"
@@ -86,7 +86,7 @@
       "hp": 48,
       "damage": 7,
       "speed": 0.6,
-      "range": 3.5,
+      "range": 5,
       "cooldown": 1.8,
       "size": 0.8,
       "behavior": "siege"
@@ -96,7 +96,7 @@
       "hp": 180,
       "damage": 13,
       "speed": 0.45,
-      "range": 1,
+      "range": 4,
       "cooldown": 1.5,
       "size": 1.1,
       "behavior": "siege",
@@ -107,7 +107,7 @@
       "hp": 650,
       "damage": 22,
       "speed": 0.32,
-      "range": 2.4,
+      "range": 6,
       "cooldown": 2.4,
       "size": 1.85,
       "elite": true,
@@ -119,7 +119,7 @@
       "hp": 420,
       "damage": 15,
       "speed": 1.45,
-      "range": 1.2,
+      "range": 4.5,
       "cooldown": 0.8,
       "size": 1.5,
       "elite": true,
@@ -129,5 +129,6 @@
   "vortex": {
     "rate": 0.3,
     "startRadius": 1.2
-  }
+  },
+  "combatVersion": 2
 }

@@ -3,7 +3,9 @@
 const TAU=Math.PI*2,RAIL=6.95,STREET=7.8;
 const clampTrainSpeed=value=>Number.isFinite(Number(value))?Math.max(1,Math.min(60,Number(value))):1;
 const defaults={trainHp:200,trainDamage:12,trainSpeed:1.4,trainRange:6,trainCooldown:1.1,ramDamage:6,ramSelfDamage:.04,wagonHp:100,capacity:4,actorHp:35,actorDamage:7,actorSpeed:2.8,actorRange:5,actorCooldown:.8,actorLimit:160,monsterLimit:160,buildingHp:160,buildingCount:12,buildingPopInterval:30,buildingRegen:1,buildingSpawnRate:3,production:true,useBudget:true,vortexRadius:1.2};
-const types={crawler:{name:'Rampant',hp:35,damage:5,speed:.8,range:.9,cooldown:1.2,size:.55},runner:{name:'Sprinteur',hp:18,damage:3,speed:1.8,range:.8,cooldown:.7,size:.38},brute:{name:'Colosse',hp:150,damage:16,speed:.42,range:1.3,cooldown:1.8,size:1},maw:{name:'Gueule traînante',hp:65,damage:9,speed:1.2,range:.65,cooldown:.9,size:.85,behavior:'hunter'},spitter:{name:'Crache-bile',hp:48,damage:7,speed:.6,range:3.5,cooldown:1.8,size:.8,behavior:'siege'},carapace:{name:'Porte-cadavres',hp:180,damage:13,speed:.45,range:1,cooldown:1.5,size:1.1,behavior:'siege',armor:.4},cathedral:{name:'Cathédrale de chair',hp:650,damage:22,speed:.32,range:2.4,cooldown:2.4,size:1.85,elite:true,behavior:'siege',splash:1.6},widow:{name:'Veuve du seuil',hp:420,damage:15,speed:1.45,range:1.2,cooldown:.8,size:1.5,elite:true,behavior:'hunter'}};
+const types={crawler:{name:'Rampant',hp:35,damage:5,speed:.8,range:3,cooldown:1.2,size:.55},runner:{name:'Sprinteur',hp:18,damage:3,speed:1.8,range:3,cooldown:.7,size:.38},brute:{name:'Colosse',hp:150,damage:16,speed:.42,range:3.5,cooldown:1.8,size:1},maw:{name:'Gueule traînante',hp:65,damage:9,speed:1.2,range:3.5,cooldown:.9,size:.85,behavior:'hunter'},spitter:{name:'Crache-bile',hp:48,damage:7,speed:.6,range:5,cooldown:1.8,size:.8,behavior:'siege'},carapace:{name:'Porte-cadavres',hp:180,damage:13,speed:.45,range:4,cooldown:1.5,size:1.1,behavior:'siege',armor:.4},cathedral:{name:'Cathédrale de chair',hp:650,damage:22,speed:.32,range:6,cooldown:2.4,size:1.85,elite:true,behavior:'siege',splash:1.6},widow:{name:'Veuve du seuil',hp:420,damage:15,speed:1.45,range:4.5,cooldown:.8,size:1.5,elite:true,behavior:'hunter'}};
+const legacyRanges={crawler:.9,runner:.8,brute:1.3,maw:.65,spitter:3.5,carapace:1,cathedral:2.4,widow:1.2};
+function migrateRange(type,range,revision){return revision!==2&&range===legacyRanges[type]?types[type].range:range;}
 const profileDefaults={budget:100,shares:{hp:20,damage:25,speed:15,range:20,rate:20},weights:{hp:1,damage:1.5,speed:1,range:1.5,rate:2}};
 function clone(x){return JSON.parse(JSON.stringify(x));}
 // Integer allocations, total 100, floor 1 per stat; largest remainder keeps rounding fair.
@@ -92,5 +94,5 @@ class Simulation{
  distance(a,b){return Math.hypot(a.x-b.x,a.z-b.z);}
  nearest(a,list){return list.reduce((best,e)=>!best||this.distance(a,e)<this.distance(a,best)?e:best,null);}
 }
-root.RoundCircleSimulation={Simulation,defaults,types,profileDefaults,profileStats,redistribute};if(typeof module!=='undefined')module.exports=root.RoundCircleSimulation;
+root.RoundCircleSimulation={Simulation,defaults,types,profileDefaults,profileStats,redistribute,migrateRange};if(typeof module!=='undefined')module.exports=root.RoundCircleSimulation;
 })(typeof window!=='undefined'?window:globalThis);
