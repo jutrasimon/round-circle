@@ -25,12 +25,12 @@ export class DialogueEngine{
  available(c){if(!c.when)return true;const w=c.when,v=this.flags[w.key];return w.op==='eq'?v===w.value:typeof v==='number'&&v>=w.value;}
  start(dialogueId,nodeId){if(this.active)fail('Une conversation est déjà active');const story=this.library.dialogues.find(d=>d.id===dialogueId);if(!story||!own(story.nodes,nodeId||story.start))fail('Dialogue ou nœud absent');this.active={story:copy(story),nodeId:nodeId||story.start};this.run++;this.enter();}
  enqueue(dialogueId,triggerId){if(!id(triggerId))fail('ID de déclencheur invalide');if(!this.library.dialogues.some(d=>d.id===dialogueId))fail('Dialogue absent');if(this.triggered.has(triggerId))return false;this.triggered.add(triggerId);if(this.active)this.queue.push(dialogueId);else this.start(dialogueId);return true;}
- enter(){this.revision++;const n=this.active.story.nodes[this.active.nodeId];this.history.push({speaker:n.speaker,text:n.text,nodeId:this.active.nodeId});this.notify();}
+ enter(){this.revision++;const n=this.active.story.nodes[this.active.nodeId];this.history.push({dialogueId:this.active.story.id,speaker:n.speaker,text:n.text,nodeId:this.active.nodeId});this.notify();}
  effects(list,context){for(const [i,e] of (list||[]).entries()){if(e.type==='set')this.flags[e.key]=e.value;if(e.type==='add')this.flags[e.key]=(typeof this.flags[e.key]==='number'?this.flags[e.key]:0)+e.value;if(e.type==='emit'){try{this.onEffect({...copy(e),eventId:`${this.run}:${context}:${i}`});}catch(err){this.onError(err);}}}}
  advance(revision){const s=this.state();if(!s||revision!==this.revision||s.node.type==='choice')return false;this.commit(s,null);return true;}
  choose(choiceId,revision){const s=this.state();if(!s||revision!==this.revision||s.node.type!=='choice')return false;const choice=s.choices.find(c=>c.id===choiceId);if(!choice)return false;this.commit(s,choice);return true;}
  commit(s,choice){this.revision++; // invalidate the old screen BEFORE dispatching effects
-  this.effects(s.node.effects,s.revision+':node');if(choice){this.history.push({speaker:s.node.speaker,text:choice.text,choice:choice.id});this.effects(choice.effects,s.revision+':choice');}
+  this.effects(s.node.effects,s.revision+':node');if(choice){this.history.push({dialogueId:this.active.story.id,speaker:s.node.speaker,text:choice.text,choice:choice.id});this.effects(choice.effects,s.revision+':choice');}
   if(s.node.type==='end'){this.active=null;this.notify();const next=this.queue.shift();if(next)this.start(next);return;}
   this.active.nodeId=choice?choice.next:s.node.next;this.enter();
  }

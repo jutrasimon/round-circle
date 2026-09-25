@@ -11,6 +11,12 @@ python3 -m http.server 8000 --directory dist
 
 Ouvrir http://localhost:8000. Le moteur Babylon.js 9.26.0 est récupéré avec une vérification SHA-256. Les scripts, presets et effets originaux sont versionnés dans ce dépôt.
 
+## Partie témoin · cinq minutes
+
+Le sélecteur **Partie** propose la partie témoin et le gym libre. **Start** charge le dictionnaire [`dist/partie-temoin.json`](dist/partie-temoin.json) : simulation, profil des soldats, huit monstres, cinq vagues par rayon, dix bonus, trois rencontres et quatre fins. Le temps de cinq minutes est du temps de simulation; les choix de bonus le mettent en pause. Les répliques avancent seules et les choix ralentissent le jeu. Le bilan exporté contient l’issue, les choix et les vagues.
+
+Les réglages du gym sont conservés lorsque l’on revient au gym pendant la même session. Pour ajuster la partie témoin, modifier son JSON puis recharger la page; les vérifications sont dans [`tests/witness-run.test.cjs`](tests/witness-run.test.cjs). [Partition et intentions de la partie](docs/PMV-5-MINUTES-PROPOSITION.md).
+
 ## Point de départ
 
 Le checkpoint `checkpoint/gym-004` conserve la simulation manuelle, les 24 ambiances, le vortex animé, les paramètres exposés et l’inspection des entités avant l’intégration des mécaniques de jeu.

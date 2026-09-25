@@ -1,0 +1,680 @@
+{
+  "version": 1,
+  "id": "partie-temoin",
+  "name": "Partie témoin · 5 minutes",
+  "stats": {
+    "version": 1,
+    "simulation": {
+      "trainHp": 280,
+      "trainDamage": 13,
+      "trainSpeed": 3,
+      "trainRange": 6,
+      "trainCooldown": 1,
+      "ramDamage": 6,
+      "ramSelfDamage": 0.35,
+      "wagonHp": 110,
+      "capacity": 3,
+      "actorHp": 55,
+      "actorDamage": 8.67,
+      "actorSpeed": 2.2,
+      "actorRange": 2.6,
+      "actorCooldown": 0.625,
+      "actorLimit": 50,
+      "monsterLimit": 80,
+      "buildingHp": 150,
+      "buildingCount": 5,
+      "buildingRegen": 0.35,
+      "buildingSpawnRate": 1.2,
+      "production": true,
+      "useBudget": true,
+      "vortexRadius": 1.2,
+      "buildingPopInterval": 50
+    },
+    "profile": {
+      "budget": 100,
+      "shares": {
+        "hp": 20,
+        "damage": 25,
+        "speed": 15,
+        "range": 20,
+        "rate": 20
+      },
+      "weights": {
+        "hp": 1,
+        "damage": 1.5,
+        "speed": 1,
+        "range": 1.5,
+        "rate": 2
+      }
+    },
+    "monsters": {
+      "crawler": {
+        "name": "Rampant",
+        "hp": 35,
+        "damage": 5,
+        "speed": 0.8,
+        "range": 3,
+        "cooldown": 1.2,
+        "size": 0.55
+      },
+      "runner": {
+        "name": "Sprinteur",
+        "hp": 18,
+        "damage": 3,
+        "speed": 1.8,
+        "range": 3,
+        "cooldown": 0.7,
+        "size": 0.38
+      },
+      "brute": {
+        "name": "Colosse",
+        "hp": 150,
+        "damage": 16,
+        "speed": 0.42,
+        "range": 3.5,
+        "cooldown": 1.8,
+        "size": 1
+      },
+      "maw": {
+        "name": "Gueule traînante",
+        "hp": 65,
+        "damage": 9,
+        "speed": 1.2,
+        "range": 3.5,
+        "cooldown": 0.9,
+        "size": 0.85,
+        "behavior": "hunter"
+      },
+      "spitter": {
+        "name": "Crache-bile",
+        "hp": 48,
+        "damage": 7,
+        "speed": 0.6,
+        "range": 5,
+        "cooldown": 1.8,
+        "size": 0.8,
+        "behavior": "siege"
+      },
+      "carapace": {
+        "name": "Porte-cadavres",
+        "hp": 180,
+        "damage": 13,
+        "speed": 0.45,
+        "range": 4,
+        "cooldown": 1.5,
+        "size": 1.1,
+        "behavior": "siege",
+        "armor": 0.4
+      },
+      "cathedral": {
+        "name": "Cathédrale de chair",
+        "hp": 420,
+        "damage": 14,
+        "speed": 0.32,
+        "range": 6,
+        "cooldown": 3,
+        "size": 1.85,
+        "elite": true,
+        "behavior": "siege",
+        "splash": 1.6
+      },
+      "widow": {
+        "name": "Veuve du seuil",
+        "hp": 260,
+        "damage": 10,
+        "speed": 1.45,
+        "range": 4.5,
+        "cooldown": 1.1,
+        "size": 1.5,
+        "elite": true,
+        "behavior": "hunter"
+      }
+    },
+    "vortex": {
+      "rate": 0.96,
+      "startRadius": 1.2
+    },
+    "combatVersion": 2,
+    "balanceVersion": 1,
+    "durationVersion": 1
+  },
+  "waves": {
+    "version": 1,
+    "combatVersion": 2,
+    "vortex": {
+      "rate": 0.96,
+      "startRadius": 1.2,
+      "triggers": [
+        {
+          "waveId": "arrival",
+          "radius": 1.6
+        },
+        {
+          "waveId": "neighbors",
+          "radius": 2.56
+        },
+        {
+          "waveId": "siege",
+          "radius": 3.52
+        },
+        {
+          "waveId": "fracture",
+          "radius": 4.48
+        },
+        {
+          "waveId": "threshold",
+          "radius": 5.36
+        }
+      ]
+    },
+    "waves": [
+      {
+        "id": "arrival",
+        "name": "01 · Le bruit à la porte",
+        "groups": [
+          {
+            "type": "crawler",
+            "count": 4,
+            "delay": 0,
+            "interval": 3,
+            "stats": {}
+          },
+          {
+            "type": "maw",
+            "count": 2,
+            "delay": 8,
+            "interval": 4,
+            "stats": {}
+          }
+        ]
+      },
+      {
+        "id": "neighbors",
+        "name": "02 · Les voisins",
+        "groups": [
+          {
+            "type": "runner",
+            "count": 5,
+            "delay": 0,
+            "interval": 1.5,
+            "stats": {}
+          },
+          {
+            "type": "maw",
+            "count": 3,
+            "delay": 5,
+            "interval": 3,
+            "stats": {}
+          }
+        ]
+      },
+      {
+        "id": "siege",
+        "name": "03 · La limite",
+        "groups": [
+          {
+            "type": "spitter",
+            "count": 3,
+            "delay": 0,
+            "interval": 3,
+            "stats": {}
+          },
+          {
+            "type": "carapace",
+            "count": 2,
+            "delay": 8,
+            "interval": 8,
+            "stats": {}
+          }
+        ]
+      },
+      {
+        "id": "fracture",
+        "name": "04 · La maison se fend",
+        "groups": [
+          {
+            "type": "runner",
+            "count": 6,
+            "delay": 0,
+            "interval": 1,
+            "stats": {}
+          },
+          {
+            "type": "maw",
+            "count": 3,
+            "delay": 5,
+            "interval": 2,
+            "stats": {}
+          },
+          {
+            "type": "brute",
+            "count": 1,
+            "delay": 8,
+            "interval": 0,
+            "stats": {}
+          },
+          {
+            "type": "widow",
+            "count": 1,
+            "delay": 12,
+            "interval": 0,
+            "stats": {}
+          }
+        ]
+      },
+      {
+        "id": "threshold",
+        "name": "05 · Le seuil",
+        "groups": [
+          {
+            "type": "cathedral",
+            "count": 1,
+            "delay": 0,
+            "interval": 0,
+            "stats": {}
+          },
+          {
+            "type": "spitter",
+            "count": 4,
+            "delay": 5,
+            "interval": 3,
+            "stats": {}
+          },
+          {
+            "type": "runner",
+            "count": 6,
+            "delay": 5,
+            "interval": 1,
+            "stats": {}
+          }
+        ]
+      }
+    ],
+    "playlist": [
+      {
+        "waveId": "arrival",
+        "mode": "clear",
+        "gap": 3
+      },
+      {
+        "waveId": "neighbors",
+        "mode": "clear",
+        "gap": 3
+      },
+      {
+        "waveId": "siege",
+        "mode": "clear",
+        "gap": 3
+      },
+      {
+        "waveId": "fracture",
+        "mode": "clear",
+        "gap": 3
+      },
+      {
+        "waveId": "threshold",
+        "mode": "clear",
+        "gap": 3
+      }
+    ]
+  },
+  "bonuses": {
+    "enabled": true,
+    "catalog": [
+      {
+        "id": "giants",
+        "name": "Syndicat des géants",
+        "icon": "✊",
+        "effect": "actorDamage",
+        "factor": 1.5,
+        "description": "Chaque soldat frappe plus fort. Les recrues aussi."
+      },
+      {
+        "id": "factory",
+        "name": "Quart de nuit",
+        "icon": "⌂",
+        "effect": "production",
+        "factor": 1.5,
+        "description": "Les maisons accélèrent la production, jusqu’à la limite de population."
+      },
+      {
+        "id": "frenzy",
+        "name": "Doigts sur la gâchette",
+        "icon": "ϟ",
+        "effect": "actorRate",
+        "factor": 1.5,
+        "description": "La cadence des tirs explose. Les munitions ? On verra plus tard."
+      },
+      {
+        "id": "horizon",
+        "name": "Le quartier nous appartient",
+        "icon": "◎",
+        "effect": "actorRange",
+        "factor": 1.25,
+        "description": "Les soldats atteignent les ennemis bien au-delà de leur portée de base."
+      },
+      {
+        "id": "titan",
+        "name": "Locataires indestructibles",
+        "icon": "♥",
+        "effect": "actorHp",
+        "factor": 1.5,
+        "description": "Multiplie la vie maximale et la vie restante des soldats."
+      },
+      {
+        "id": "fortress",
+        "name": "Béton armé de mauvaise foi",
+        "icon": "▣",
+        "effect": "buildingHp",
+        "factor": 2,
+        "description": "Renforce la vie maximale et restante des maisons vivantes."
+      },
+      {
+        "id": "repair",
+        "name": "Ça repousse",
+        "icon": "✚",
+        "effect": "regen",
+        "factor": 2,
+        "description": "Les maisons se régénèrent beaucoup plus vite. Les ruines restent des ruines."
+      },
+      {
+        "id": "cannon",
+        "name": "Canon de copropriété",
+        "icon": "◆",
+        "effect": "trainDamage",
+        "factor": 2,
+        "description": "Multiplie les dégâts de chaque tir de la locomotive."
+      },
+      {
+        "id": "convoy",
+        "name": "Train blindé",
+        "icon": "▰",
+        "effect": "trainHp",
+        "factor": 1.5,
+        "description": "Multiplie la vie du convoi, wagons actuels et futurs compris."
+      },
+      {
+        "id": "ram",
+        "name": "Priorité absolue",
+        "icon": "➤",
+        "effect": "ram",
+        "factor": 2,
+        "description": "Multiplie les dégâts de collision contre les monstres, sans augmenter l’usure."
+      }
+    ]
+  },
+  "dialogue": {
+    "library": {
+      "version": 1,
+      "characters": {
+        "monsieur": {
+          "name": "VOUS · MONSIEUR",
+          "role": "player",
+          "poses": {
+            "neutral": "assets/portraits/monsieur-neutral.png",
+            "satisfied": "assets/portraits/monsieur-satisfied.png",
+            "worried": "assets/portraits/monsieur-worried.png"
+          }
+        },
+        "locataire": {
+          "name": "LA LOCATAIRE",
+          "role": "npc",
+          "poses": {
+            "neutral": "assets/portraits/locataire-neutral.png",
+            "hostile": "assets/portraits/locataire-hostile.png",
+            "curious": "assets/portraits/locataire-curious.png"
+          }
+        }
+      },
+      "backplates": {
+        "default": "assets/ui/backplate.svg"
+      },
+      "dialogues": [
+        {
+          "id": "the_line",
+          "title": "Le trait",
+          "start": "arrival",
+          "nodes": {
+            "arrival": {
+              "type": "line",
+              "speaker": "locataire",
+              "pose": "neutral",
+              "backplate": "default",
+              "text": "Vous avez tracé un cercle, puis écrit « chez nous » à l’intérieur.",
+              "next": "reply"
+            },
+            "reply": {
+              "type": "line",
+              "speaker": "monsieur",
+              "pose": "neutral",
+              "backplate": "default",
+              "text": "Nous voulions un endroit où rentrer.",
+              "next": "answer"
+            },
+            "answer": {
+              "type": "choice",
+              "speaker": "monsieur",
+              "pose": "worried",
+              "backplate": "default",
+              "text": "La Locataire vous regarde.",
+              "choices": [
+                {
+                  "id": "listen",
+                  "text": "Montrez-moi ce que le trait a coupé.",
+                  "next": "listened",
+                  "effects": [
+                    {
+                      "type": "set",
+                      "key": "listened",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "id": "claim",
+                  "text": "Les murs prouvent que nous sommes chez nous.",
+                  "next": "claimed",
+                  "effects": [
+                    {
+                      "type": "add",
+                      "key": "tension",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            "listened": {
+              "type": "end",
+              "speaker": "locataire",
+              "pose": "curious",
+              "backplate": "default",
+              "text": "Nous aussi, nous voulions rentrer."
+            },
+            "claimed": {
+              "type": "end",
+              "speaker": "locataire",
+              "pose": "hostile",
+              "backplate": "default",
+              "text": "Un mur prouve seulement qu’on a cessé de regarder derrière."
+            }
+          }
+        },
+        {
+          "id": "the_passage",
+          "title": "Le passage",
+          "start": "arrival",
+          "nodes": {
+            "arrival": {
+              "type": "line",
+              "speaker": "locataire",
+              "pose": "neutral",
+              "backplate": "default",
+              "text": "Vos maisons ont des murs. Les nôtres avaient des passages.",
+              "next": "reply"
+            },
+            "reply": {
+              "type": "line",
+              "speaker": "monsieur",
+              "pose": "worried",
+              "backplate": "default",
+              "text": "Si j’ouvre un passage, qui protège ceux qui sont derrière moi ?",
+              "next": "answer"
+            },
+            "answer": {
+              "type": "choice",
+              "speaker": "monsieur",
+              "pose": "worried",
+              "backplate": "default",
+              "text": "La porte reste devant vous.",
+              "choices": [
+                {
+                  "id": "passage",
+                  "text": "Gardons un passage entre nous.",
+                  "next": "opened",
+                  "effects": [
+                    {
+                      "type": "set",
+                      "key": "passage",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "id": "wait",
+                  "text": "Attendons la fin pour décider.",
+                  "next": "closed"
+                }
+              ]
+            },
+            "opened": {
+              "type": "end",
+              "speaker": "locataire",
+              "pose": "curious",
+              "backplate": "default",
+              "text": "Une porte peut protéger sans être fermée des deux côtés."
+            },
+            "closed": {
+              "type": "end",
+              "speaker": "locataire",
+              "pose": "neutral",
+              "backplate": "default",
+              "text": "Alors la fin décidera pour nous."
+            }
+          }
+        },
+        {
+          "id": "the_key",
+          "title": "La clé",
+          "start": "arrival",
+          "nodes": {
+            "arrival": {
+              "type": "line",
+              "speaker": "locataire",
+              "pose": "neutral",
+              "backplate": "default",
+              "text": "Quand le cercle touchera les deux maisons, qui devra partir ?",
+              "next": "reply"
+            },
+            "reply": {
+              "type": "line",
+              "speaker": "monsieur",
+              "pose": "worried",
+              "backplate": "default",
+              "text": "Je ne veux plus que le mot « nous » ait besoin d’un dehors.",
+              "next": "answer"
+            },
+            "answer": {
+              "type": "choice",
+              "speaker": "monsieur",
+              "pose": "worried",
+              "backplate": "default",
+              "text": "Que faites-vous de la clé ?",
+              "choices": [
+                {
+                  "id": "invite",
+                  "text": "La porte s’ouvrira dans les deux sens.",
+                  "next": "invited",
+                  "effects": [
+                    {
+                      "type": "set",
+                      "key": "invitation",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "id": "keep",
+                  "text": "Je garderai la clé.",
+                  "next": "kept"
+                }
+              ]
+            },
+            "invited": {
+              "type": "end",
+              "speaker": "locataire",
+              "pose": "curious",
+              "backplate": "default",
+              "text": "Je vous ai entendu. Voyons si la maison peut en faire autant."
+            },
+            "kept": {
+              "type": "end",
+              "speaker": "locataire",
+              "pose": "hostile",
+              "backplate": "default",
+              "text": "Une clé peut aussi fermer celui qui la tient."
+            }
+          }
+        }
+      ]
+    },
+    "cues": [
+      {
+        "id": "line",
+        "dialogueId": "the_line",
+        "radius": 2.08
+      },
+      {
+        "id": "passage",
+        "dialogueId": "the_passage",
+        "radius": 4
+      },
+      {
+        "id": "key",
+        "dialogueId": "the_key",
+        "radius": 5.6
+      }
+    ],
+    "choiceScale": 0.15,
+    "autoAdvanceMs": 1700
+  },
+  "endings": {
+    "harmony": {
+      "eyebrow": "LA PORTE S’OUVRE",
+      "title": "Une maison commune",
+      "text": "Le vortex cesse d’avancer. Monsieur demande : « Et si la maison n’avait jamais été à nous ? » La Locataire répond : « Elle n’était pas à nous non plus. Elle peut peut-être nous garder tous. »",
+      "requiredFlags": [
+        "listened",
+        "passage",
+        "invitation"
+      ],
+      "minBuildings": 1
+    },
+    "force": {
+      "eyebrow": "LE CERCLE SE TAIT",
+      "title": "Une victoire vide",
+      "text": "Il ne reste personne pour contester le titre. La maison n’a jamais paru si vide.",
+      "waveId": "threshold"
+    },
+    "departure": {
+      "eyebrow": "LE CERCLE SE REFERME",
+      "title": "Vers une autre maison",
+      "text": "Le train part avec ce qu’il peut porter. Derrière lui, une fenêtre s’allume. Le mot « maison » change d’habitant sans changer d’adresse."
+    },
+    "defeat": {
+      "eyebrow": "LE TRAIN S’ARRÊTE",
+      "title": "Le convoi perdu",
+      "text": "Les maisons gardent leurs lumières allumées pour un train qui ne revient pas."
+    }
+  }
+}
