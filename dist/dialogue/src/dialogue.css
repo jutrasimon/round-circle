@@ -13,3 +13,7 @@
 @keyframes rct-entry{from{opacity:.35}to{opacity:1}}
 @media(max-width:700px){.rct-backplate{left:-5%;bottom:-3%;width:62%;height:110%}.rct-portrait{left:-2%;bottom:0;width:min(50%,72cqh);height:auto;max-width:none}.rct-panel{width:59%;right:2%;bottom:3%;max-height:94%;padding:12px}.rct-text{font-size:14px}.rct-actions button{font-size:13px;padding:8px}.rct-panel header{flex-wrap:wrap;gap:4px}}
 @media(prefers-reduced-motion:reduce){.rct-enter{animation:none}}
+.rct-dialogue[data-speaker="monsieur"] .rct-portrait{left:auto;right:0;transform:translateY(14.2%) scaleX(-1)}
+.rct-dialogue[data-speaker="monsieur"] .rct-backplate{left:auto;right:-3%;transform:scaleX(-1)}
+.rct-dialogue[data-speaker="monsieur"] .rct-panel{right:auto;left:2%}
+.rct-dialogue[data-speaker="monsieur"] .rct-dimmer{background:linear-gradient(270deg,#17101ed9 0%,#23182788 48%,#16111e77 100%)}
