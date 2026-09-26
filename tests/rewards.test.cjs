@@ -17,7 +17,7 @@ test('combat uses damage, range, cadence, ram, production and regeneration modif
  const s=make(),a=s.spawnActor(),m=s.spawn('maw',{hp:10000,armor:0});s.applyRunBonus('actorDamage',2);s.applyRunBonus('actorRate',2);s.applyRunBonus('actorRange',1.5);
  s.fire(a,m);assert.equal(m.hp,10000-a.damage*2);assert.equal(a.timer,a.cooldown/2);assert.equal(s.attackRange(a),a.range*1.5);
  s.train.damage=7;s.applyRunBonus('trainDamage',3);const before=m.hp;s.fire(s.train,m);assert.equal(m.hp,before-21);
- s.cfg.production=true;const b=s.buildings[0];b.spawnRate=30;b.spawnProgress=0;b.hp=10;b.regen=1;s.applyRunBonus('production',2);s.applyRunBonus('regen',3);s.tick(.1);assert(Math.abs(b.spawnProgress-.1)<1e-9);assert(Math.abs(b.hp-10.3)<1e-8);
+ s.cfg.production=true;s.cfg.manualProduction=false;const b=s.buildings[0];b.spawnRate=30;b.spawnProgress=0;b.hp=10;b.regen=1;s.applyRunBonus('production',2);s.applyRunBonus('regen',3);s.tick(.1);assert(Math.abs(b.spawnProgress-.1)<1e-9);assert(Math.abs(b.hp-10.3)<1e-8);
  const r=make();r.wagons=[];r.train.speed=60;const enemy=r.spawn('maw',{hp:10000,damage:0,speed:0,size:.2});enemy.x=Math.cos(.08)*6.95;enemy.z=Math.sin(.08)*6.95;r.applyRunBonus('ram',3);r.tick(.02);assert.equal(enemy.hp,10000-60*r.cfg.ramDamage*3);
 });
 test('three distinct choices, snapshot, queue and stale clicks',()=>{

@@ -20,7 +20,7 @@ function install({stage,host,control,group,scene,pipeline,getVisual}){
  function begin(event){active={...event,elapsed:0};label.textContent='WAVE '+event.number;announcer.textContent='Wave '+event.number;overlay.style.display='block';}
  function neutral(){const base=getVisual();pipeline.chromaticAberration.aberrationAmount=base.chromatic;scene.imageProcessingConfiguration.contrast=base.contrast;canvas.style.transform='';if(bars)bars.style.transform='';overlay.style.display='none';}
  function clear(){active=null;queue=[];neutral();}
- function update(dt,paused){if(!active&&queue.length)begin(queue.shift());if(!active){neutral();return;}if(!paused||active.preview)active.elapsed+=dt;
+ function update(dt,paused){if(root.roundCircleLab?.features?.modalActive){neutral();return;}if(active)overlay.style.display='block';if(!active&&queue.length)begin(queue.shift());if(!active){neutral();return;}if(!paused||active.preview)active.elapsed+=dt;
   const t=active.elapsed,d=settings.duration,p=Math.min(1,t/d),impact=Math.exp(-p*10),entry=Math.min(1,p/.13),exit=Math.max(0,(p-.68)/.32),opacity=Math.min(1,entry*4)*(1-exit);
   const base=getVisual();pipeline.chromaticAberration.aberrationAmount=base.chromatic+settings.chromatic*impact;scene.imageProcessingConfiguration.contrast=base.contrast+settings.contrast*impact;
   const dx=Math.sin(t*81)*settings.shake*impact,dy=Math.cos(t*103)*settings.shake*.6*impact,transform='translate('+dx+'px,'+dy+'px)';canvas.style.transform=transform;if(bars)bars.style.transform=transform;

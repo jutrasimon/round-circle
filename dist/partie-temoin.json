@@ -19,7 +19,7 @@
       "actorSpeed": 2.2,
       "actorRange": 2.6,
       "actorCooldown": 0.625,
-      "actorLimit": 50,
+      "actorLimit": 36,
       "monsterLimit": 80,
       "buildingHp": 150,
       "buildingCount": 5,
@@ -28,7 +28,8 @@
       "production": true,
       "useBudget": true,
       "vortexRadius": 1.2,
-      "buildingPopInterval": 50
+      "buildingPopInterval": 60,
+      "manualProduction": true
     },
     "profile": {
       "budget": 100,
@@ -147,23 +148,43 @@
       "triggers": [
         {
           "waveId": "arrival",
-          "radius": 1.6
+          "radius": 1.52
         },
         {
           "waveId": "neighbors",
-          "radius": 2.56
+          "radius": 1.968
+        },
+        {
+          "waveId": "knocks",
+          "radius": 2.416
+        },
+        {
+          "waveId": "walls",
+          "radius": 2.864
         },
         {
           "waveId": "siege",
-          "radius": 3.52
+          "radius": 3.312
+        },
+        {
+          "waveId": "passage",
+          "radius": 3.76
         },
         {
           "waveId": "fracture",
-          "radius": 4.48
+          "radius": 4.208
+        },
+        {
+          "waveId": "echo",
+          "radius": 4.656
+        },
+        {
+          "waveId": "door",
+          "radius": 5.104
         },
         {
           "waveId": "threshold",
-          "radius": 5.36
+          "radius": 5.552
         }
       ]
     },
@@ -174,118 +195,387 @@
         "groups": [
           {
             "type": "crawler",
-            "count": 4,
+            "count": 3,
             "delay": 0,
-            "interval": 3,
-            "stats": {}
+            "interval": 1.5,
+            "stats": {
+              "hp": 35,
+              "damage": 5
+            }
           },
           {
             "type": "maw",
             "count": 2,
-            "delay": 8,
-            "interval": 4,
-            "stats": {}
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 65,
+              "damage": 9
+            }
           }
         ]
       },
       {
         "id": "neighbors",
-        "name": "02 · Les voisins",
+        "name": "02 · Des voix dehors",
         "groups": [
           {
             "type": "runner",
             "count": 5,
             "delay": 0,
-            "interval": 1.5,
-            "stats": {}
+            "interval": 0.8,
+            "stats": {
+              "hp": 20,
+              "damage": 3.1
+            }
           },
           {
             "type": "maw",
+            "count": 2,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 73,
+              "damage": 9.31
+            }
+          }
+        ]
+      },
+      {
+        "id": "knocks",
+        "name": "03 · On frappe encore",
+        "groups": [
+          {
+            "type": "crawler",
             "count": 3,
-            "delay": 5,
-            "interval": 3,
-            "stats": {}
+            "delay": 0,
+            "interval": 1.5,
+            "stats": {
+              "hp": 43,
+              "damage": 5.35
+            }
+          },
+          {
+            "type": "spitter",
+            "count": 3,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 60,
+              "damage": 7.49
+            }
+          },
+          {
+            "type": "maw",
+            "count": 2,
+            "delay": 4,
+            "interval": 1.5,
+            "stats": {
+              "hp": 81,
+              "damage": 9.63
+            }
+          }
+        ]
+      },
+      {
+        "id": "walls",
+        "name": "04 · Les murs écoutent",
+        "groups": [
+          {
+            "type": "runner",
+            "count": 5,
+            "delay": 0,
+            "interval": 0.8,
+            "stats": {
+              "hp": 24,
+              "damage": 3.31
+            }
+          },
+          {
+            "type": "carapace",
+            "count": 2,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 245,
+              "damage": 14.37
+            }
+          },
+          {
+            "type": "spitter",
+            "count": 2,
+            "delay": 4,
+            "interval": 1.5,
+            "stats": {
+              "hp": 65,
+              "damage": 7.73
+            }
           }
         ]
       },
       {
         "id": "siege",
-        "name": "03 · La limite",
+        "name": "05 · La limite",
         "groups": [
           {
             "type": "spitter",
-            "count": 3,
+            "count": 4,
             "delay": 0,
-            "interval": 3,
-            "stats": {}
+            "interval": 1.5,
+            "stats": {
+              "hp": 71,
+              "damage": 7.98
+            }
           },
           {
             "type": "carapace",
+            "count": 3,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 266,
+              "damage": 14.82
+            }
+          },
+          {
+            "type": "runner",
+            "count": 3,
+            "delay": 4,
+            "interval": 0.8,
+            "stats": {
+              "hp": 27,
+              "damage": 3.42
+            }
+          }
+        ]
+      },
+      {
+        "id": "passage",
+        "name": "06 · Le passage se rétrécit",
+        "groups": [
+          {
+            "type": "runner",
+            "count": 6,
+            "delay": 0,
+            "interval": 0.8,
+            "stats": {
+              "hp": 29,
+              "damage": 3.53
+            }
+          },
+          {
+            "type": "maw",
+            "count": 4,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 104,
+              "damage": 10.58
+            }
+          },
+          {
+            "type": "brute",
             "count": 2,
-            "delay": 8,
-            "interval": 8,
-            "stats": {}
+            "delay": 4,
+            "interval": 1.5,
+            "stats": {
+              "hp": 240,
+              "damage": 18.8
+            }
           }
         ]
       },
       {
         "id": "fracture",
-        "name": "04 · La maison se fend",
+        "name": "07 · La maison se fend",
         "groups": [
           {
             "type": "runner",
             "count": 6,
             "delay": 0,
-            "interval": 1,
-            "stats": {}
+            "interval": 0.8,
+            "stats": {
+              "hp": 31,
+              "damage": 3.63
+            }
           },
           {
-            "type": "maw",
+            "type": "spitter",
+            "count": 4,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 83,
+              "damage": 8.47
+            }
+          },
+          {
+            "type": "carapace",
             "count": 3,
-            "delay": 5,
-            "interval": 2,
-            "stats": {}
-          },
-          {
-            "type": "brute",
-            "count": 1,
-            "delay": 8,
-            "interval": 0,
-            "stats": {}
+            "delay": 4,
+            "interval": 1.5,
+            "stats": {
+              "hp": 310,
+              "damage": 15.73
+            }
           },
           {
             "type": "widow",
             "count": 1,
-            "delay": 12,
-            "interval": 0,
-            "stats": {}
+            "delay": 6,
+            "interval": 1.5,
+            "stats": {
+              "hp": 447,
+              "damage": 12.1
+            }
+          }
+        ]
+      },
+      {
+        "id": "echo",
+        "name": "08 · Ceux qui attendent",
+        "groups": [
+          {
+            "type": "maw",
+            "count": 6,
+            "delay": 0,
+            "interval": 1.5,
+            "stats": {
+              "hp": 120,
+              "damage": 11.21
+            }
+          },
+          {
+            "type": "spitter",
+            "count": 5,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 88,
+              "damage": 8.71
+            }
+          },
+          {
+            "type": "brute",
+            "count": 3,
+            "delay": 4,
+            "interval": 1.5,
+            "stats": {
+              "hp": 276,
+              "damage": 19.92
+            }
+          },
+          {
+            "type": "widow",
+            "count": 2,
+            "delay": 6,
+            "interval": 1.5,
+            "stats": {
+              "hp": 478,
+              "damage": 12.45
+            }
+          }
+        ]
+      },
+      {
+        "id": "door",
+        "name": "09 · Les deux côtés de la porte",
+        "groups": [
+          {
+            "type": "runner",
+            "count": 8,
+            "delay": 0,
+            "interval": 0.8,
+            "stats": {
+              "hp": 35,
+              "damage": 3.84
+            }
+          },
+          {
+            "type": "carapace",
+            "count": 4,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 353,
+              "damage": 16.64
+            }
+          },
+          {
+            "type": "spitter",
+            "count": 4,
+            "delay": 4,
+            "interval": 1.5,
+            "stats": {
+              "hp": 94,
+              "damage": 8.96
+            }
+          },
+          {
+            "type": "cathedral",
+            "count": 1,
+            "delay": 6,
+            "interval": 1.5,
+            "stats": {
+              "hp": 823,
+              "damage": 17.92
+            }
           }
         ]
       },
       {
         "id": "threshold",
-        "name": "05 · Le seuil",
+        "name": "10 · Le seuil",
         "groups": [
           {
-            "type": "cathedral",
-            "count": 1,
+            "type": "runner",
+            "count": 8,
             "delay": 0,
-            "interval": 0,
-            "stats": {}
+            "interval": 0.8,
+            "stats": {
+              "hp": 37,
+              "damage": 3.94
+            }
           },
           {
             "type": "spitter",
-            "count": 4,
-            "delay": 5,
-            "interval": 3,
-            "stats": {}
+            "count": 6,
+            "delay": 2,
+            "interval": 1.5,
+            "stats": {
+              "hp": 100,
+              "damage": 9.21
+            }
           },
           {
-            "type": "runner",
-            "count": 6,
-            "delay": 5,
-            "interval": 1,
-            "stats": {}
+            "type": "brute",
+            "count": 3,
+            "delay": 4,
+            "interval": 1.5,
+            "stats": {
+              "hp": 312,
+              "damage": 21.04
+            }
+          },
+          {
+            "type": "widow",
+            "count": 2,
+            "delay": 6,
+            "interval": 1.5,
+            "stats": {
+              "hp": 541,
+              "damage": 13.15
+            }
+          },
+          {
+            "type": "cathedral",
+            "count": 1,
+            "delay": 8,
+            "interval": 1.5,
+            "stats": {
+              "hp": 874,
+              "damage": 18.41
+            }
           }
         ]
       }
@@ -293,28 +583,53 @@
     "playlist": [
       {
         "waveId": "arrival",
-        "mode": "clear",
-        "gap": 3
+        "mode": "time",
+        "gap": 28
       },
       {
         "waveId": "neighbors",
-        "mode": "clear",
-        "gap": 3
+        "mode": "time",
+        "gap": 28
+      },
+      {
+        "waveId": "knocks",
+        "mode": "time",
+        "gap": 28
+      },
+      {
+        "waveId": "walls",
+        "mode": "time",
+        "gap": 28
       },
       {
         "waveId": "siege",
-        "mode": "clear",
-        "gap": 3
+        "mode": "time",
+        "gap": 28
+      },
+      {
+        "waveId": "passage",
+        "mode": "time",
+        "gap": 28
       },
       {
         "waveId": "fracture",
-        "mode": "clear",
-        "gap": 3
+        "mode": "time",
+        "gap": 28
+      },
+      {
+        "waveId": "echo",
+        "mode": "time",
+        "gap": 28
+      },
+      {
+        "waveId": "door",
+        "mode": "time",
+        "gap": 28
       },
       {
         "waveId": "threshold",
-        "mode": "clear",
-        "gap": 3
+        "mode": "time",
+        "gap": 28
       }
     ]
   },
@@ -326,7 +641,7 @@
         "name": "Syndicat des géants",
         "icon": "✊",
         "effect": "actorDamage",
-        "factor": 1.5,
+        "factor": 1.25,
         "description": "Chaque soldat frappe plus fort. Les recrues aussi."
       },
       {
@@ -334,7 +649,7 @@
         "name": "Quart de nuit",
         "icon": "⌂",
         "effect": "production",
-        "factor": 1.5,
+        "factor": 1.25,
         "description": "Les maisons accélèrent la production, jusqu’à la limite de population."
       },
       {
@@ -342,7 +657,7 @@
         "name": "Doigts sur la gâchette",
         "icon": "ϟ",
         "effect": "actorRate",
-        "factor": 1.5,
+        "factor": 1.25,
         "description": "La cadence des tirs explose. Les munitions ? On verra plus tard."
       },
       {
@@ -358,7 +673,7 @@
         "name": "Locataires indestructibles",
         "icon": "♥",
         "effect": "actorHp",
-        "factor": 1.5,
+        "factor": 1.25,
         "description": "Multiplie la vie maximale et la vie restante des soldats."
       },
       {
@@ -366,7 +681,7 @@
         "name": "Béton armé de mauvaise foi",
         "icon": "▣",
         "effect": "buildingHp",
-        "factor": 2,
+        "factor": 1.5,
         "description": "Renforce la vie maximale et restante des maisons vivantes."
       },
       {
@@ -374,7 +689,7 @@
         "name": "Ça repousse",
         "icon": "✚",
         "effect": "regen",
-        "factor": 2,
+        "factor": 1.25,
         "description": "Les maisons se régénèrent beaucoup plus vite. Les ruines restent des ruines."
       },
       {
@@ -382,7 +697,7 @@
         "name": "Canon de copropriété",
         "icon": "◆",
         "effect": "trainDamage",
-        "factor": 2,
+        "factor": 1.5,
         "description": "Multiplie les dégâts de chaque tir de la locomotive."
       },
       {
@@ -398,7 +713,7 @@
         "name": "Priorité absolue",
         "icon": "➤",
         "effect": "ram",
-        "factor": 2,
+        "factor": 1.25,
         "description": "Multiplie les dégâts de collision contre les monstres, sans augmenter l’usure."
       }
     ]
@@ -645,8 +960,8 @@
         "radius": 5.6
       }
     ],
-    "choiceScale": 0.15,
-    "autoAdvanceMs": 1700
+    "choiceScale": 0,
+    "autoAdvanceMs": 0
   },
   "endings": {
     "harmony": {
@@ -676,5 +991,67 @@
       "title": "Le convoi perdu",
       "text": "Les maisons gardent leurs lumières allumées pour un train qui ne revient pas."
     }
-  }
+  },
+  "audio": {
+    "music": 0.08,
+    "effects": 0.08
+  },
+  "soldiers": [
+    {
+      "id": "guardian",
+      "name": "Gardien",
+      "role": "Un rempart lent, très résistant, au contact.",
+      "color": "#e9b96b",
+      "duration": 14,
+      "stats": {
+        "maxHp": 220,
+        "damage": 7,
+        "speed": 0.8,
+        "range": 1.8,
+        "cooldown": 1.4
+      }
+    },
+    {
+      "id": "sniper",
+      "name": "Veilleur",
+      "role": "Très fragile. Un tir lourd à très longue portée.",
+      "color": "#91c9ff",
+      "duration": 20,
+      "stats": {
+        "maxHp": 28,
+        "damage": 40,
+        "speed": 1.2,
+        "range": 8,
+        "cooldown": 4
+      }
+    },
+    {
+      "id": "gunner",
+      "name": "Rafale",
+      "role": "Tirs très rapides, portée courte, résistance modeste.",
+      "color": "#ed94c9",
+      "duration": 12,
+      "stats": {
+        "maxHp": 48,
+        "damage": 4,
+        "speed": 2,
+        "range": 3,
+        "cooldown": 0.18
+      }
+    },
+    {
+      "id": "scout",
+      "name": "Éclaireur",
+      "role": "Recrutement rapide et grande mobilité.",
+      "color": "#9de2b1",
+      "duration": 6,
+      "stats": {
+        "maxHp": 65,
+        "damage": 11,
+        "speed": 5.8,
+        "range": 2.4,
+        "cooldown": 0.65
+      }
+    }
+  ]
 }

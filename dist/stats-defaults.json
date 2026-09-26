@@ -24,7 +24,8 @@
     "production": true,
     "useBudget": true,
     "vortexRadius": 1.2,
-    "buildingPopInterval": 30
+    "buildingPopInterval": 30,
+    "manualProduction": true
   },
   "profile": {
     "budget": 100,

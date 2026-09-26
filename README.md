@@ -115,3 +115,11 @@ Le rayon initial 1,2 atteint 6 en 300 secondes de simulation avec une croissance
 ## Gym 025 — Start garantit cinq minutes
 
 Start recalcule la croissance à partir du rayon initial choisi et remet le temps de simulation à zéro. Les anciens taux sauvegardés, y compris une croissance arrêtée, ne raccourcissent plus une nouvelle partie. Les commandes de croissance du laboratoire restent disponibles pour les tests manuels.
+
+## Partie témoin 028 — recrutement et montée dramatique
+
+Les maisons attendent une commande : cliquer une maison ou son nom dans RECRUTEMENT, puis choisir Gardien (220 HP, lent), Veilleur (tir lourd, portée 8, fragile), Rafale (5,6 tirs/s) ou Éclaireur (mobilité 5,8, formation rapide). La progression reste visible dans le jeu; une notification annonce la fin et la maison attend la prochaine commande. Les commandes réservent une place dans la limite de 36 soldats. Un train plein reçoit aussi un wagon lorsque le recrutement termine.
+
+`dist/partie-temoin.json` contient les quatre profils, leurs durées, les statistiques, dix vagues (118 ennemis), les trois rencontres philosophiques, les bonus et les fins. Les vagues commencent à 20 secondes, puis toutes les 28 secondes; leur effectif et leur résistance augmentent. Les cinq minutes sont du temps de simulation. Le levier du convoi règle désormais toute la simulation de ×0,25 à ×3. Les dialogues attendent le joueur et mettent le jeu en pause; les bonus et les annonces de vague attendent leur fermeture.
+
+Musique et effets démarrent à 8 %. Les géométries partageant une matière sont fusionnées, les rendus des morts sont libérés, les effets simultanés sont plafonnés et les interfaces sont mises à jour moins souvent que le rendu.

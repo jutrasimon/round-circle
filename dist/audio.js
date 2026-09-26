@@ -10,7 +10,7 @@ const cues={
  reward:{label:'Récompense / bonus',file:'reward.wav',gap:.3,hz:660,duration:.4},
  dialogue:{label:'Réplique / réponse',file:'dialogue.wav',gap:.15,hz:400,duration:.085}
 };
-function cueFor(e){if(e.type==='shot')return 'shot';if(['hit','ram'].includes(e.type))return 'impact';if(e.type==='death')return 'death';if(['spawn','born','board','building-born','wagon-born'].includes(e.type))return 'spawn';if(e.type==='wave-launched')return 'wave';if(['wave-complete','reward-chosen'].includes(e.type))return 'reward';return null;}
+function cueFor(e){if(e.type==='shot')return 'shot';if(['hit','ram'].includes(e.type))return 'impact';if(e.type==='death')return 'death';if(['spawn','born','board','building-born','wagon-born','training-complete'].includes(e.type))return 'spawn';if(e.type==='wave-launched')return 'wave';if(['wave-complete','reward-chosen'].includes(e.type))return 'reward';return null;}
 class Gate{
  constructor(){this.last={};this.recent=[];}
  allow(id,time){if(!cues[id]||time-(this.last[id]??-Infinity)<cues[id].gap)return false;this.recent=this.recent.filter(t=>time-t<.1);if(this.recent.length>=4)return false;this.last[id]=time;this.recent.push(time);return true;}
@@ -21,7 +21,7 @@ function mixSettings(saved={}){return Object.fromEntries(Object.keys(cues).map(i
 function musicGain(value){const level=Number.isFinite(value)?Math.max(0,Math.min(1,value)):0;return .5*level*level;}
 function install(){
  const music=new Audio('assets/audio/fortress-of-bone.mp3');music.loop=true;music.preload='none';music.id='backgroundMusic';music.hidden=true;document.body.append(music);
- let settings={enabled:true,musicEnabled:true,effectsEnabled:true,music:.28,effects:.25};try{const saved=JSON.parse(localStorage.getItem('round-circle-audio-v1'));if(saved){settings.enabled=saved.enabled!==false;settings.musicEnabled=saved.musicEnabled!==false;settings.effectsEnabled=saved.effectsEnabled===true;for(const k of ['music','effects'])if(Number.isFinite(saved[k]))settings[k]=Math.max(0,Math.min(1,saved[k]));}}catch{}
+ let settings={enabled:true,musicEnabled:true,effectsEnabled:true,music:.08,effects:.08,volumeVersion:2};try{const saved=JSON.parse(localStorage.getItem('round-circle-audio-v1'));if(saved){settings.enabled=saved.enabled!==false;settings.musicEnabled=saved.musicEnabled!==false;settings.effectsEnabled=saved.effectsEnabled===true;for(const k of ['music','effects'])if(saved.volumeVersion===2&&Number.isFinite(saved[k]))settings[k]=Math.max(0,Math.min(1,saved[k]));}}catch{}
  let mix=mixSettings();try{mix=mixSettings(JSON.parse(localStorage.getItem('round-circle-mix-v1'))||{});}catch{}const files=root.RoundCircleSoundFiles||[];for(const id in mix)if(!files.some(f=>f.file===mix[id].file))mix[id].file=cues[id].file;
  let ctx=null,bus=null,unlocked=false,duck=false;const buffers={},pending={},active=new Set(),gate=new Gate();
  const box=document.createElement('details');box.id='audioSettings';box.open=true;box.innerHTML='<summary>Musique et sons</summary><p>Fortress of Bone · musique en boucle. Huit effets réutilisés, avec fichier et volume au choix.</p>';
@@ -59,7 +59,7 @@ function install(){
  document.addEventListener('click',e=>{if(!e.isTrusted)return;const button=e.target.closest('button');if(!button||box.contains(button)||button===quick)return;if(!unlocked&&settings.enabled)void unlock();if(!button.closest('.reward-card,.dialogue-host,[role="dialog"]'))sound('ui');});
  document.addEventListener('visibilitychange',()=>{if(document.hidden){music.pause();ctx?.suspend();}else if(unlocked&&settings.enabled){ctx?.resume().then(()=>playMusic()).catch(()=>{});}});
  music.addEventListener('error',()=>{status.textContent='La musique ne peut pas être chargée.';});
- root.roundCircleAudio={captureSettings:()=>({settings:{...settings},mix:JSON.parse(JSON.stringify(mix))}),event(e){const id=cueFor(e);if(id)sound(id);},dialogue(state){duck=!!state;sync();if(state)sound('dialogue');}};
+ root.roundCircleAudio={applySettings(values){if(!values)return;for(const key of ['music','effects']){if(Number.isFinite(values[key]))settings[key]=Math.max(0,Math.min(1,values[key]));const slider=box.querySelector('input[aria-label="Volume '+(key==='music'?'musique':'effets')+'"]');if(slider){slider.value=settings[key];slider.nextElementSibling.textContent=Math.round(settings[key]*100)+' %';}}sync();void playMusic();},captureSettings:()=>({settings:{...settings},mix:JSON.parse(JSON.stringify(mix))}),event(e){const id=cueFor(e);if(id)sound(id);},dialogue(state){duck=!!state;sync();if(state)sound('dialogue');}};
  status.textContent='Clique sur Activer le son. Les volumes à 0 % restent silencieux.';sync();
 }
 root.RoundCircleAudio={cues,cueFor,Gate,mixSettings,musicGain};

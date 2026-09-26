@@ -1,7 +1,7 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const {Simulation}=require('../dist/sim.js');
-const make=()=>{const s=new Simulation({buildingCount:1,production:true,buildingPopInterval:0});s.buildings[0].spawnRate=60;s.buildings[0].spawnProgress=0;return s;};
+const make=()=>{const s=new Simulation({buildingCount:1,production:true,manualProduction:false,buildingPopInterval:0});s.buildings[0].spawnRate=60;s.buildings[0].spawnProgress=0;return s;};
 const fill=s=>{for(const w of s.wagons)while(s.passengers(w).length<w.capacity){const a=s.spawnActor();a.wagonId=w.id;}};
 test('full train consumes one house production for one wagon, then resumes soldiers',()=>{
  const s=make(),b=s.buildings[0];fill(s);b.spawnProgress=.99;s.tick(.02);

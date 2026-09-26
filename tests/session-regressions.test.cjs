@@ -17,7 +17,7 @@ test('manual waves do not cancel vortex growth or its scheduled thresholds',()=>
  const s=new Simulation({production:false}),r=new WaveRunner(s),lib=structuredClone(seed);r.startVortex(lib);const plan=r.vortexPlan;r.runWave(lib.waves[0]);const radius=s.cfg.vortexRadius;s.tick(.5);r.tick();assert.equal(r.vortexPlan,plan);assert(s.cfg.vortexRadius>radius);
 });
 test('production window reflects construction, soldiers, full-train wagons and repair',()=>{
- const s=new Simulation({buildingCount:1,buildingPopInterval:30,production:true});const b=s.buildings[0];b.spawnProgress=.5;b.spawnRate=6;b.hp=b.maxHp-20;
+ const s=new Simulation({buildingCount:1,buildingPopInterval:30,production:true,manualProduction:false});const b=s.buildings[0];b.spawnProgress=.5;b.spawnRate=6;b.hp=b.maxHp-20;
  let rows=progress(s);assert(rows.some(r=>r.label.includes('maison')));assert(rows.some(r=>r.label.includes('soldat')&&r.value===.5&&r.detail.startsWith('5 s')));assert(rows.some(r=>r.label.startsWith('Réparation')));
  for(const w of s.wagons)while(s.passengers(w).length<w.capacity){const a=s.spawnActor();a.wagonId=w.id;}
  assert(progress(s).some(r=>r.label.includes('wagon')));s.cfg.production=false;assert(!progress(s).some(r=>r.label.startsWith('Production')));b.hp=0;assert(!progress(s).some(r=>r.label.startsWith('Réparation')));

@@ -8,7 +8,7 @@ function validate(data){
  function num(v,min,max){if(typeof v!=='number'||!Number.isFinite(v)||v<min||v>max)throw Error('Stat hors limites');return v;}
  const simulation={...defaults};for(const [k,[min,max]] of Object.entries(limits))if(data.simulation[k]!==undefined)simulation[k]=num(data.simulation[k],min,max);
  for(const k of ['capacity','actorLimit','monsterLimit','buildingCount'])if(!Number.isInteger(simulation[k]))throw Error('Une quantité doit être entière');
- for(const k of ['production','useBudget'])if(data.simulation[k]!==undefined){if(typeof data.simulation[k]!=='boolean')throw Error('Option invalide');simulation[k]=data.simulation[k];}
+ for(const k of ['production','manualProduction','useBudget'])if(data.simulation[k]!==undefined){if(typeof data.simulation[k]!=='boolean')throw Error('Option invalide');simulation[k]=data.simulation[k];}
  if(data.balanceVersion!==1&&simulation.ramSelfDamage===.04)simulation.ramSelfDamage=.4;
  const profile=clone(profileDefaults);profile.budget=num(data.profile.budget,10,300);
  for(const k of Object.keys(profile.shares)){profile.shares[k]=num(data.profile.shares?.[k],1,96);profile.weights[k]=num(data.profile.weights?.[k],.25,5);}
