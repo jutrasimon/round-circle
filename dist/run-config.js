@@ -17,7 +17,7 @@ function validate(source){
  const soldiers=source.soldiers||root.RoundCircleSimulation.soldierProfiles,ids=new Set();
  if(!Array.isArray(soldiers)||soldiers.length!==4)throw Error('Four soldier profiles required');
  for(const p of soldiers){if(!identifier(p.id)||ids.has(p.id)||typeof p.name!=='string'||typeof p.role!=='string'||!/^#[0-9a-f]{6}$/i.test(p.color)||!Number.isFinite(p.duration)||p.duration<1||p.duration>120)throw Error('Invalid soldier profile');ids.add(p.id);for(const [k,min,max] of [['maxHp',1,2000],['damage',0,200],['speed',.1,10],['range',.1,15],['cooldown',.1,10]])if(!Number.isFinite(p.stats?.[k])||p.stats[k]<min||p.stats[k]>max)throw Error('Invalid profile stat');}
- const audio=source.audio||{music:.46,effects:.56};for(const k of ['music','effects'])if(!Number.isFinite(audio[k])||audio[k]<0||audio[k]>1)throw Error('Invalid volume');
+ const audio=source.audio||{music:.1,effects:.1};for(const k of ['music','effects'])if(!Number.isFinite(audio[k])||audio[k]<0||audio[k]>1)throw Error('Invalid volume');
  const endings=source.endings;
  if(!isObject(endings)||!isObject(endings.harmony)||!isObject(endings.force)||!isObject(endings.departure)||!isObject(endings.defeat))throw Error('Invalid run endings');
  const validateText=entry=>{if(typeof entry.title!=='string'||!entry.title.trim()||entry.title.length>100||typeof entry.text!=='string'||!entry.text.trim()||entry.text.length>1000||typeof entry.eyebrow!=='string'||entry.eyebrow.length>100)throw Error('Invalid ending text');};
@@ -25,6 +25,6 @@ function validate(source){
  if(!Array.isArray(endings.harmony.requiredFlags)||!endings.harmony.requiredFlags.length||endings.harmony.requiredFlags.some(flag=>!identifier(flag))||!Number.isInteger(endings.harmony.minBuildings)||endings.harmony.minBuildings<0||endings.harmony.minBuildings>12||!identifier(endings.force.waveId)||!waves.waves.some(w=>w.id===endings.force.waveId))throw Error('Invalid ending conditions');
  return copy({version:1,id:source.id,name:source.name,stats,waves,bonuses,soldiers,audio,dialogue:{library:dialogue.library,cues,choiceScale:dialogue.choiceScale,autoAdvanceMs:dialogue.autoAdvanceMs},endings});
 }
-async function load(url){const response=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Run configuration not found');const source=await response.json(),{validateLibrary}=await import('./dialogue/src/dialogue-core.js?v=038');source.dialogue.library=validateLibrary(source.dialogue.library);return validate(source);}
+async function load(url){const response=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Run configuration not found');const source=await response.json(),{validateLibrary}=await import('./dialogue/src/dialogue-core.js?v=039');source.dialogue.library=validateLibrary(source.dialogue.library);return validate(source);}
 root.RoundCircleRunConfig={validate,load};if(typeof module!=='undefined')module.exports=root.RoundCircleRunConfig;
 })(typeof window!=='undefined'?window:globalThis);

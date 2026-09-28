@@ -24,7 +24,7 @@ test('witness dictionary validates every gameplay system and five-minute schedul
  assert.equal(profile.dialogue.cues.length,3);
  assert.equal(profile.bonuses.catalog.length,10);
  assert.equal(profile.stats.simulation.manualProduction,true);
- assert.deepEqual(profile.audio,{music:.46,effects:.56});
+ assert.deepEqual(profile.audio,{music:.1,effects:.1});
  assert.equal(profile.soldiers.length,4);
  assert.throws(()=>validate({...source,soldiers:[source.soldiers[0]]}));
  assert.throws(()=>validate({...source,audio:{music:2,effects:.08}}));

@@ -3,3 +3,4 @@ dist/babylon.js
 node_modules/
 .local-audio-preview/
 __pycache__/
+releases/*.zip

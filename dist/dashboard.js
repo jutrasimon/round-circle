@@ -8,7 +8,7 @@ function svg(tag,attrs,parent){const e=document.createElementNS('http://www.w3.o
 function render(host,r,details){
  const m=r.metrics,history=r.timeline||[],total=o=>Object.values(o).reduce((a,b)=>a+b,0),body=el('div',undefined,host,'report-body');
  const kpis=el('div',undefined,body,'report-kpis');
- for(const [label,value,sub] of [['TIME TOGETHER',time(r.time),'of a five-minute journey'],['HOSTILES DEFEATED',num(r.kills),num(m.created.monster)+' arrived'],['WAVES CLEARED',m.wavesCompleted+' / '+m.wavesStarted,'each threshold tells a story'],['STILL AT HOME',num(r.buildings),'houses standing']]){const k=el('div',undefined,kpis);el('span',label,k);el('strong',value,k);el('small',sub,k);}
+ for(const [label,value,sub] of [['TIME TOGETHER',time(r.time),'of a five-minute journey'],['HOSTILES DEFEATED',num(r.kills),num(m.created.monster)+' arrived'],['WAVES CLEARED',m.wavesCompleted+' / '+(r.plannedWaves??m.wavesStarted),'each threshold tells a story'],['AT THE FINAL MOMENT',num(r.buildings),'houses before the finale']]){const k=el('div',undefined,kpis);el('span',label,k);el('strong',value,k);el('small',sub,k);}
  const grid=el('div',undefined,body,'report-charts');
  function card(title,kicker,wide=false){const c=el('section',undefined,grid,'report-card'+(wide?' report-wide':''));el('small',kicker,c,'report-kicker');el('h2',title,c);return c;}
  const cursors=[];

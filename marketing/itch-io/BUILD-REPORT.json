@@ -1,0 +1,17 @@
+{
+  "version": "039",
+  "file_count": 153,
+  "uncompressed_bytes": 39595768,
+  "zip_bytes": 31106476,
+  "sha256": "1ef7d2785a3bff21a7326cefa262ff1f82358f1ccba2cecbbe8f88b7ea3cf1e1",
+  "checks": [
+    "root index.html",
+    "engine included",
+    "entry references exact case",
+    "itch archive limits",
+    "ZIP CRC"
+  ],
+  "not_tested": [
+    "Upload and execution on itch.io hosting"
+  ]
+}

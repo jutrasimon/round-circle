@@ -978,13 +978,13 @@
     "force": {
       "eyebrow": "THE CIRCLE FALLS SILENT",
       "title": "An Empty Victory",
-      "text": "No one remains to dispute the deed. The house has never felt so empty.",
+      "text": "The final wave was defeated, but the vortex reached its limit. The city disappears beneath the circle. Winning every battle did not save your home.",
       "waveId": "threshold"
     },
     "departure": {
       "eyebrow": "THE CIRCLE CLOSES",
       "title": "Towards Another Home",
-      "text": "The train leaves with all it can carry. Behind it, a window lights up. The word “home” changes inhabitants without changing its address."
+      "text": "The vortex reached its limit before the final wave was cleared. The city is swallowed. What remains of home must now be carried by those who remember it."
     },
     "defeat": {
       "eyebrow": "THE TRAIN STOPS",
@@ -993,8 +993,8 @@
     }
   },
   "audio": {
-    "music": 0.46,
-    "effects": 0.56
+    "music": 0.1,
+    "effects": 0.1
   },
   "soldiers": [
     {
