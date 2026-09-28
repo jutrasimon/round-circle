@@ -19,3 +19,18 @@ test('regeneration measures recovered HP, while full buildings add none',()=>{
  const s=new Simulation({production:false,buildingCount:1,buildingRegen:10,trainDamage:0});const b=s.buildings[0];b.hp=b.maxHp-1;s.tick(.25);
  assert(Math.abs(s.metrics.regenerated-1)<1e-8);s.tick(.25);assert(Math.abs(s.metrics.regenerated-1)<1e-8);
 });
+test('timeline records real state in game time and freezes into the final report',()=>{
+ const s=new Simulation({production:false,buildingCount:1,buildingPopInterval:0});
+ assert.equal(s.timeline[0].time,0);assert.equal(s.timeline[0].hp,s.train.hp);
+ s.damage(s.train,25);for(let i=0;i<8;i++)s.tick(.25);
+ const last=s.timeline.at(-1);assert(Math.abs(last.time-2)<1e-7);assert.equal(last.hp,s.train.maxHp-25);assert.equal(last.taken,25);
+ s.tick(.13);const report=s.finishRun();assert.equal(report.timeline.at(-1).time,report.time);
+ s.timeline[0].hp=0;assert.notEqual(report.timeline[0].hp,0);
+ s.reset();assert.equal(s.timeline.length,1);assert.equal(s.timeline[0].time,0);
+});
+test('long laboratory runs keep a bounded timeline while retaining the beginning and end',()=>{
+ const s=new Simulation({production:false,buildingCount:0,buildingPopInterval:0});
+ for(let i=0;i<10000;i++)s.tick(.25);
+ const report=s.finishRun();assert(report.timeline.length<=600);assert.equal(report.timeline[0].time,0);assert.equal(report.timeline.at(-1).time,report.time);
+ for(let i=1;i<report.timeline.length;i++)assert(report.timeline[i].time>report.timeline[i-1].time);
+});
