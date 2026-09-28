@@ -22,13 +22,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Download and verify Babylon.js
+        run: node scripts/prepare-engine.mjs
       - name: Test simulation
         run: node --test tests/*.test.cjs tests/*.test.mjs
       - name: Check JavaScript syntax
         run: |
           for file in dist/*.js dist/dialogue/src/*.js scripts/*.mjs; do node --check "$file"; done
-      - name: Download and verify Babylon.js
-        run: node scripts/prepare-engine.mjs
       - name: Upload game
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4

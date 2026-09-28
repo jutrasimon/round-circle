@@ -1,5 +1,5 @@
-import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=035';
-import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=035';
+import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=036';
+import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=036';
 
 const $=s=>document.querySelector(s);
 const el=(tag,text,parent)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;parent?.append(node);return node;};
