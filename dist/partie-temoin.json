@@ -993,8 +993,8 @@
     }
   },
   "audio": {
-    "music": 0.08,
-    "effects": 0.08
+    "music": 0.46,
+    "effects": 0.56
   },
   "soldiers": [
     {
