@@ -37,3 +37,6 @@ body.game-modal{background:#16111e}.reward-overlay,.rct-dialogue{z-index:130}.re
 /* Draw a geometrically centred plus, independent of font metrics. */
 .building-training.available span{position:absolute;inset:0;font-size:0;display:grid;place-items:center}.building-training.available span::before,.building-training.available span::after{content:"";position:absolute;background:currentColor;border-radius:1px;width:9px;height:1px}.building-training.available span::after{width:1px;height:9px}
 .welcome.game-modal #welcome{visibility:hidden}
+
+.lab-intro{padding:12px 16px;border-bottom:1px solid #d992c83d;background:#252031}.lab-intro b{font-size:11px;letter-spacing:.09em;color:#e6b9d9}.lab-intro p{font-size:12px;line-height:1.5;margin:8px 0}.lab-intro small{display:block;font-size:11px;line-height:1.5;color:#c7becd}.lab-intro{flex-shrink:0}
+#laboratory label[hidden]{display:none}

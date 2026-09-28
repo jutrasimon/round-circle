@@ -1,5 +1,5 @@
-import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=036';
-import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=036';
+import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=037';
+import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=037';
 
 const $=s=>document.querySelector(s);
 const el=(tag,text,parent)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;parent?.append(node);return node;};
@@ -58,7 +58,7 @@ async function install(){
  el('p','To create a bonus, add an entry with a unique ID, name, description, icon, effect and multiplier. Effects: '+Object.keys(effects).join(', ')+'. Current offers retain their values.',bonusTab);
  el('h2','Encounters at the edge',dialogueTab);
  el('p','One voice at a time, with responses and narrative consequences. Results are recorded below; there are no hidden combat bonuses.',dialogueTab);
- const speed=select(dialogueTab,'During dialogue',[['0','Pause']], '0');speed.disabled=true;
+ el('p','Dialogue pauses the game. Finish the encounter to return to the laboratory.',dialogueTab);
  const trigger=select(dialogueTab,'Automatic trigger',[['radius','At vortex radius'],['wave','After a wave is cleared'],['manual','Manual only']], 'radius');
  const threshold=numeric(dialogueTab,'Trigger threshold',2,.2,100,.1);let autoFired=false;
  const effectsLog=el('div',undefined,dialogueTab);effectsLog.className='narrative-log';effectsLog.setAttribute('aria-live','polite');
@@ -71,19 +71,19 @@ async function install(){
  async function useLibrary(data){const valid=validateLibrary(data),revision=++loadRevision;await preloadAssets(valid,'dialogue/');if(revision!==loadRevision)return;view?.destroy();library=valid;dialogEngine=new DialogueEngine(valid,{onEffect:e=>{el('p',e.name+' : '+JSON.stringify(e.payload),effectsLog);},onError:e=>status.textContent=e.message});dialogueHost.classList.remove('ambient');view=new DialogueView(dialogueHost,dialogEngine,{assetBase:'dialogue/',lettersPerSecond:45,autoAdvanceMs:0});const renderDialogue=dialogEngine.onChange;dialogEngine.onChange=state=>{renderDialogue(state);window.roundCircleAudio?.dialogue(state);renderRewards();};autoFired=false;if(storySelect){storySelect.replaceChildren();for(const d of valid.dialogues){const o=el('option',d.title||d.id,storySelect);o.value=d.id;}renderNodes();}renderRewards();}
  function renderNodes(){nodeSelect.replaceChildren();const story=library.dialogues.find(d=>d.id===storySelect.value);for(const id of Object.keys(story.nodes)){const o=el('option',id,nodeSelect);o.value=id;}nodeSelect.value=story.start;}
  try{
-  const response=await fetch('dialogue/data/dialogues.json',{signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Library not found');gymLibrary=saved?.library||await response.json();await useLibrary(activeRun?.dialogue.library||gymLibrary);
+  const response=await fetch('dialogue/data/dialogues.json',{cache:'no-cache',signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Library not found');gymLibrary=saved?.library||await response.json();await useLibrary(activeRun?.dialogue.library||gymLibrary);
   storySelect=select(dialogueTab,'Dialogue',library.dialogues.map(d=>[d.id,d.title||d.id]),library.dialogues[0].id);
   nodeSelect=select(dialogueTab,'Starting node',[], '');renderNodes();storySelect.onchange=renderNodes;
   button(dialogueTab,'Start encounter',()=>{dialogEngine.cancel();dialogEngine.start(storySelect.value);renderRewards();});
   button(dialogueTab,'Test this node',()=>{dialogEngine.cancel();dialogEngine.start(storySelect.value,nodeSelect.value);renderRewards();});
-  button(dialogueTab,'Close dialogue',()=>dialogEngine.cancel());
+
   button(dialogueTab,'Reset encounters',()=>{dialogEngine.reset();autoFired=false;effectsLog.replaceChildren();});
   const dialogueEditor=jsonWorkshop(dialogueTab,'Dialogue library',()=>library,useLibrary);if(saved?.dialogueEditor)dialogueEditor.value=saved.dialogueEditor;controller.dialogueEditor=dialogueEditor;
   status.textContent='Ready · 6 portraits loaded. Escape reveals the text; Tab moves between responses.';
  }catch(e){status.textContent='Dialogue unavailable: '+e.message+' The game and bonuses remain available.';}
  if(saved){if(['radius','wave','manual'].includes(saved.trigger))trigger.value=saved.trigger;if(Number.isFinite(saved.threshold))threshold.value=saved.threshold;if(storySelect&&library.dialogues.some(d=>d.id===saved.story)){storySelect.value=saved.story;renderNodes();if([...nodeSelect.options].some(o=>o.value===saved.node))nodeSelect.value=saved.node;}if(saved.bonusEditor)bonusEditor.value=saved.bonusEditor;if(rewards.catalog.some(b=>b.id===saved.chosenBonus))chosen.value=saved.chosenBonus;if(Number.isFinite(saved.bonusMultiplier))multiplier.value=saved.bonusMultiplier;}
- controller.setRunProfile=async profile=>{if(!activeRun){gymCatalog=rewards.catalog;gymLibrary=library;}const previous=activeRun;activeRun=profile||null;const source=activeRun?activeRun.dialogue.library:gymLibrary;if(previous?.id!==activeRun?.id)await useLibrary(source);dialogueHost.classList.remove('ambient');rewards.catalog=validate(activeRun?.bonuses.catalog||gymCatalog);rewards.enabled=activeRun?activeRun.bonuses.enabled:saved?.rewardsEnabled!==false;enabled.value=rewards.enabled?'yes':'no';chosen.replaceChildren();for(const bonus of rewards.catalog){const option=el('option',bonus.name,chosen);option.value=bonus.id;}chosen.onchange();bonusEditor.value=JSON.stringify(rewards.catalog,null,2);for(const field of [speed,trigger,threshold])field.disabled=!!activeRun;status.textContent=activeRun?'Witness run · three encounters triggered by vortex radius. Read at your own pace while the game is paused. Bonus offers wait until the encounter ends.':'Free play · configurable encounters.';renderRewards();};
- for(const field of [speed,trigger,threshold])field.disabled=!!activeRun;
+ controller.setRunProfile=async profile=>{if(!activeRun){gymCatalog=rewards.catalog;gymLibrary=library;}const previous=activeRun;activeRun=profile||null;const source=activeRun?activeRun.dialogue.library:gymLibrary;if(previous?.id!==activeRun?.id)await useLibrary(source);dialogueHost.classList.remove('ambient');rewards.catalog=validate(activeRun?.bonuses.catalog||gymCatalog);rewards.enabled=activeRun?activeRun.bonuses.enabled:saved?.rewardsEnabled!==false;enabled.value=rewards.enabled?'yes':'no';chosen.replaceChildren();for(const bonus of rewards.catalog){const option=el('option',bonus.name,chosen);option.value=bonus.id;}chosen.onchange();bonusEditor.value=JSON.stringify(rewards.catalog,null,2);for(const field of [trigger,threshold])field.closest('label').hidden=!!activeRun;status.textContent=activeRun?'Witness run · three encounters triggered by vortex radius. Read at your own pace while the game is paused. Bonus offers wait until the encounter ends.':'Free play · configurable encounters.';renderRewards();};
+ for(const field of [trigger,threshold])field.closest('label').hidden=!!activeRun;
  controller.captureSettings=()=>({catalog:rewards.catalog,rewardsEnabled:rewards.enabled,dialogueSpeed,trigger:trigger.value,threshold:Number(threshold.value),library,story:storySelect?.value,node:nodeSelect?.value,bonusEditor:bonusEditor.value,dialogueEditor:controller.dialogueEditor?.value,chosenBonus:chosen.value,bonusMultiplier:Number(multiplier.value)});
  renderRewards();
 }
