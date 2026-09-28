@@ -18,9 +18,9 @@ test('manual waves do not cancel vortex growth or its scheduled thresholds',()=>
 });
 test('production window reflects construction, soldiers, full-train wagons and repair',()=>{
  const s=new Simulation({buildingCount:1,buildingPopInterval:30,production:true,manualProduction:false});const b=s.buildings[0];b.spawnProgress=.5;b.spawnRate=6;b.hp=b.maxHp-20;
- let rows=progress(s);assert(rows.some(r=>r.label.includes('maison')));assert(rows.some(r=>r.label.includes('soldat')&&r.value===.5&&r.detail.startsWith('5 s')));assert(rows.some(r=>r.label.startsWith('Réparation')));
+ let rows=progress(s);assert(rows.some(r=>r.label.includes('house')));assert(rows.some(r=>r.label.includes('soldier')&&r.value===.5&&r.detail.startsWith('5 s')));assert(rows.some(r=>r.label.startsWith('Repair')));
  for(const w of s.wagons)while(s.passengers(w).length<w.capacity){const a=s.spawnActor();a.wagonId=w.id;}
- assert(progress(s).some(r=>r.label.includes('wagon')));s.cfg.production=false;assert(!progress(s).some(r=>r.label.startsWith('Production')));b.hp=0;assert(!progress(s).some(r=>r.label.startsWith('Réparation')));
+ assert(progress(s).some(r=>r.label.includes('carriage')));s.cfg.production=false;assert(!progress(s).some(r=>r.label.startsWith('Production')));b.hp=0;assert(!progress(s).some(r=>r.label.startsWith('Repair')));
 });
 for(const type of Object.keys(types))test(type+' fires at a reachable house even when a moving target is preferred',()=>{
  const s=new Simulation({buildingCount:0,buildingPopInterval:0,production:false,trainDamage:0,ramDamage:0});const b=s.addBuilding();b.x=9;b.z=0;b.regen=0;

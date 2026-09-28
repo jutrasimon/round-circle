@@ -30,7 +30,7 @@ test('playlist waits for deaths and delayed spawns, then blocks the next wave un
  runner.start({version:1,waves:[wave('a',2),wave('b')],playlist:[{waveId:'a',mode:'clear',gap:0},{waveId:'b',mode:'clear',gap:0}]});runner.tick();s.damage(s.monsters[0],999);runner.tick();assert.equal(rewards.pending,null);
  s.time=1;runner.tick();assert.equal(rewards.pending,null);s.damage(s.monsters[1],999);runner.tick();assert(rewards.pending);assert.equal(runner.index,0);
  runner.tick();assert.equal(rewards.queue.length,1);rewards.choose(rewards.pending.choices[0].id,rewards.revision);runner.tick();runner.tick();assert.equal(runner.index,1);
- s.damage(s.monsters[2],999);runner.tick();assert(rewards.pending);rewards.choose(rewards.pending.choices[0].id,rewards.revision);runner.tick();assert.equal(runner.state,'Playlist terminée');
+ s.damage(s.monsters[2],999);runner.tick();assert(rewards.pending);rewards.choose(rewards.pending.choices[0].id,rewards.revision);runner.tick();assert.equal(runner.state,'Playlist complete');
 });
 test('manual and vortex waves each complete exactly once, including cap deferral',()=>{
  for(const mode of ['manual','vortex']){const s=make(),r=new WaveRunner(s),events=[];s.cfg.monsterLimit=1;r.onWaveComplete=e=>events.push(e);

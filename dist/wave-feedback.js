@@ -4,19 +4,19 @@ const defaults={duration:1.8,textScale:1,shake:10,flash:.35,chromatic:24,contras
 function sanitize(data={}){const out={...defaults};for(const [key,min,max] of [['previewNumber',1,99],['duration',.4,5],['textScale',.5,1.8],['shake',0,30],['flash',0,1],['chromatic',0,80],['contrast',0,2]])if(Number.isFinite(data[key]))out[key]=Math.max(min,Math.min(max,data[key]));if(/^#[\da-f]{6}$/i.test(data.color))out.color=data.color;return out;}
 function install({stage,host,control,group,scene,pipeline,getVisual}){
  const key='round-circle-wave-feedback-v1';let settings={...defaults};try{settings=sanitize(JSON.parse(localStorage.getItem(key))||{});}catch{}
- const overlay=document.createElement('div');overlay.className='wave-feedback';overlay.setAttribute('aria-hidden','true');overlay.innerHTML='<div class="wave-flash"></div><div class="wave-title"><span class="wave-kicker">LE SEUIL EST FRANCHI</span><strong></strong><span class="wave-underline"></span></div>';stage.append(overlay);
+ const overlay=document.createElement('div');overlay.className='wave-feedback';overlay.setAttribute('aria-hidden','true');overlay.innerHTML='<div class="wave-flash"></div><div class="wave-title"><span class="wave-kicker">THE THRESHOLD IS CROSSED</span><strong></strong><span class="wave-underline"></span></div>';stage.append(overlay);
  const title=overlay.querySelector('.wave-title'),label=overlay.querySelector('strong'),flash=overlay.querySelector('.wave-flash');
  const announcer=document.createElement('span');announcer.className='wave-sr';announcer.setAttribute('role','status');announcer.setAttribute('aria-live','polite');stage.append(announcer);
  const canvas=stage.querySelector('canvas'),bars=stage.querySelector('#bars');
- const panel=group(host,'NEW WAVE · effets');host.prepend(panel);
- const help=document.createElement('p');help.textContent='Teste l’annonce sans faire apparaître de monstres, même en pause. Les réglages sont mémorisés dans ce navigateur.';panel.append(help);
+ const panel=group(host,'NEW WAVE · effects');host.prepend(panel);
+ const help=document.createElement('p');help.textContent='Preview the announcement without spawning monsters, even while paused. Settings are saved in this browser.';panel.append(help);
  let active=null,queue=[],sessionId=null;
  function save(){try{localStorage.setItem(key,JSON.stringify(settings));}catch{}}
- const preview={number:settings.previewNumber};control(panel,'Numéro de vague à tester',preview,'number',1,99,1,()=>{settings.previewNumber=preview.number;save();});
- const button=document.createElement('button');button.type='button';button.className='primary';button.textContent='▶ Tester NEW WAVE';panel.append(button);button.onclick=()=>{queue=[];begin({number:preview.number,preview:true});};
- const tweaks=group(panel,'Ajuster les effets');tweaks.open=false;
- for(const [k,n,min,max,step] of [['duration','Durée (s)',.4,5,.1],['textScale','Taille du texte',.5,1.8,.05],['shake','Vibration écran (px)',0,30,1],['flash','Intensité du flash',0,1,.05],['chromatic','Aberration chromatique',0,80,1],['contrast','Coup de contraste',0,2,.05]])control(tweaks,n,settings,k,min,max,step,save);
- control(tweaks,'Couleur du flash et du texte',settings,'color',0,0,0,save,'color');
+ const preview={number:settings.previewNumber};control(panel,'Wave number to preview',preview,'number',1,99,1,()=>{settings.previewNumber=preview.number;save();});
+ const button=document.createElement('button');button.type='button';button.className='primary';button.textContent='▶ Preview NEW WAVE';panel.append(button);button.onclick=()=>{queue=[];begin({number:preview.number,preview:true});};
+ const tweaks=group(panel,'Adjust effects');tweaks.open=false;
+ for(const [k,n,min,max,step] of [['duration','Duration (s)',.4,5,.1],['textScale','Text size',.5,1.8,.05],['shake','Screen shake (px)',0,30,1],['flash','Flash intensity',0,1,.05],['chromatic','Chromatic aberration',0,80,1],['contrast','Contrast pulse',0,2,.05]])control(tweaks,n,settings,k,min,max,step,save);
+ control(tweaks,'Flash and text colour',settings,'color',0,0,0,save,'color');
  function begin(event){active={...event,elapsed:0};label.textContent='WAVE '+event.number;announcer.textContent='Wave '+event.number;overlay.style.display='block';}
  function neutral(){const base=getVisual();pipeline.chromaticAberration.aberrationAmount=base.chromatic;scene.imageProcessingConfiguration.contrast=base.contrast;canvas.style.transform='';if(bars)bars.style.transform='';overlay.style.display='none';}
  function clear(){active=null;queue=[];neutral();}

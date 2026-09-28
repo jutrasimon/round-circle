@@ -27,3 +27,9 @@ body.game-modal{background:#16111e}.reward-overlay,.rct-dialogue{z-index:130}.re
 /* Major decisions take the entire viewport, without changing the world layout. */
 .game-modal .reward-overlay,.game-modal .rct-dialogue{position:fixed;inset:0}
 .hud-diagnostics{display:flex;justify-content:space-between;gap:12px;color:#aaa}.session-meta>small{display:block;font-size:10px;color:#ad9bb2;margin-bottom:3px}
+
+/* The simulation stays frozen until an explicit Start. Settings remain available. */
+#welcome{position:fixed;inset:0;z-index:100;display:grid;align-items:center;padding:clamp(24px,7vw,100px);background:linear-gradient(90deg,rgba(15,17,28,.97),rgba(15,17,28,.84) 45%,rgba(15,17,28,.15));overflow:auto}
+#welcome[hidden]{display:none}.welcome #stage{inset:0}.welcome #hudTop,.welcome #hudBottom,.welcome #productionPanel,.welcome .building-training,.welcome #bars,.welcome #recruitment,.welcome .recruit-notification{visibility:hidden}
+.welcome-card{max-width:590px;color:#f8edf6}.welcome-eyebrow{font-size:11px;letter-spacing:.3em;color:#d6aecb}.welcome-card h1{font-size:clamp(60px,9vw,116px);line-height:.87;letter-spacing:-.06em;margin:26px 0 32px;font-weight:900}.welcome-card h1 em{font-style:normal;color:#df91cf}.welcome-card h2{font-size:clamp(21px,3vw,30px);margin:0 0 14px}.welcome-card p{font-size:15px;line-height:1.7;color:#d5cbd8}.welcome-card .welcome-thought{color:#e6b9d9;font-style:italic;margin:22px 0 30px}.welcome-actions{display:flex;gap:12px}.welcome-actions button{min-width:128px;padding:14px 28px;font-size:16px}.welcome-actions .primary{background:#df91cf;color:#211d2b;border-color:#df91cf;font-weight:800}.welcome #laboratory{top:12px;bottom:12px;z-index:120}.welcome #error{z-index:130}#welcomeError{color:#ffb5b5}
+@media(max-width:760px){#welcome{background:rgba(15,17,28,.84);padding:28px}.welcome-card h1{font-size:72px}.welcome-card p{font-size:14px}.welcome #laboratory{inset:8px;width:auto}}

@@ -2,7 +2,7 @@
   "version": 1,
   "characters": {
     "monsieur": {
-      "name": "VOUS · MONSIEUR",
+      "name": "YOU · THE GENTLEMAN",
       "role": "player",
       "poses": {
         "neutral": "assets/portraits/monsieur-neutral.png",
@@ -11,7 +11,7 @@
       }
     },
     "locataire": {
-      "name": "LA LOCATAIRE",
+      "name": "THE TENANT",
       "role": "npc",
       "poses": {
         "neutral": "assets/portraits/locataire-neutral.png",
@@ -26,7 +26,7 @@
   "dialogues": [
     {
       "id": "first_contact",
-      "title": "Le seuil de propriété",
+      "title": "The Threshold of Ownership",
       "start": "arrival",
       "nodes": {
         "arrival": {
@@ -34,7 +34,7 @@
           "speaker": "locataire",
           "pose": "neutral",
           "backplate": "default",
-          "text": "Vous appelez ça votre maison. Nous appelons ça une intrusion.",
+          "text": "You call this your home. We call it an intrusion.",
           "next": "answer"
         },
         "answer": {
@@ -42,11 +42,11 @@
           "speaker": "monsieur",
           "pose": "neutral",
           "backplate": "default",
-          "text": "Que lui répondez-vous ?",
+          "text": "How do you respond?",
           "choices": [
             {
               "id": "papers",
-              "text": "Une intrusion ? Nous avons les papiers.",
+              "text": "An intrusion? We have the paperwork.",
               "next": "proud",
               "effects": [
                 {
@@ -58,7 +58,7 @@
             },
             {
               "id": "before",
-              "text": "Qui habitait ici avant nous ?",
+              "text": "Who lived here before us?",
               "next": "curious",
               "effects": [
                 {
@@ -70,7 +70,7 @@
             },
             {
               "id": "drink",
-              "text": "Puis-je vous offrir un verre ?",
+              "text": "May I offer you a drink?",
               "next": "offer",
               "effects": [
                 {
@@ -87,7 +87,7 @@
           "speaker": "monsieur",
           "pose": "satisfied",
           "backplate": "default",
-          "text": "Trois signatures. Deux cachets. Une maison parfaitement légitime.",
+          "text": "Three signatures. Two stamps. A perfectly legitimate home.",
           "next": "angry"
         },
         "angry": {
@@ -95,7 +95,7 @@
           "speaker": "locataire",
           "pose": "hostile",
           "backplate": "default",
-          "text": "Vous avez fait signer la porte. Vous auriez dû demander à ceux qui dormaient derrière.",
+          "text": "You had the door sign. You should have asked those sleeping behind it.",
           "next": "unease"
         },
         "unease": {
@@ -103,7 +103,7 @@
           "speaker": "monsieur",
           "pose": "worried",
           "backplate": "default",
-          "text": "La porte… savait signer ?",
+          "text": "The door… could sign?",
           "next": "second"
         },
         "curious": {
@@ -111,7 +111,7 @@
           "speaker": "locataire",
           "pose": "curious",
           "backplate": "default",
-          "text": "Ma mère. Puis sa mère. Puis quelque chose que nous appelions toutes les deux notre mère.",
+          "text": "My mother. Then her mother. Then something we both called our mother.",
           "next": "second",
           "effects": [
             {
@@ -126,7 +126,7 @@
           "speaker": "monsieur",
           "pose": "satisfied",
           "backplate": "default",
-          "text": "Il est local. Enfin, le verre est local.",
+          "text": "It is local. Well, the glass is local.",
           "next": "accept"
         },
         "accept": {
@@ -134,7 +134,7 @@
           "speaker": "locataire",
           "pose": "curious",
           "backplate": "default",
-          "text": "Gardez le verre. Versez le reste dans la serrure.",
+          "text": "Keep the glass. Pour the rest into the lock.",
           "next": "second",
           "effects": [
             {
@@ -149,11 +149,11 @@
           "speaker": "monsieur",
           "pose": "worried",
           "backplate": "default",
-          "text": "Comment poursuivre ?",
+          "text": "How do you continue?",
           "choices": [
             {
               "id": "listen",
-              "text": "Alors dites-moi ce que serait une invitation.",
+              "text": "Then tell me what an invitation would look like.",
               "next": "invitation",
               "effects": [
                 {
@@ -165,12 +165,12 @@
             },
             {
               "id": "defend",
-              "text": "Je ne peux pas abandonner les habitants.",
+              "text": "I cannot abandon the people who live here.",
               "next": "inhabitants"
             },
             {
               "id": "mother",
-              "text": "Votre mère voudrait-elle nous rencontrer ?",
+              "text": "Would your mother like to meet us?",
               "next": "mother",
               "when": {
                 "key": "listened",
@@ -185,7 +185,7 @@
           "speaker": "locataire",
           "pose": "curious",
           "backplate": "default",
-          "text": "Une place à table. Pas un titre de propriété.",
+          "text": "A place at the table. Not a deed.",
           "next": "end-peace"
         },
         "inhabitants": {
@@ -193,7 +193,7 @@
           "speaker": "locataire",
           "pose": "neutral",
           "backplate": "default",
-          "text": "Moi non plus. Voilà enfin une chose que vous comprenez.",
+          "text": "Neither can I. At last, something you understand.",
           "next": "end-tense"
         },
         "mother": {
@@ -201,7 +201,7 @@
           "speaker": "locataire",
           "pose": "curious",
           "backplate": "default",
-          "text": "Elle vous rencontre déjà. Pourquoi croyez-vous que le sol respire ?",
+          "text": "She is already meeting you. Why do you think the ground is breathing?",
           "next": "end-peace"
         },
         "end-peace": {
@@ -209,7 +209,7 @@
           "speaker": "monsieur",
           "pose": "worried",
           "backplate": "default",
-          "text": "Nous allons devoir agrandir la table.",
+          "text": "We will need a bigger table.",
           "effects": [
             {
               "type": "set",
@@ -230,7 +230,7 @@
           "speaker": "monsieur",
           "pose": "neutral",
           "backplate": "default",
-          "text": "Nous reparlerons de cette… mitoyenneté.",
+          "text": "We will discuss this… shared boundary again.",
           "effects": [
             {
               "type": "emit",

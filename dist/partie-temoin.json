@@ -1,7 +1,7 @@
 {
   "version": 1,
   "id": "partie-temoin",
-  "name": "Partie témoin · 5 minutes",
+  "name": "Witness run · 5 minutes",
   "stats": {
     "version": 1,
     "simulation": {
@@ -50,7 +50,7 @@
     },
     "monsters": {
       "crawler": {
-        "name": "Rampant",
+        "name": "Crawler",
         "hp": 35,
         "damage": 5,
         "speed": 0.8,
@@ -59,7 +59,7 @@
         "size": 0.55
       },
       "runner": {
-        "name": "Sprinteur",
+        "name": "Runner",
         "hp": 18,
         "damage": 3,
         "speed": 1.8,
@@ -68,7 +68,7 @@
         "size": 0.38
       },
       "brute": {
-        "name": "Colosse",
+        "name": "Brute",
         "hp": 150,
         "damage": 16,
         "speed": 0.42,
@@ -77,7 +77,7 @@
         "size": 1
       },
       "maw": {
-        "name": "Gueule traînante",
+        "name": "Shambling Maw",
         "hp": 65,
         "damage": 9,
         "speed": 1.2,
@@ -87,7 +87,7 @@
         "behavior": "hunter"
       },
       "spitter": {
-        "name": "Crache-bile",
+        "name": "Bile Spitter",
         "hp": 48,
         "damage": 7,
         "speed": 0.6,
@@ -97,7 +97,7 @@
         "behavior": "siege"
       },
       "carapace": {
-        "name": "Porte-cadavres",
+        "name": "Corpse Carrier",
         "hp": 180,
         "damage": 13,
         "speed": 0.45,
@@ -108,7 +108,7 @@
         "armor": 0.4
       },
       "cathedral": {
-        "name": "Cathédrale de chair",
+        "name": "Flesh Cathedral",
         "hp": 420,
         "damage": 14,
         "speed": 0.32,
@@ -120,7 +120,7 @@
         "splash": 1.6
       },
       "widow": {
-        "name": "Veuve du seuil",
+        "name": "Threshold Widow",
         "hp": 260,
         "damage": 10,
         "speed": 1.45,
@@ -191,7 +191,7 @@
     "waves": [
       {
         "id": "arrival",
-        "name": "01 · Le bruit à la porte",
+        "name": "01 · A Noise at the Door",
         "groups": [
           {
             "type": "crawler",
@@ -217,7 +217,7 @@
       },
       {
         "id": "neighbors",
-        "name": "02 · Des voix dehors",
+        "name": "02 · Voices Outside",
         "groups": [
           {
             "type": "runner",
@@ -243,7 +243,7 @@
       },
       {
         "id": "knocks",
-        "name": "03 · On frappe encore",
+        "name": "03 · Another Knock",
         "groups": [
           {
             "type": "crawler",
@@ -279,7 +279,7 @@
       },
       {
         "id": "walls",
-        "name": "04 · Les murs écoutent",
+        "name": "04 · The Walls Are Listening",
         "groups": [
           {
             "type": "runner",
@@ -315,7 +315,7 @@
       },
       {
         "id": "siege",
-        "name": "05 · La limite",
+        "name": "05 · The Boundary",
         "groups": [
           {
             "type": "spitter",
@@ -351,7 +351,7 @@
       },
       {
         "id": "passage",
-        "name": "06 · Le passage se rétrécit",
+        "name": "06 · The Passage Narrows",
         "groups": [
           {
             "type": "runner",
@@ -387,7 +387,7 @@
       },
       {
         "id": "fracture",
-        "name": "07 · La maison se fend",
+        "name": "07 · A Crack in the House",
         "groups": [
           {
             "type": "runner",
@@ -433,7 +433,7 @@
       },
       {
         "id": "echo",
-        "name": "08 · Ceux qui attendent",
+        "name": "08 · Those Who Wait",
         "groups": [
           {
             "type": "maw",
@@ -479,7 +479,7 @@
       },
       {
         "id": "door",
-        "name": "09 · Les deux côtés de la porte",
+        "name": "09 · Both Sides of the Door",
         "groups": [
           {
             "type": "runner",
@@ -525,7 +525,7 @@
       },
       {
         "id": "threshold",
-        "name": "10 · Le seuil",
+        "name": "10 · The Threshold",
         "groups": [
           {
             "type": "runner",
@@ -638,83 +638,83 @@
     "catalog": [
       {
         "id": "giants",
-        "name": "Syndicat des géants",
+        "name": "Union of Giants",
         "icon": "✊",
         "effect": "actorDamage",
         "factor": 1.25,
-        "description": "Chaque soldat frappe plus fort. Les recrues aussi."
+        "description": "Every soldier hits harder. Future recruits included."
       },
       {
         "id": "factory",
-        "name": "Quart de nuit",
+        "name": "Night Shift",
         "icon": "⌂",
         "effect": "production",
         "factor": 1.25,
-        "description": "Les maisons accélèrent la production, jusqu’à la limite de population."
+        "description": "Houses recruit faster, up to the population limit."
       },
       {
         "id": "frenzy",
-        "name": "Doigts sur la gâchette",
+        "name": "Trigger Fingers",
         "icon": "ϟ",
         "effect": "actorRate",
         "factor": 1.25,
-        "description": "La cadence des tirs explose. Les munitions ? On verra plus tard."
+        "description": "Fire rates soar. Ammunition? We will worry about that later."
       },
       {
         "id": "horizon",
-        "name": "Le quartier nous appartient",
+        "name": "This Neighbourhood Is Ours",
         "icon": "◎",
         "effect": "actorRange",
         "factor": 1.25,
-        "description": "Les soldats atteignent les ennemis bien au-delà de leur portée de base."
+        "description": "Soldiers reach enemies well beyond their base range."
       },
       {
         "id": "titan",
-        "name": "Locataires indestructibles",
+        "name": "Unbreakable Tenants",
         "icon": "♥",
         "effect": "actorHp",
         "factor": 1.25,
-        "description": "Multiplie la vie maximale et la vie restante des soldats."
+        "description": "Multiplies maximum and remaining soldier health."
       },
       {
         "id": "fortress",
-        "name": "Béton armé de mauvaise foi",
+        "name": "Reinforced Denial",
         "icon": "▣",
         "effect": "buildingHp",
         "factor": 1.5,
-        "description": "Renforce la vie maximale et restante des maisons vivantes."
+        "description": "Increases maximum and remaining health of standing houses."
       },
       {
         "id": "repair",
-        "name": "Ça repousse",
+        "name": "It Grows Back",
         "icon": "✚",
         "effect": "regen",
         "factor": 1.25,
-        "description": "Les maisons se régénèrent beaucoup plus vite. Les ruines restent des ruines."
+        "description": "Houses regenerate much faster. Ruins remain ruins."
       },
       {
         "id": "cannon",
-        "name": "Canon de copropriété",
+        "name": "Condominium Cannon",
         "icon": "◆",
         "effect": "trainDamage",
         "factor": 1.5,
-        "description": "Multiplie les dégâts de chaque tir de la locomotive."
+        "description": "Multiplies the damage of every locomotive shot."
       },
       {
         "id": "convoy",
-        "name": "Train blindé",
+        "name": "Armoured Train",
         "icon": "▰",
         "effect": "trainHp",
         "factor": 1.5,
-        "description": "Multiplie la vie du convoi, wagons actuels et futurs compris."
+        "description": "Multiplies convoy health, including current and future carriages."
       },
       {
         "id": "ram",
-        "name": "Priorité absolue",
+        "name": "Absolute Right of Way",
         "icon": "➤",
         "effect": "ram",
         "factor": 1.25,
-        "description": "Multiplie les dégâts de collision contre les monstres, sans augmenter l’usure."
+        "description": "Multiplies collision damage against monsters without increasing wear."
       }
     ]
   },
@@ -723,7 +723,7 @@
       "version": 1,
       "characters": {
         "monsieur": {
-          "name": "VOUS · MONSIEUR",
+          "name": "YOU · THE GENTLEMAN",
           "role": "player",
           "poses": {
             "neutral": "assets/portraits/monsieur-neutral.png",
@@ -732,7 +732,7 @@
           }
         },
         "locataire": {
-          "name": "LA LOCATAIRE",
+          "name": "THE TENANT",
           "role": "npc",
           "poses": {
             "neutral": "assets/portraits/locataire-neutral.png",
@@ -747,7 +747,7 @@
       "dialogues": [
         {
           "id": "the_line",
-          "title": "Le trait",
+          "title": "The Line",
           "start": "arrival",
           "nodes": {
             "arrival": {
@@ -755,7 +755,7 @@
               "speaker": "locataire",
               "pose": "neutral",
               "backplate": "default",
-              "text": "Vous avez tracé un cercle, puis écrit « chez nous » à l’intérieur.",
+              "text": "You drew a circle, then wrote “our home” inside it.",
               "next": "reply"
             },
             "reply": {
@@ -763,7 +763,7 @@
               "speaker": "monsieur",
               "pose": "neutral",
               "backplate": "default",
-              "text": "Nous voulions un endroit où rentrer.",
+              "text": "We wanted somewhere to come back to.",
               "next": "answer"
             },
             "answer": {
@@ -771,11 +771,11 @@
               "speaker": "monsieur",
               "pose": "worried",
               "backplate": "default",
-              "text": "La Locataire vous regarde.",
+              "text": "The Tenant looks at you.",
               "choices": [
                 {
                   "id": "listen",
-                  "text": "Montrez-moi ce que le trait a coupé.",
+                  "text": "Show me what the line cut through.",
                   "next": "listened",
                   "effects": [
                     {
@@ -787,7 +787,7 @@
                 },
                 {
                   "id": "claim",
-                  "text": "Les murs prouvent que nous sommes chez nous.",
+                  "text": "The walls prove this is our home.",
                   "next": "claimed",
                   "effects": [
                     {
@@ -804,20 +804,20 @@
               "speaker": "locataire",
               "pose": "curious",
               "backplate": "default",
-              "text": "Nous aussi, nous voulions rentrer."
+              "text": "We wanted to come home too."
             },
             "claimed": {
               "type": "end",
               "speaker": "locataire",
               "pose": "hostile",
               "backplate": "default",
-              "text": "Un mur prouve seulement qu’on a cessé de regarder derrière."
+              "text": "A wall only proves you stopped looking behind it."
             }
           }
         },
         {
           "id": "the_passage",
-          "title": "Le passage",
+          "title": "The Passage",
           "start": "arrival",
           "nodes": {
             "arrival": {
@@ -825,7 +825,7 @@
               "speaker": "locataire",
               "pose": "neutral",
               "backplate": "default",
-              "text": "Vos maisons ont des murs. Les nôtres avaient des passages.",
+              "text": "Your houses have walls. Ours had passages.",
               "next": "reply"
             },
             "reply": {
@@ -833,7 +833,7 @@
               "speaker": "monsieur",
               "pose": "worried",
               "backplate": "default",
-              "text": "Si j’ouvre un passage, qui protège ceux qui sont derrière moi ?",
+              "text": "If I open a passage, who protects the people behind me?",
               "next": "answer"
             },
             "answer": {
@@ -841,11 +841,11 @@
               "speaker": "monsieur",
               "pose": "worried",
               "backplate": "default",
-              "text": "La porte reste devant vous.",
+              "text": "The door stands before you.",
               "choices": [
                 {
                   "id": "passage",
-                  "text": "Gardons un passage entre nous.",
+                  "text": "Let us keep a passage between us.",
                   "next": "opened",
                   "effects": [
                     {
@@ -857,7 +857,7 @@
                 },
                 {
                   "id": "wait",
-                  "text": "Attendons la fin pour décider.",
+                  "text": "Let us wait until the end to decide.",
                   "next": "closed"
                 }
               ]
@@ -867,20 +867,20 @@
               "speaker": "locataire",
               "pose": "curious",
               "backplate": "default",
-              "text": "Une porte peut protéger sans être fermée des deux côtés."
+              "text": "A door can protect without being locked on both sides."
             },
             "closed": {
               "type": "end",
               "speaker": "locataire",
               "pose": "neutral",
               "backplate": "default",
-              "text": "Alors la fin décidera pour nous."
+              "text": "Then the end will decide for us."
             }
           }
         },
         {
           "id": "the_key",
-          "title": "La clé",
+          "title": "The Key",
           "start": "arrival",
           "nodes": {
             "arrival": {
@@ -888,7 +888,7 @@
               "speaker": "locataire",
               "pose": "neutral",
               "backplate": "default",
-              "text": "Quand le cercle touchera les deux maisons, qui devra partir ?",
+              "text": "When the circle reaches both houses, who will have to leave?",
               "next": "reply"
             },
             "reply": {
@@ -896,7 +896,7 @@
               "speaker": "monsieur",
               "pose": "worried",
               "backplate": "default",
-              "text": "Je ne veux plus que le mot « nous » ait besoin d’un dehors.",
+              "text": "I no longer want “us” to need an outside.",
               "next": "answer"
             },
             "answer": {
@@ -904,11 +904,11 @@
               "speaker": "monsieur",
               "pose": "worried",
               "backplate": "default",
-              "text": "Que faites-vous de la clé ?",
+              "text": "What do you do with the key?",
               "choices": [
                 {
                   "id": "invite",
-                  "text": "La porte s’ouvrira dans les deux sens.",
+                  "text": "The door will open both ways.",
                   "next": "invited",
                   "effects": [
                     {
@@ -920,7 +920,7 @@
                 },
                 {
                   "id": "keep",
-                  "text": "Je garderai la clé.",
+                  "text": "I will keep the key.",
                   "next": "kept"
                 }
               ]
@@ -930,14 +930,14 @@
               "speaker": "locataire",
               "pose": "curious",
               "backplate": "default",
-              "text": "Je vous ai entendu. Voyons si la maison peut en faire autant."
+              "text": "I heard you. Let us see if the house can do the same."
             },
             "kept": {
               "type": "end",
               "speaker": "locataire",
               "pose": "hostile",
               "backplate": "default",
-              "text": "Une clé peut aussi fermer celui qui la tient."
+              "text": "A key can also lock in the person holding it."
             }
           }
         }
@@ -965,9 +965,9 @@
   },
   "endings": {
     "harmony": {
-      "eyebrow": "LA PORTE S’OUVRE",
-      "title": "Une maison commune",
-      "text": "Le vortex cesse d’avancer. Monsieur demande : « Et si la maison n’avait jamais été à nous ? » La Locataire répond : « Elle n’était pas à nous non plus. Elle peut peut-être nous garder tous. »",
+      "eyebrow": "THE DOOR OPENS",
+      "title": "A Home Together",
+      "text": "The vortex stops growing. The Gentleman asks: “What if the house was never ours?” The Tenant replies: “It was never ours either. Perhaps it can hold all of us.”",
       "requiredFlags": [
         "listened",
         "passage",
@@ -976,20 +976,20 @@
       "minBuildings": 1
     },
     "force": {
-      "eyebrow": "LE CERCLE SE TAIT",
-      "title": "Une victoire vide",
-      "text": "Il ne reste personne pour contester le titre. La maison n’a jamais paru si vide.",
+      "eyebrow": "THE CIRCLE FALLS SILENT",
+      "title": "An Empty Victory",
+      "text": "No one remains to dispute the deed. The house has never felt so empty.",
       "waveId": "threshold"
     },
     "departure": {
-      "eyebrow": "LE CERCLE SE REFERME",
-      "title": "Vers une autre maison",
-      "text": "Le train part avec ce qu’il peut porter. Derrière lui, une fenêtre s’allume. Le mot « maison » change d’habitant sans changer d’adresse."
+      "eyebrow": "THE CIRCLE CLOSES",
+      "title": "Towards Another Home",
+      "text": "The train leaves with all it can carry. Behind it, a window lights up. The word “home” changes inhabitants without changing its address."
     },
     "defeat": {
-      "eyebrow": "LE TRAIN S’ARRÊTE",
-      "title": "Le convoi perdu",
-      "text": "Les maisons gardent leurs lumières allumées pour un train qui ne revient pas."
+      "eyebrow": "THE TRAIN STOPS",
+      "title": "The Lost Convoy",
+      "text": "The houses leave their lights on for a train that never returns."
     }
   },
   "audio": {
@@ -999,8 +999,8 @@
   "soldiers": [
     {
       "id": "guardian",
-      "name": "Gardien",
-      "role": "Un rempart lent, très résistant, au contact.",
+      "name": "Guardian",
+      "role": "Slow, tough and built for close combat.",
       "color": "#e9b96b",
       "duration": 14,
       "stats": {
@@ -1013,8 +1013,8 @@
     },
     {
       "id": "sniper",
-      "name": "Veilleur",
-      "role": "Très fragile. Un tir lourd à très longue portée.",
+      "name": "Watcher",
+      "role": "Very fragile. Heavy shots at extreme range.",
       "color": "#91c9ff",
       "duration": 20,
       "stats": {
@@ -1027,8 +1027,8 @@
     },
     {
       "id": "gunner",
-      "name": "Rafale",
-      "role": "Tirs très rapides, portée courte, résistance modeste.",
+      "name": "Gunner",
+      "role": "Rapid fire, short range and modest health.",
       "color": "#ed94c9",
       "duration": 12,
       "stats": {
@@ -1041,8 +1041,8 @@
     },
     {
       "id": "scout",
-      "name": "Éclaireur",
-      "role": "Recrutement rapide et grande mobilité.",
+      "name": "Scout",
+      "role": "Quick to recruit and highly mobile.",
       "color": "#9de2b1",
       "duration": 6,
       "stats": {

@@ -46,7 +46,7 @@
   },
   "monsters": {
     "crawler": {
-      "name": "Rampant",
+      "name": "Crawler",
       "hp": 35,
       "damage": 5,
       "speed": 0.8,
@@ -55,7 +55,7 @@
       "size": 0.55
     },
     "runner": {
-      "name": "Sprinteur",
+      "name": "Runner",
       "hp": 18,
       "damage": 3,
       "speed": 1.8,
@@ -64,7 +64,7 @@
       "size": 0.38
     },
     "brute": {
-      "name": "Colosse",
+      "name": "Brute",
       "hp": 150,
       "damage": 16,
       "speed": 0.42,
@@ -73,7 +73,7 @@
       "size": 1
     },
     "maw": {
-      "name": "Gueule traînante",
+      "name": "Shambling Maw",
       "hp": 65,
       "damage": 9,
       "speed": 1.2,
@@ -83,7 +83,7 @@
       "behavior": "hunter"
     },
     "spitter": {
-      "name": "Crache-bile",
+      "name": "Bile Spitter",
       "hp": 48,
       "damage": 7,
       "speed": 0.6,
@@ -93,7 +93,7 @@
       "behavior": "siege"
     },
     "carapace": {
-      "name": "Porte-cadavres",
+      "name": "Corpse Carrier",
       "hp": 180,
       "damage": 13,
       "speed": 0.45,
@@ -104,7 +104,7 @@
       "armor": 0.4
     },
     "cathedral": {
-      "name": "Cathédrale de chair",
+      "name": "Flesh Cathedral",
       "hp": 650,
       "damage": 22,
       "speed": 0.32,
@@ -116,7 +116,7 @@
       "splash": 1.6
     },
     "widow": {
-      "name": "Veuve du seuil",
+      "name": "Threshold Widow",
       "hp": 420,
       "damage": 15,
       "speed": 1.45,
