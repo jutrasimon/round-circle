@@ -1,5 +1,5 @@
-import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=031';
-import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=031';
+import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=032';
+import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=032';
 
 const $=s=>document.querySelector(s);
 const el=(tag,text,parent)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;parent?.append(node);return node;};
@@ -33,7 +33,7 @@ async function install(){
  const dialogueHost=el('div',undefined,stage);
  function renderRewards(){
   const pending=dialogEngine?.active?null:rewards.pending;overlay.hidden=!pending;dialogueHost.style.visibility='';dialogueHost.inert=false;
-  shelf.replaceChildren();for(const b of rewards.artifacts){const item=button(shelf,b.icon,()=>{});item.className='artifact';item.setAttribute('aria-label',b.name+' · ×'+b.factor);const tip=el('span',b.name+' · ×'+b.factor+'\n'+effects[b.effect]+' : ×'+sim.multiplier(b.effect).toLocaleString('fr-CA'),item);tip.className='artifact-tip';}
+  shelf.replaceChildren();const grouped=new Map();for(const b of rewards.artifacts){const group=grouped.get(b.id)||{...b,count:0};group.count++;grouped.set(b.id,group);}for(const b of grouped.values()){const description=b.name+' · '+b.count+' acquis\n'+effects[b.effect]+' : ×'+sim.multiplier(b.effect).toLocaleString('fr-CA')+'\n'+b.description;const show=()=>window.roundCircleHud?.showArtifact(description);const item=button(shelf,b.icon,show);item.className='artifact';item.setAttribute('aria-label',description);item.setAttribute('aria-describedby','artifactDetails');item.onpointerenter=show;item.onfocus=show;item.onpointerleave=()=>window.roundCircleHud?.hideArtifact();item.onblur=()=>window.roundCircleHud?.hideArtifact();if(b.count>1)el('small','×'+b.count,item);}
   bonusSummary.textContent=rewards.artifacts.length+' artefacts · '+Object.entries(sim.bonuses).map(([k,v])=>effects[k]+' ×'+v.toLocaleString('fr-CA')).join(' · ');
   if(!pending){if(wasOpen){wasOpen=false;if(dialogEngine?.active)dialogueHost.querySelector('button')?.focus();else lastFocus?.focus();}return;}
   if(!wasOpen){lastFocus=document.activeElement;wasOpen=true;}

@@ -123,3 +123,9 @@ Les maisons attendent une commande : cliquer une maison ou son nom dans RECRUTEM
 `dist/partie-temoin.json` contient les quatre profils, leurs durées, les statistiques, dix vagues (118 ennemis), les trois rencontres philosophiques, les bonus et les fins. Les vagues commencent à 20 secondes, puis toutes les 28 secondes; leur effectif et leur résistance augmentent. Les cinq minutes sont du temps de simulation. Le levier du convoi règle désormais toute la simulation de ×0,25 à ×3. Les dialogues attendent le joueur et mettent le jeu en pause; les bonus et les annonces de vague attendent leur fermeture.
 
 Musique et effets démarrent à 8 %. Les géométries partageant une matière sont fusionnées, les rendus des morts sont libérés, les effets simultanés sont plafonnés et les interfaces sont mises à jour moins souvent que le rendu.
+
+## Interface 032 — zones réservées
+
+Le terrain occupe la zone centrale. Un bandeau supérieur contient la vie du convoi, la population, la vague, le temps et Pause/Options. Le bandeau inférieur contient les bonus regroupés, la vitesse globale et le bouton Maisons. La fiche d’un bonus s’ouvre au-dessus de son bandeau. Le laboratoire et le récapitulatif des maisons sont repliés par défaut.
+
+Les maisons disponibles portent un petit « + ». Le recrutement reste contextuel; les commandes affichent leur progression sur le bâtiment. Les notifications passent en file et attendent la fin des dialogues ou récompenses. Pendant une décision narrative, un choix de bonus ou le bilan, le HUD est masqué et ses commandes sont inactives. Les dialogues et bonus occupent alors tout l’écran. Les styles des dialogues sont centralisés dans `dist/dialogue/src/dialogue.css`; `dist/hud.css` gère les zones et les adaptations aux petits écrans.
