@@ -20,7 +20,7 @@ test('reserved recruitment slots explain full state and a casualty reopens it',(
 test('ending announcements distinguish mechanical causes from the peaceful resolution',()=>{
  assert.match(describe('defeat','defeat',4).cause,/0 HP/);
  assert.match(describe('defeat','defeat',4).eyebrow,/WAVE 4/);
- assert.match(describe('radius','departure',10).title,/SWALLOWED/);
+ assert.match(describe('radius','departure',10).title,/MADE IT THROUGH/);
  assert.match(describe('radius','harmony',10).title,/OPENS/);
 });
 test('cinematic animates real Babylon nodes, preserves simulation state and restores camera on completion/reset',()=>{

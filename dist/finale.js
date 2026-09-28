@@ -2,8 +2,8 @@
 'use strict';
 function describe(reason,outcome,wave){
  const defeat=reason==='defeat',harmony=outcome==='harmony';
- return {title:defeat?'THE CONVOY IS LOST':harmony?'THE CIRCLE OPENS':'THE CITY IS SWALLOWED',
-  cause:defeat?'The locomotive reached 0 HP. The convoy can go no further.':harmony?'The vortex reached its limit. Your three invitations and a surviving home turn the ending into a shared beginning.':'The vortex reached its maximum radius. Time ran out for the village.',
+ return {title:defeat?'THE CONVOY IS LOST':harmony?'THE CIRCLE OPENS':outcome==='force'?'YOU HELD THE LINE':'YOU MADE IT THROUGH',
+  cause:defeat?'The locomotive reached 0 HP. The convoy can go no further.':harmony?'The vortex reached its limit. Your three invitations and a surviving home turn the ending into a shared beginning.':'Five minutes survived. '+(outcome==='force'?'Final wave defeated. ':'')+'The vortex takes the city, but your convoy endured.',
   eyebrow:'END OF THE JOURNEY · WAVE '+wave};
 }
 function create({B,scene,camera,sim,renderers,vortexFx}){

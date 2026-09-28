@@ -5,11 +5,71 @@ const clampTrainSpeed=value=>Number.isFinite(Number(value))?Math.max(1,Math.min(
 const defaults={trainHp:200,trainDamage:12,trainSpeed:1.4,trainRange:6,trainCooldown:1.1,ramDamage:6,ramSelfDamage:.4,wagonHp:100,capacity:4,actorHp:35,actorDamage:7,actorSpeed:2.8,actorRange:5,actorCooldown:.8,actorLimit:160,monsterLimit:160,buildingHp:160,buildingCount:12,buildingPopInterval:30,buildingRegen:1,buildingSpawnRate:3,production:true,manualProduction:true,useBudget:true,vortexRadius:1.2};
 const types={crawler:{name:'Crawler',hp:35,damage:5,speed:.8,range:3,cooldown:1.2,size:.55},runner:{name:'Runner',hp:18,damage:3,speed:1.8,range:3,cooldown:.7,size:.38},brute:{name:'Brute',hp:150,damage:16,speed:.42,range:3.5,cooldown:1.8,size:1},maw:{name:'Shambling Maw',hp:65,damage:9,speed:1.2,range:3.5,cooldown:.9,size:.85,behavior:'hunter'},spitter:{name:'Bile Spitter',hp:48,damage:7,speed:.6,range:5,cooldown:1.8,size:.8,behavior:'siege'},carapace:{name:'Corpse Carrier',hp:180,damage:13,speed:.45,range:4,cooldown:1.5,size:1.1,behavior:'siege',armor:.4},cathedral:{name:'Flesh Cathedral',hp:650,damage:22,speed:.32,range:6,cooldown:2.4,size:1.85,elite:true,behavior:'siege',splash:1.6},widow:{name:'Threshold Widow',hp:420,damage:15,speed:1.45,range:4.5,cooldown:.8,size:1.5,elite:true,behavior:'hunter'}};
 const soldierProfiles=[
- {id:'guardian',name:'Guardian',role:'Slow, tough and built for close combat.',color:'#e9b96b',duration:14,stats:{maxHp:220,damage:7,speed:.8,range:1.8,cooldown:1.4}},
- {id:'sniper',name:'Watcher',role:'Very fragile. Heavy shots at extreme range.',color:'#91c9ff',duration:20,stats:{maxHp:28,damage:40,speed:1.2,range:8,cooldown:4}},
- {id:'gunner',name:'Gunner',role:'Rapid fire, short range and modest health.',color:'#ed94c9',duration:12,stats:{maxHp:48,damage:4,speed:2,range:3,cooldown:.18}},
- {id:'scout',name:'Scout',role:'Quick to recruit and highly mobile.',color:'#9de2b1',duration:6,stats:{maxHp:65,damage:11,speed:5.8,range:2.4,cooldown:.65}}
+ {
+  "id": "guardian",
+  "name": "Guardian",
+  "role": "Shields nearby allies from 40% of enemy fire. Protection does not stack.",
+  "color": "#e9b96b",
+  "duration": 10,
+  "stats": {
+   "maxHp": 220,
+   "damage": 14,
+   "speed": 0.8,
+   "range": 1.8,
+   "cooldown": 1.4,
+   "guardRadius": 3
+  }
+ },
+ {
+  "id": "sniper",
+  "name": "Watcher",
+  "role": "Pierces armour. Half damage without Scout marks; cannot hit fast unmarked enemies. Minimum range: 3.",
+  "color": "#91c9ff",
+  "duration": 20,
+  "stats": {
+   "maxHp": 28,
+   "damage": 32,
+   "speed": 1.2,
+   "range": 6,
+   "cooldown": 4,
+   "minRange": 3,
+   "maxTargetSpeed": 1.3,
+   "armorPiercing": 1,
+   "unmarkedDamage": 0.5
+  }
+ },
+ {
+  "id": "gunner",
+  "name": "Gunner",
+  "role": "Rapid fire against light enemies. Low-calibre shots struggle against armour.",
+  "color": "#ed94c9",
+  "duration": 12,
+  "stats": {
+   "maxHp": 48,
+   "damage": 4,
+   "speed": 2,
+   "range": 3,
+   "cooldown": 0.22
+  }
+ },
+ {
+  "id": "scout",
+  "name": "Scout",
+  "role": "Marks enemies for 3 s: other profiles and the train deal 35% more damage.",
+  "color": "#9de2b1",
+  "duration": 8,
+  "stats": {
+   "maxHp": 65,
+   "damage": 12,
+   "speed": 5.8,
+   "range": 2.4,
+   "cooldown": 0.65,
+   "markDuration": 3
+  }
+ }
 ];
+const additiveBonuses=new Set(['trainHp','trainDamage','ram']);
+function bonusLabel(key,factor){return additiveBonuses.has(key)?'+'+Math.round((factor-1)*100)+'% base':'×'+factor;}
 const legacyRanges={crawler:.9,runner:.8,brute:1.3,maw:.65,spitter:3.5,carapace:1,cathedral:2.4,widow:1.2};
 function migrateRange(type,range,revision){return revision!==2&&range===legacyRanges[type]?types[type].range:range;}
 const profileDefaults={budget:100,shares:{hp:20,damage:25,speed:15,range:20,rate:20},weights:{hp:1,damage:1.5,speed:1,range:1.5,rate:2}};
@@ -48,14 +108,18 @@ class Simulation{
  removeWagon(id){let i=id===undefined?this.wagons.length-1:this.wagons.findIndex(w=>w.id===id);if(i<0)return;const w=this.wagons[i];this.passengers(w).forEach(a=>this.disembark(a,w));this.wagons.splice(i,1);this.positionTrain();}
  capacity(w,n){w.capacity=Math.max(0,Math.min(12,Math.floor(n)));this.passengers(w).slice(w.capacity).forEach(a=>this.disembark(a,w));}
  multiplier(key){return this.bonuses?.[key]||1;}
- applyRunBonus(key,factor){const previous=this.multiplier(key),next=Math.min(1000000,previous*factor),ratio=next/previous;this.bonuses[key]=next;for(const e of this.living()){if((key==='actorHp'&&e.kind==='actor')||(key==='buildingHp'&&e.kind==='building')||(key==='trainHp'&&['train','wagon'].includes(e.kind))){e.hp*=ratio;e.maxHp*=ratio;}}}
+ previewBonus(key,factor){const previous=this.multiplier(key);return Math.min(1000000,additiveBonuses.has(key)?previous+factor-1:previous*factor);}
+ applyRunBonus(key,factor){const previous=this.multiplier(key),next=this.previewBonus(key,factor),ratio=next/previous;this.bonuses[key]=next;for(const e of this.living()){if((key==='actorHp'&&e.kind==='actor')||(key==='buildingHp'&&e.kind==='building')||(key==='trainHp'&&['train','wagon'].includes(e.kind))){e.hp*=ratio;e.maxHp*=ratio;}}}
  attackRange(e){return e.range*(e.kind==='actor'?this.multiplier('actorRange'):1);}
  freeProfile(){return {maxHp:this.cfg.actorHp,damage:this.cfg.actorDamage,speed:this.cfg.actorSpeed,range:this.cfg.actorRange,cooldown:this.cfg.actorCooldown};}
  spawnActor(home=null,override=null){if(home&&(home.hp<=0||home.dead))return null;if(this.actors.filter(a=>a.hp>0).length>=this.cfg.actorLimit)return null;const stats=override||(home&&this.cfg.useBudget?profileStats(this.profile):this.freeProfile());const a=this.entity('actor','Soldier '+this.nextId,{...stats,wagonId:null,angle:home?home.angle:this.angle-.4,radius:home?8.4:STREET,homeId:home?.id??null});a.x=Math.cos(a.angle)*a.radius;a.z=Math.sin(a.angle)*a.radius;this.actors.push(a);this.events.push({type:'born',id:a.id,x:a.x,z:a.z});return a;}
  spawn(type,overrides={}){if(!types[type])throw Error('Unknown monster type');if(this.monsters.filter(a=>a.hp>0).length>=this.cfg.monsterLimit)return null;const spec={...(this.monsterSpecs?.[type]||types[type]),...overrides};const a=this.nextId*2.399963%TAU,r=this.cfg.vortexRadius*.55;const m=this.entity('monster',spec.name+' '+this.nextId,{...spec,type,maxHp:spec.hp,angle:a,x:Math.cos(a)*r,z:Math.sin(a)*r});this.monsters.push(m);this.events.push({type:'spawn',id:m.id,x:m.x,z:m.z});return m;}
  positionTrain(){[this.train,...this.wagons].forEach((w,i)=>{w.angle=this.angle-i*.22;w.x=Math.cos(w.angle)*RAIL;w.z=Math.sin(w.angle)*RAIL;});for(const a of this.actors)if(a.wagonId){const w=this.wagons.find(w=>w.id===a.wagonId);if(w){a.x=w.x;a.z=w.z;a.angle=w.angle;}}}
  damage(target,n){if(target.hp<=0||target.dead)return;const actual=Math.min(target.hp,Math.max(0,n));this.metrics.damage[target.kind]=(this.metrics.damage[target.kind]||0)+actual;target.hp=Math.max(0,target.hp-Math.max(0,n));this.events.push({type:'hit',id:target.id,x:target.x,z:target.z,amount:n});if(target.hp===0){this.metrics.lost[target.kind]=(this.metrics.lost[target.kind]||0)+1;if(target.kind==='monster')this.metrics.killsByType[target.type]=(this.metrics.killsByType[target.type]||0)+1;this.events.push({type:'death',id:target.id,x:target.x,z:target.z});if(target.kind==='monster')this.kills++;if(target.kind==='building'){target.dead=true;target.training=null;target.readyNotice=null;}if(target.kind==='wagon')this.removeWagon(target.id);}}
- fire(source,target){this.metrics.shots[source.kind]=(this.metrics.shots[source.kind]||0)+1;this.events.push({type:'shot',from:{x:source.x,z:source.z},to:{x:target.x,z:target.z},hostile:source.kind==='monster'});this.damage(target,source.damage*(source.kind==='actor'?this.multiplier('actorDamage'):source.kind==='train'?this.multiplier('trainDamage'):1)*(1-(target.armor||0)));if(source.splash)for(const other of this.living())if(other.id!==target.id&&(other.kind!=='actor'||!other.wagonId)&&this.distance(other,target)<=source.splash)this.damage(other,source.damage*.4);source.timer=Math.max(.005,source.cooldown/(source.kind==='actor'?this.multiplier('actorRate'):1));}
+ // A Guardian covers nearby allies (including the convoy), never itself; auras do not stack.
+ guardedDamage(target,amount){const guard=this.actors.some(a=>a.hp>0&&a.guardRadius>0&&a.id!==target.id&&this.distance(a,target)<=a.guardRadius);return amount*(guard?.6:1);}
+ // Armour absorbs base calibre before multipliers so repeated offensive bonuses cannot erase unit roles.
+ fire(source,target){this.metrics.shots[source.kind]=(this.metrics.shots[source.kind]||0)+1;this.events.push({type:'shot',from:{x:source.x,z:source.z},to:{x:target.x,z:target.z},hostile:source.kind==='monster'});const armor=(target.armor||0)*(1-(source.armorPiercing||0));let amount=Math.max(0,source.damage-armor*5)*(source.kind==='actor'?this.multiplier('actorDamage'):source.kind==='train'?this.multiplier('trainDamage'):1)*(1-armor);if(!(target.markUntil>this.time))amount*=source.unmarkedDamage??1;if(target.markUntil>this.time&&target.markSource!==source.id&&(!target.markProfile||target.markProfile!==source.profileId)&&source.kind!=='monster')amount*=1.35;if(source.kind==='monster')amount=this.guardedDamage(target,amount);this.damage(target,amount);if(source.markDuration&&target.hp>0){target.markUntil=this.time+source.markDuration;target.markSource=source.id;target.markProfile=source.profileId;}if(source.splash)for(const other of this.living())if(other.id!==target.id&&(other.kind!=='actor'||!other.wagonId)&&this.distance(other,target)<=source.splash)this.damage(other,this.guardedDamage(other,source.damage*.4));source.timer=Math.max(.005,source.cooldown/(source.kind==='actor'?this.multiplier('actorRate'):1));}
  killSoldiers(){const alive=this.actors.filter(a=>a.hp>0);for(const a of alive){this.damage(a,a.hp);a.wagonId=null;}return alive.length;}
  heal(){this.living().forEach(e=>e.hp=e.maxHp);if(this.train.hp<=0)this.train.hp=this.train.maxHp;}
  tick(dt){if(this.ended)return;let remaining=Math.min(.25,Math.max(0,dt));while(remaining>1e-7){const step=Math.min(.02,remaining);this.step(step);remaining-=step;}}
@@ -66,7 +130,7 @@ class Simulation{
  for(const a of this.actors){if(a.hp<=0||a.wagonId)continue;const old=a.angle;if(a.radius>STREET){a.radius=Math.max(STREET,a.radius-Math.min(a.speed,1.2)*dt);}else{a.angle+=a.speed/STREET*dt;for(let i=0;i<this.wagons.length;i++){const w=this.wagons[i];if(w.hp<=0||(occupied.get(w.id)||0)>=w.capacity)continue;const start=previous-(i+1)*.22;const d=this.angleDelta(start,old),relative=(this.angle-previous)-(a.angle-old);const crossed=relative>=0?d>=-.09&&d<=relative+.09:d<=.09&&d>=relative-.09;if(crossed||Math.abs(this.angleDelta(a.angle,w.angle))<.09){a.wagonId=w.id;occupied.set(w.id,(occupied.get(w.id)||0)+1);this.metrics.boardings++;this.events.push({type:'board',id:a.id});break;}}}a.x=Math.cos(a.angle)*a.radius;a.z=Math.sin(a.angle)*a.radius;}
  this.positionTrain();
  const liveMonsters=this.monsters.filter(e=>e.hp>0),liveTargets=this.living().filter(e=>e.kind!=='actor'||!e.wagonId);
- for(const s of [this.train,...this.actors]){if(s.hp<=0)continue;s.timer-=dt;if(s.timer<=0){const t=this.nearest(s,liveMonsters);if(t&&this.distance(s,t)<=this.attackRange(s))this.fire(s,t);}}
+ for(const s of [this.train,...this.actors]){if(s.hp<=0)continue;s.timer-=dt;if(s.timer<=0){const candidates=s.minRange||s.maxTargetSpeed?liveMonsters.filter(m=>(!s.minRange||this.distance(s,m)>=s.minRange)&&(!s.maxTargetSpeed||m.speed<=s.maxTargetSpeed||m.markUntil>this.time)):liveMonsters;const t=this.nearest(s,candidates);if(t&&this.distance(s,t)<=this.attackRange(s))this.fire(s,t);}}
  for(const m of this.monsters){
  if(m.hp<=0)continue;m.timer-=dt;
  let choices=liveTargets.filter(e=>e.hp>0&&!e.dead);
@@ -110,5 +174,5 @@ class Simulation{
  distance(a,b){return Math.hypot(a.x-b.x,a.z-b.z);}
  nearest(a,list){let best=null,distance=Infinity;for(const e of list){if(e.hp<=0||e.dead)continue;const d=(a.x-e.x)**2+(a.z-e.z)**2;if(d<distance){distance=d;best=e;}}return best;}
 }
-root.RoundCircleSimulation={Simulation,defaults,types,soldierProfiles,profileDefaults,profileStats,redistribute,migrateRange};if(typeof module!=='undefined')module.exports=root.RoundCircleSimulation;
+root.RoundCircleSimulation={Simulation,defaults,types,soldierProfiles,profileDefaults,profileStats,redistribute,migrateRange,bonusLabel};if(typeof module!=='undefined')module.exports=root.RoundCircleSimulation;
 })(typeof window!=='undefined'?window:globalThis);

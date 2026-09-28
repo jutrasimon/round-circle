@@ -1,0 +1,3416 @@
+[
+  {
+    "damage": 1.25,
+    "hp": 1.25,
+    "profile": {
+      "version": 1,
+      "id": "partie-temoin",
+      "name": "Witness run · 5 minutes",
+      "stats": {
+        "version": 1,
+        "simulation": {
+          "trainHp": 280,
+          "trainDamage": 13,
+          "trainSpeed": 3,
+          "trainRange": 6,
+          "trainCooldown": 1,
+          "ramDamage": 6,
+          "ramSelfDamage": 0.35,
+          "wagonHp": 110,
+          "capacity": 3,
+          "actorHp": 55,
+          "actorDamage": 8.67,
+          "actorSpeed": 2.2,
+          "actorRange": 2.6,
+          "actorCooldown": 0.625,
+          "actorLimit": 30,
+          "monsterLimit": 80,
+          "buildingHp": 150,
+          "buildingCount": 5,
+          "buildingRegen": 0.35,
+          "buildingSpawnRate": 1.2,
+          "production": true,
+          "useBudget": true,
+          "vortexRadius": 1.2,
+          "buildingPopInterval": 60,
+          "manualProduction": true
+        },
+        "profile": {
+          "budget": 100,
+          "shares": {
+            "hp": 20,
+            "damage": 25,
+            "speed": 15,
+            "range": 20,
+            "rate": 20
+          },
+          "weights": {
+            "hp": 1,
+            "damage": 1.5,
+            "speed": 1,
+            "range": 1.5,
+            "rate": 2
+          }
+        },
+        "monsters": {
+          "crawler": {
+            "name": "Crawler",
+            "hp": 44,
+            "damage": 6.25,
+            "speed": 0.8,
+            "range": 3,
+            "cooldown": 1.2,
+            "size": 0.55
+          },
+          "runner": {
+            "name": "Runner",
+            "hp": 23,
+            "damage": 3.75,
+            "speed": 1.8,
+            "range": 3,
+            "cooldown": 0.7,
+            "size": 0.38
+          },
+          "brute": {
+            "name": "Brute",
+            "hp": 188,
+            "damage": 20,
+            "speed": 0.42,
+            "range": 3.5,
+            "cooldown": 1.8,
+            "size": 1
+          },
+          "maw": {
+            "name": "Shambling Maw",
+            "hp": 81,
+            "damage": 11.25,
+            "speed": 1.2,
+            "range": 3.5,
+            "cooldown": 0.9,
+            "size": 0.85,
+            "behavior": "hunter"
+          },
+          "spitter": {
+            "name": "Bile Spitter",
+            "hp": 60,
+            "damage": 8.75,
+            "speed": 0.6,
+            "range": 5,
+            "cooldown": 1.8,
+            "size": 0.8,
+            "behavior": "siege"
+          },
+          "carapace": {
+            "name": "Corpse Carrier",
+            "hp": 225,
+            "damage": 16.25,
+            "speed": 0.45,
+            "range": 4,
+            "cooldown": 1.5,
+            "size": 1.1,
+            "behavior": "siege",
+            "armor": 0.4
+          },
+          "cathedral": {
+            "name": "Flesh Cathedral",
+            "hp": 525,
+            "damage": 17.5,
+            "speed": 0.32,
+            "range": 6,
+            "cooldown": 3,
+            "size": 1.85,
+            "elite": true,
+            "behavior": "siege",
+            "splash": 1.6
+          },
+          "widow": {
+            "name": "Threshold Widow",
+            "hp": 325,
+            "damage": 12.5,
+            "speed": 1.45,
+            "range": 4.5,
+            "cooldown": 1.1,
+            "size": 1.5,
+            "elite": true,
+            "behavior": "hunter"
+          }
+        },
+        "vortex": {
+          "rate": 0.96,
+          "startRadius": 1.2
+        },
+        "combatVersion": 2,
+        "balanceVersion": 1,
+        "durationVersion": 1
+      },
+      "waves": {
+        "version": 1,
+        "combatVersion": 2,
+        "vortex": {
+          "rate": 0.96,
+          "startRadius": 1.2,
+          "triggers": [
+            {
+              "waveId": "arrival",
+              "radius": 1.52
+            },
+            {
+              "waveId": "neighbors",
+              "radius": 1.968
+            },
+            {
+              "waveId": "knocks",
+              "radius": 2.416
+            },
+            {
+              "waveId": "walls",
+              "radius": 2.864
+            },
+            {
+              "waveId": "siege",
+              "radius": 3.312
+            },
+            {
+              "waveId": "passage",
+              "radius": 3.76
+            },
+            {
+              "waveId": "fracture",
+              "radius": 4.208
+            },
+            {
+              "waveId": "echo",
+              "radius": 4.656
+            },
+            {
+              "waveId": "door",
+              "radius": 5.104
+            },
+            {
+              "waveId": "threshold",
+              "radius": 5.552
+            }
+          ]
+        },
+        "waves": [
+          {
+            "id": "arrival",
+            "name": "01 · A Noise at the Door",
+            "groups": [
+              {
+                "type": "crawler",
+                "count": 3,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 44,
+                  "damage": 6.25
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 81,
+                  "damage": 11.25
+                }
+              }
+            ]
+          },
+          {
+            "id": "neighbors",
+            "name": "02 · Voices Outside",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 5,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 25,
+                  "damage": 3.875
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 91,
+                  "damage": 11.637500000000001
+                }
+              }
+            ]
+          },
+          {
+            "id": "knocks",
+            "name": "03 · Another Knock",
+            "groups": [
+              {
+                "type": "crawler",
+                "count": 3,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 54,
+                  "damage": 6.6875
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 3,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 75,
+                  "damage": 9.3625
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 101,
+                  "damage": 12.037500000000001
+                }
+              }
+            ]
+          },
+          {
+            "id": "walls",
+            "name": "04 · The Walls Are Listening",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 5,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 30,
+                  "damage": 4.1375
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 306,
+                  "damage": 17.9625
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 81,
+                  "damage": 9.662500000000001
+                }
+              }
+            ]
+          },
+          {
+            "id": "siege",
+            "name": "05 · The Boundary",
+            "groups": [
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 89,
+                  "damage": 9.975000000000001
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 3,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 333,
+                  "damage": 18.525
+                }
+              },
+              {
+                "type": "runner",
+                "count": 3,
+                "delay": 4,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 34,
+                  "damage": 4.275
+                }
+              }
+            ]
+          },
+          {
+            "id": "passage",
+            "name": "06 · The Passage Narrows",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 6,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 36,
+                  "damage": 4.4125
+                }
+              },
+              {
+                "type": "maw",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 130,
+                  "damage": 13.225
+                }
+              },
+              {
+                "type": "brute",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 300,
+                  "damage": 23.5
+                }
+              }
+            ]
+          },
+          {
+            "id": "fracture",
+            "name": "07 · A Crack in the House",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 6,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 39,
+                  "damage": 4.5375
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 104,
+                  "damage": 10.5875
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 388,
+                  "damage": 19.6625
+                }
+              },
+              {
+                "type": "widow",
+                "count": 1,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 559,
+                  "damage": 15.125
+                }
+              }
+            ]
+          },
+          {
+            "id": "echo",
+            "name": "08 · Those Who Wait",
+            "groups": [
+              {
+                "type": "maw",
+                "count": 6,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 150,
+                  "damage": 14.012500000000001
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 5,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 110,
+                  "damage": 10.887500000000001
+                }
+              },
+              {
+                "type": "brute",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 345,
+                  "damage": 24.900000000000002
+                }
+              },
+              {
+                "type": "widow",
+                "count": 2,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 598,
+                  "damage": 15.5625
+                }
+              }
+            ]
+          },
+          {
+            "id": "door",
+            "name": "09 · Both Sides of the Door",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 8,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 44,
+                  "damage": 4.8
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 441,
+                  "damage": 20.8
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 118,
+                  "damage": 11.200000000000001
+                }
+              },
+              {
+                "type": "cathedral",
+                "count": 1,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 1029,
+                  "damage": 22.400000000000002
+                }
+              }
+            ]
+          },
+          {
+            "id": "threshold",
+            "name": "10 · The Threshold",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 8,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 46,
+                  "damage": 4.925
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 6,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 125,
+                  "damage": 11.512500000000001
+                }
+              },
+              {
+                "type": "brute",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 390,
+                  "damage": 26.299999999999997
+                }
+              },
+              {
+                "type": "widow",
+                "count": 2,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 676,
+                  "damage": 16.4375
+                }
+              },
+              {
+                "type": "cathedral",
+                "count": 1,
+                "delay": 8,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 1093,
+                  "damage": 23.0125
+                }
+              }
+            ]
+          }
+        ],
+        "playlist": [
+          {
+            "waveId": "arrival",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "neighbors",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "knocks",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "walls",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "siege",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "passage",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "fracture",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "echo",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "door",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "threshold",
+            "mode": "time",
+            "gap": 28
+          }
+        ]
+      },
+      "bonuses": {
+        "enabled": true,
+        "catalog": [
+          {
+            "id": "giants",
+            "name": "Union of Giants",
+            "icon": "✊",
+            "effect": "actorDamage",
+            "factor": 1.2,
+            "description": "Every soldier hits harder. Future recruits included."
+          },
+          {
+            "id": "factory",
+            "name": "Night Shift",
+            "icon": "⌂",
+            "effect": "production",
+            "factor": 1.5,
+            "description": "Houses recruit faster, up to the population limit."
+          },
+          {
+            "id": "frenzy",
+            "name": "Trigger Fingers",
+            "icon": "ϟ",
+            "effect": "actorRate",
+            "factor": 1.2,
+            "description": "Fire rates soar. Ammunition? We will worry about that later."
+          },
+          {
+            "id": "horizon",
+            "name": "This Neighbourhood Is Ours",
+            "icon": "◎",
+            "effect": "actorRange",
+            "factor": 1.1,
+            "description": "Soldiers reach enemies well beyond their base range."
+          },
+          {
+            "id": "titan",
+            "name": "Unbreakable Tenants",
+            "icon": "♥",
+            "effect": "actorHp",
+            "factor": 1.25,
+            "description": "Multiplies maximum and remaining soldier health."
+          },
+          {
+            "id": "fortress",
+            "name": "Reinforced Denial",
+            "icon": "▣",
+            "effect": "buildingHp",
+            "factor": 2,
+            "description": "Increases maximum and remaining health of standing houses."
+          },
+          {
+            "id": "repair",
+            "name": "It Grows Back",
+            "icon": "✚",
+            "effect": "regen",
+            "factor": 2,
+            "description": "Houses regenerate much faster. Ruins remain ruins."
+          },
+          {
+            "id": "cannon",
+            "name": "Condominium Cannon",
+            "icon": "◆",
+            "effect": "trainDamage",
+            "factor": 1.75,
+            "description": "Multiplies the damage of every locomotive shot."
+          },
+          {
+            "id": "convoy",
+            "name": "Armoured Train",
+            "icon": "▰",
+            "effect": "trainHp",
+            "factor": 1.5,
+            "description": "Multiplies convoy health, including current and future carriages."
+          },
+          {
+            "id": "ram",
+            "name": "Absolute Right of Way",
+            "icon": "➤",
+            "effect": "ram",
+            "factor": 1.25,
+            "description": "Multiplies collision damage against monsters without increasing wear."
+          }
+        ]
+      },
+      "dialogue": {
+        "library": {
+          "version": 1,
+          "characters": {
+            "monsieur": {
+              "name": "YOU · THE GENTLEMAN",
+              "role": "player",
+              "poses": {
+                "neutral": "assets/portraits/monsieur-neutral.png",
+                "satisfied": "assets/portraits/monsieur-satisfied.png",
+                "worried": "assets/portraits/monsieur-worried.png"
+              }
+            },
+            "locataire": {
+              "name": "THE TENANT",
+              "role": "npc",
+              "poses": {
+                "neutral": "assets/portraits/locataire-neutral.png",
+                "hostile": "assets/portraits/locataire-hostile.png",
+                "curious": "assets/portraits/locataire-curious.png"
+              }
+            }
+          },
+          "backplates": {
+            "default": "assets/ui/backplate.svg"
+          },
+          "dialogues": [
+            {
+              "id": "the_line",
+              "title": "The Line",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "You drew a circle, then wrote “our home” inside it.",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "We wanted somewhere to come back to.",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "The Tenant looks at you.",
+                  "choices": [
+                    {
+                      "id": "listen",
+                      "text": "Show me what the line cut through.",
+                      "next": "listened",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "listened",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "claim",
+                      "text": "The walls prove this is our home.",
+                      "next": "claimed",
+                      "effects": [
+                        {
+                          "type": "add",
+                          "key": "tension",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "listened": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "We wanted to come home too."
+                },
+                "claimed": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "hostile",
+                  "backplate": "default",
+                  "text": "A wall only proves you stopped looking behind it."
+                }
+              }
+            },
+            {
+              "id": "the_passage",
+              "title": "The Passage",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "Your houses have walls. Ours had passages.",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "If I open a passage, who protects the people behind me?",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "The door stands before you.",
+                  "choices": [
+                    {
+                      "id": "passage",
+                      "text": "Let us keep a passage between us.",
+                      "next": "opened",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "passage",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "wait",
+                      "text": "Let us wait until the end to decide.",
+                      "next": "closed"
+                    }
+                  ]
+                },
+                "opened": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "A door can protect without being locked on both sides."
+                },
+                "closed": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "Then the end will decide for us."
+                }
+              }
+            },
+            {
+              "id": "the_key",
+              "title": "The Key",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "When the circle reaches both houses, who will have to leave?",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "I no longer want “us” to need an outside.",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "What do you do with the key?",
+                  "choices": [
+                    {
+                      "id": "invite",
+                      "text": "The door will open both ways.",
+                      "next": "invited",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "invitation",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "keep",
+                      "text": "I will keep the key.",
+                      "next": "kept"
+                    }
+                  ]
+                },
+                "invited": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "I heard you. Let us see if the house can do the same."
+                },
+                "kept": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "hostile",
+                  "backplate": "default",
+                  "text": "A key can also lock in the person holding it."
+                }
+              }
+            }
+          ]
+        },
+        "cues": [
+          {
+            "id": "line",
+            "dialogueId": "the_line",
+            "radius": 2.08
+          },
+          {
+            "id": "passage",
+            "dialogueId": "the_passage",
+            "radius": 4
+          },
+          {
+            "id": "key",
+            "dialogueId": "the_key",
+            "radius": 5.6
+          }
+        ],
+        "choiceScale": 0,
+        "autoAdvanceMs": 0
+      },
+      "endings": {
+        "harmony": {
+          "eyebrow": "THE DOOR OPENS",
+          "title": "A Home Together",
+          "text": "The vortex stops growing. The Gentleman asks: “What if the house was never ours?” The Tenant replies: “It was never ours either. Perhaps it can hold all of us.”",
+          "requiredFlags": [
+            "listened",
+            "passage",
+            "invitation"
+          ],
+          "minBuildings": 1
+        },
+        "force": {
+          "eyebrow": "THE CIRCLE FALLS SILENT",
+          "title": "An Empty Victory",
+          "text": "The final wave was defeated, but the vortex reached its limit. The city disappears beneath the circle. Winning every battle did not save your home.",
+          "waveId": "threshold"
+        },
+        "departure": {
+          "eyebrow": "THE CIRCLE CLOSES",
+          "title": "Towards Another Home",
+          "text": "The vortex reached its limit before the final wave was cleared. The city is swallowed. What remains of home must now be carried by those who remember it."
+        },
+        "defeat": {
+          "eyebrow": "THE TRAIN STOPS",
+          "title": "The Lost Convoy",
+          "text": "The houses leave their lights on for a train that never returns."
+        }
+      },
+      "audio": {
+        "music": 0.1,
+        "effects": 0.1
+      },
+      "soldiers": [
+        {
+          "id": "guardian",
+          "name": "Guardian",
+          "role": "Shields nearby allies from 40% of enemy fire. Protection does not stack.",
+          "color": "#e9b96b",
+          "duration": 10,
+          "stats": {
+            "maxHp": 220,
+            "damage": 7,
+            "speed": 0.8,
+            "range": 1.8,
+            "cooldown": 1.4,
+            "guardRadius": 3
+          }
+        },
+        {
+          "id": "sniper",
+          "name": "Watcher",
+          "role": "Pierces armour. Needs Scout marks to hit fast enemies. Minimum range: 3.",
+          "color": "#91c9ff",
+          "duration": 20,
+          "stats": {
+            "maxHp": 28,
+            "damage": 32,
+            "speed": 1.2,
+            "range": 6,
+            "cooldown": 4,
+            "minRange": 3,
+            "maxTargetSpeed": 1.3,
+            "armorPiercing": 1
+          }
+        },
+        {
+          "id": "gunner",
+          "name": "Gunner",
+          "role": "Rapid fire, short range and modest health.",
+          "color": "#ed94c9",
+          "duration": 12,
+          "stats": {
+            "maxHp": 48,
+            "damage": 3,
+            "speed": 2,
+            "range": 3,
+            "cooldown": 0.22
+          }
+        },
+        {
+          "id": "scout",
+          "name": "Scout",
+          "role": "Marks enemies for 3 seconds: other attackers deal 35% more damage.",
+          "color": "#9de2b1",
+          "duration": 8,
+          "stats": {
+            "maxHp": 65,
+            "damage": 7,
+            "speed": 5.8,
+            "range": 2.4,
+            "cooldown": 0.65,
+            "markDuration": 3
+          }
+        }
+      ]
+    },
+    "summary": [
+      {
+        "id": "random",
+        "survival": 0.13333333333333333,
+        "time": 268
+      },
+      {
+        "id": "mixed",
+        "survival": 0.36666666666666664,
+        "time": 287
+      },
+      {
+        "id": "guardian",
+        "survival": 0,
+        "time": 168
+      },
+      {
+        "id": "watcher",
+        "survival": 0,
+        "time": 248
+      },
+      {
+        "id": "gunner",
+        "survival": 0,
+        "time": 211
+      },
+      {
+        "id": "scout",
+        "survival": 0,
+        "time": 204
+      },
+      {
+        "id": "balanced",
+        "survival": 0.7333333333333333,
+        "time": 298
+      },
+      {
+        "id": "ranged",
+        "survival": 0.8,
+        "time": 296
+      },
+      {
+        "id": "adaptive",
+        "survival": 0.8,
+        "time": 299
+      },
+      {
+        "id": "adaptive-light",
+        "survival": 0.8,
+        "time": 299
+      },
+      {
+        "id": "expert-damage",
+        "survival": 0.8333333333333334,
+        "time": 299
+      },
+      {
+        "id": "expert-defense",
+        "survival": 0.8,
+        "time": 298
+      },
+      {
+        "id": "gunner-damage",
+        "survival": 0,
+        "time": 207
+      },
+      {
+        "id": "gunner-defense",
+        "survival": 0,
+        "time": 210
+      }
+    ]
+  },
+  {
+    "damage": 1.35,
+    "hp": 1.25,
+    "profile": {
+      "version": 1,
+      "id": "partie-temoin",
+      "name": "Witness run · 5 minutes",
+      "stats": {
+        "version": 1,
+        "simulation": {
+          "trainHp": 280,
+          "trainDamage": 13,
+          "trainSpeed": 3,
+          "trainRange": 6,
+          "trainCooldown": 1,
+          "ramDamage": 6,
+          "ramSelfDamage": 0.35,
+          "wagonHp": 110,
+          "capacity": 3,
+          "actorHp": 55,
+          "actorDamage": 8.67,
+          "actorSpeed": 2.2,
+          "actorRange": 2.6,
+          "actorCooldown": 0.625,
+          "actorLimit": 30,
+          "monsterLimit": 80,
+          "buildingHp": 150,
+          "buildingCount": 5,
+          "buildingRegen": 0.35,
+          "buildingSpawnRate": 1.2,
+          "production": true,
+          "useBudget": true,
+          "vortexRadius": 1.2,
+          "buildingPopInterval": 60,
+          "manualProduction": true
+        },
+        "profile": {
+          "budget": 100,
+          "shares": {
+            "hp": 20,
+            "damage": 25,
+            "speed": 15,
+            "range": 20,
+            "rate": 20
+          },
+          "weights": {
+            "hp": 1,
+            "damage": 1.5,
+            "speed": 1,
+            "range": 1.5,
+            "rate": 2
+          }
+        },
+        "monsters": {
+          "crawler": {
+            "name": "Crawler",
+            "hp": 44,
+            "damage": 6.75,
+            "speed": 0.8,
+            "range": 3,
+            "cooldown": 1.2,
+            "size": 0.55
+          },
+          "runner": {
+            "name": "Runner",
+            "hp": 23,
+            "damage": 4.050000000000001,
+            "speed": 1.8,
+            "range": 3,
+            "cooldown": 0.7,
+            "size": 0.38
+          },
+          "brute": {
+            "name": "Brute",
+            "hp": 188,
+            "damage": 21.6,
+            "speed": 0.42,
+            "range": 3.5,
+            "cooldown": 1.8,
+            "size": 1
+          },
+          "maw": {
+            "name": "Shambling Maw",
+            "hp": 81,
+            "damage": 12.15,
+            "speed": 1.2,
+            "range": 3.5,
+            "cooldown": 0.9,
+            "size": 0.85,
+            "behavior": "hunter"
+          },
+          "spitter": {
+            "name": "Bile Spitter",
+            "hp": 60,
+            "damage": 9.450000000000001,
+            "speed": 0.6,
+            "range": 5,
+            "cooldown": 1.8,
+            "size": 0.8,
+            "behavior": "siege"
+          },
+          "carapace": {
+            "name": "Corpse Carrier",
+            "hp": 225,
+            "damage": 17.55,
+            "speed": 0.45,
+            "range": 4,
+            "cooldown": 1.5,
+            "size": 1.1,
+            "behavior": "siege",
+            "armor": 0.4
+          },
+          "cathedral": {
+            "name": "Flesh Cathedral",
+            "hp": 525,
+            "damage": 18.900000000000002,
+            "speed": 0.32,
+            "range": 6,
+            "cooldown": 3,
+            "size": 1.85,
+            "elite": true,
+            "behavior": "siege",
+            "splash": 1.6
+          },
+          "widow": {
+            "name": "Threshold Widow",
+            "hp": 325,
+            "damage": 13.5,
+            "speed": 1.45,
+            "range": 4.5,
+            "cooldown": 1.1,
+            "size": 1.5,
+            "elite": true,
+            "behavior": "hunter"
+          }
+        },
+        "vortex": {
+          "rate": 0.96,
+          "startRadius": 1.2
+        },
+        "combatVersion": 2,
+        "balanceVersion": 1,
+        "durationVersion": 1
+      },
+      "waves": {
+        "version": 1,
+        "combatVersion": 2,
+        "vortex": {
+          "rate": 0.96,
+          "startRadius": 1.2,
+          "triggers": [
+            {
+              "waveId": "arrival",
+              "radius": 1.52
+            },
+            {
+              "waveId": "neighbors",
+              "radius": 1.968
+            },
+            {
+              "waveId": "knocks",
+              "radius": 2.416
+            },
+            {
+              "waveId": "walls",
+              "radius": 2.864
+            },
+            {
+              "waveId": "siege",
+              "radius": 3.312
+            },
+            {
+              "waveId": "passage",
+              "radius": 3.76
+            },
+            {
+              "waveId": "fracture",
+              "radius": 4.208
+            },
+            {
+              "waveId": "echo",
+              "radius": 4.656
+            },
+            {
+              "waveId": "door",
+              "radius": 5.104
+            },
+            {
+              "waveId": "threshold",
+              "radius": 5.552
+            }
+          ]
+        },
+        "waves": [
+          {
+            "id": "arrival",
+            "name": "01 · A Noise at the Door",
+            "groups": [
+              {
+                "type": "crawler",
+                "count": 3,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 44,
+                  "damage": 6.75
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 81,
+                  "damage": 12.15
+                }
+              }
+            ]
+          },
+          {
+            "id": "neighbors",
+            "name": "02 · Voices Outside",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 5,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 25,
+                  "damage": 4.1850000000000005
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 91,
+                  "damage": 12.568500000000002
+                }
+              }
+            ]
+          },
+          {
+            "id": "knocks",
+            "name": "03 · Another Knock",
+            "groups": [
+              {
+                "type": "crawler",
+                "count": 3,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 54,
+                  "damage": 7.2225
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 3,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 75,
+                  "damage": 10.111500000000001
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 101,
+                  "damage": 13.000500000000002
+                }
+              }
+            ]
+          },
+          {
+            "id": "walls",
+            "name": "04 · The Walls Are Listening",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 5,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 30,
+                  "damage": 4.468500000000001
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 306,
+                  "damage": 19.3995
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 81,
+                  "damage": 10.435500000000001
+                }
+              }
+            ]
+          },
+          {
+            "id": "siege",
+            "name": "05 · The Boundary",
+            "groups": [
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 89,
+                  "damage": 10.773000000000001
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 3,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 333,
+                  "damage": 20.007
+                }
+              },
+              {
+                "type": "runner",
+                "count": 3,
+                "delay": 4,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 34,
+                  "damage": 4.617
+                }
+              }
+            ]
+          },
+          {
+            "id": "passage",
+            "name": "06 · The Passage Narrows",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 6,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 36,
+                  "damage": 4.7655
+                }
+              },
+              {
+                "type": "maw",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 130,
+                  "damage": 14.283000000000001
+                }
+              },
+              {
+                "type": "brute",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 300,
+                  "damage": 25.380000000000003
+                }
+              }
+            ]
+          },
+          {
+            "id": "fracture",
+            "name": "07 · A Crack in the House",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 6,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 39,
+                  "damage": 4.9005
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 104,
+                  "damage": 11.434500000000002
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 388,
+                  "damage": 21.235500000000002
+                }
+              },
+              {
+                "type": "widow",
+                "count": 1,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 559,
+                  "damage": 16.335
+                }
+              }
+            ]
+          },
+          {
+            "id": "echo",
+            "name": "08 · Those Who Wait",
+            "groups": [
+              {
+                "type": "maw",
+                "count": 6,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 150,
+                  "damage": 15.133500000000002
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 5,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 110,
+                  "damage": 11.758500000000002
+                }
+              },
+              {
+                "type": "brute",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 345,
+                  "damage": 26.892000000000003
+                }
+              },
+              {
+                "type": "widow",
+                "count": 2,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 598,
+                  "damage": 16.8075
+                }
+              }
+            ]
+          },
+          {
+            "id": "door",
+            "name": "09 · Both Sides of the Door",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 8,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 44,
+                  "damage": 5.184
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 441,
+                  "damage": 22.464000000000002
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 118,
+                  "damage": 12.096000000000002
+                }
+              },
+              {
+                "type": "cathedral",
+                "count": 1,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 1029,
+                  "damage": 24.192000000000004
+                }
+              }
+            ]
+          },
+          {
+            "id": "threshold",
+            "name": "10 · The Threshold",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 8,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 46,
+                  "damage": 5.319
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 6,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 125,
+                  "damage": 12.433500000000002
+                }
+              },
+              {
+                "type": "brute",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 390,
+                  "damage": 28.404
+                }
+              },
+              {
+                "type": "widow",
+                "count": 2,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 676,
+                  "damage": 17.7525
+                }
+              },
+              {
+                "type": "cathedral",
+                "count": 1,
+                "delay": 8,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 1093,
+                  "damage": 24.8535
+                }
+              }
+            ]
+          }
+        ],
+        "playlist": [
+          {
+            "waveId": "arrival",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "neighbors",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "knocks",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "walls",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "siege",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "passage",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "fracture",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "echo",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "door",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "threshold",
+            "mode": "time",
+            "gap": 28
+          }
+        ]
+      },
+      "bonuses": {
+        "enabled": true,
+        "catalog": [
+          {
+            "id": "giants",
+            "name": "Union of Giants",
+            "icon": "✊",
+            "effect": "actorDamage",
+            "factor": 1.2,
+            "description": "Every soldier hits harder. Future recruits included."
+          },
+          {
+            "id": "factory",
+            "name": "Night Shift",
+            "icon": "⌂",
+            "effect": "production",
+            "factor": 1.5,
+            "description": "Houses recruit faster, up to the population limit."
+          },
+          {
+            "id": "frenzy",
+            "name": "Trigger Fingers",
+            "icon": "ϟ",
+            "effect": "actorRate",
+            "factor": 1.2,
+            "description": "Fire rates soar. Ammunition? We will worry about that later."
+          },
+          {
+            "id": "horizon",
+            "name": "This Neighbourhood Is Ours",
+            "icon": "◎",
+            "effect": "actorRange",
+            "factor": 1.1,
+            "description": "Soldiers reach enemies well beyond their base range."
+          },
+          {
+            "id": "titan",
+            "name": "Unbreakable Tenants",
+            "icon": "♥",
+            "effect": "actorHp",
+            "factor": 1.25,
+            "description": "Multiplies maximum and remaining soldier health."
+          },
+          {
+            "id": "fortress",
+            "name": "Reinforced Denial",
+            "icon": "▣",
+            "effect": "buildingHp",
+            "factor": 2,
+            "description": "Increases maximum and remaining health of standing houses."
+          },
+          {
+            "id": "repair",
+            "name": "It Grows Back",
+            "icon": "✚",
+            "effect": "regen",
+            "factor": 2,
+            "description": "Houses regenerate much faster. Ruins remain ruins."
+          },
+          {
+            "id": "cannon",
+            "name": "Condominium Cannon",
+            "icon": "◆",
+            "effect": "trainDamage",
+            "factor": 1.75,
+            "description": "Multiplies the damage of every locomotive shot."
+          },
+          {
+            "id": "convoy",
+            "name": "Armoured Train",
+            "icon": "▰",
+            "effect": "trainHp",
+            "factor": 1.5,
+            "description": "Multiplies convoy health, including current and future carriages."
+          },
+          {
+            "id": "ram",
+            "name": "Absolute Right of Way",
+            "icon": "➤",
+            "effect": "ram",
+            "factor": 1.25,
+            "description": "Multiplies collision damage against monsters without increasing wear."
+          }
+        ]
+      },
+      "dialogue": {
+        "library": {
+          "version": 1,
+          "characters": {
+            "monsieur": {
+              "name": "YOU · THE GENTLEMAN",
+              "role": "player",
+              "poses": {
+                "neutral": "assets/portraits/monsieur-neutral.png",
+                "satisfied": "assets/portraits/monsieur-satisfied.png",
+                "worried": "assets/portraits/monsieur-worried.png"
+              }
+            },
+            "locataire": {
+              "name": "THE TENANT",
+              "role": "npc",
+              "poses": {
+                "neutral": "assets/portraits/locataire-neutral.png",
+                "hostile": "assets/portraits/locataire-hostile.png",
+                "curious": "assets/portraits/locataire-curious.png"
+              }
+            }
+          },
+          "backplates": {
+            "default": "assets/ui/backplate.svg"
+          },
+          "dialogues": [
+            {
+              "id": "the_line",
+              "title": "The Line",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "You drew a circle, then wrote “our home” inside it.",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "We wanted somewhere to come back to.",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "The Tenant looks at you.",
+                  "choices": [
+                    {
+                      "id": "listen",
+                      "text": "Show me what the line cut through.",
+                      "next": "listened",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "listened",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "claim",
+                      "text": "The walls prove this is our home.",
+                      "next": "claimed",
+                      "effects": [
+                        {
+                          "type": "add",
+                          "key": "tension",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "listened": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "We wanted to come home too."
+                },
+                "claimed": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "hostile",
+                  "backplate": "default",
+                  "text": "A wall only proves you stopped looking behind it."
+                }
+              }
+            },
+            {
+              "id": "the_passage",
+              "title": "The Passage",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "Your houses have walls. Ours had passages.",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "If I open a passage, who protects the people behind me?",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "The door stands before you.",
+                  "choices": [
+                    {
+                      "id": "passage",
+                      "text": "Let us keep a passage between us.",
+                      "next": "opened",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "passage",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "wait",
+                      "text": "Let us wait until the end to decide.",
+                      "next": "closed"
+                    }
+                  ]
+                },
+                "opened": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "A door can protect without being locked on both sides."
+                },
+                "closed": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "Then the end will decide for us."
+                }
+              }
+            },
+            {
+              "id": "the_key",
+              "title": "The Key",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "When the circle reaches both houses, who will have to leave?",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "I no longer want “us” to need an outside.",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "What do you do with the key?",
+                  "choices": [
+                    {
+                      "id": "invite",
+                      "text": "The door will open both ways.",
+                      "next": "invited",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "invitation",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "keep",
+                      "text": "I will keep the key.",
+                      "next": "kept"
+                    }
+                  ]
+                },
+                "invited": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "I heard you. Let us see if the house can do the same."
+                },
+                "kept": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "hostile",
+                  "backplate": "default",
+                  "text": "A key can also lock in the person holding it."
+                }
+              }
+            }
+          ]
+        },
+        "cues": [
+          {
+            "id": "line",
+            "dialogueId": "the_line",
+            "radius": 2.08
+          },
+          {
+            "id": "passage",
+            "dialogueId": "the_passage",
+            "radius": 4
+          },
+          {
+            "id": "key",
+            "dialogueId": "the_key",
+            "radius": 5.6
+          }
+        ],
+        "choiceScale": 0,
+        "autoAdvanceMs": 0
+      },
+      "endings": {
+        "harmony": {
+          "eyebrow": "THE DOOR OPENS",
+          "title": "A Home Together",
+          "text": "The vortex stops growing. The Gentleman asks: “What if the house was never ours?” The Tenant replies: “It was never ours either. Perhaps it can hold all of us.”",
+          "requiredFlags": [
+            "listened",
+            "passage",
+            "invitation"
+          ],
+          "minBuildings": 1
+        },
+        "force": {
+          "eyebrow": "THE CIRCLE FALLS SILENT",
+          "title": "An Empty Victory",
+          "text": "The final wave was defeated, but the vortex reached its limit. The city disappears beneath the circle. Winning every battle did not save your home.",
+          "waveId": "threshold"
+        },
+        "departure": {
+          "eyebrow": "THE CIRCLE CLOSES",
+          "title": "Towards Another Home",
+          "text": "The vortex reached its limit before the final wave was cleared. The city is swallowed. What remains of home must now be carried by those who remember it."
+        },
+        "defeat": {
+          "eyebrow": "THE TRAIN STOPS",
+          "title": "The Lost Convoy",
+          "text": "The houses leave their lights on for a train that never returns."
+        }
+      },
+      "audio": {
+        "music": 0.1,
+        "effects": 0.1
+      },
+      "soldiers": [
+        {
+          "id": "guardian",
+          "name": "Guardian",
+          "role": "Shields nearby allies from 40% of enemy fire. Protection does not stack.",
+          "color": "#e9b96b",
+          "duration": 10,
+          "stats": {
+            "maxHp": 220,
+            "damage": 7,
+            "speed": 0.8,
+            "range": 1.8,
+            "cooldown": 1.4,
+            "guardRadius": 3
+          }
+        },
+        {
+          "id": "sniper",
+          "name": "Watcher",
+          "role": "Pierces armour. Needs Scout marks to hit fast enemies. Minimum range: 3.",
+          "color": "#91c9ff",
+          "duration": 20,
+          "stats": {
+            "maxHp": 28,
+            "damage": 32,
+            "speed": 1.2,
+            "range": 6,
+            "cooldown": 4,
+            "minRange": 3,
+            "maxTargetSpeed": 1.3,
+            "armorPiercing": 1
+          }
+        },
+        {
+          "id": "gunner",
+          "name": "Gunner",
+          "role": "Rapid fire, short range and modest health.",
+          "color": "#ed94c9",
+          "duration": 12,
+          "stats": {
+            "maxHp": 48,
+            "damage": 3,
+            "speed": 2,
+            "range": 3,
+            "cooldown": 0.22
+          }
+        },
+        {
+          "id": "scout",
+          "name": "Scout",
+          "role": "Marks enemies for 3 seconds: other attackers deal 35% more damage.",
+          "color": "#9de2b1",
+          "duration": 8,
+          "stats": {
+            "maxHp": 65,
+            "damage": 7,
+            "speed": 5.8,
+            "range": 2.4,
+            "cooldown": 0.65,
+            "markDuration": 3
+          }
+        }
+      ]
+    },
+    "summary": [
+      {
+        "id": "random",
+        "survival": 0.03333333333333333,
+        "time": 252
+      },
+      {
+        "id": "mixed",
+        "survival": 0.16666666666666666,
+        "time": 280
+      },
+      {
+        "id": "guardian",
+        "survival": 0,
+        "time": 164
+      },
+      {
+        "id": "watcher",
+        "survival": 0,
+        "time": 246
+      },
+      {
+        "id": "gunner",
+        "survival": 0,
+        "time": 204
+      },
+      {
+        "id": "scout",
+        "survival": 0,
+        "time": 196
+      },
+      {
+        "id": "balanced",
+        "survival": 0.6333333333333333,
+        "time": 295
+      },
+      {
+        "id": "ranged",
+        "survival": 0.7333333333333333,
+        "time": 296
+      },
+      {
+        "id": "adaptive",
+        "survival": 0.7666666666666667,
+        "time": 297
+      },
+      {
+        "id": "adaptive-light",
+        "survival": 0.7666666666666667,
+        "time": 297
+      },
+      {
+        "id": "expert-damage",
+        "survival": 0.8,
+        "time": 297
+      },
+      {
+        "id": "expert-defense",
+        "survival": 0.8,
+        "time": 297
+      },
+      {
+        "id": "gunner-damage",
+        "survival": 0,
+        "time": 198
+      },
+      {
+        "id": "gunner-defense",
+        "survival": 0,
+        "time": 200
+      }
+    ]
+  },
+  {
+    "damage": 1.45,
+    "hp": 1.25,
+    "profile": {
+      "version": 1,
+      "id": "partie-temoin",
+      "name": "Witness run · 5 minutes",
+      "stats": {
+        "version": 1,
+        "simulation": {
+          "trainHp": 280,
+          "trainDamage": 13,
+          "trainSpeed": 3,
+          "trainRange": 6,
+          "trainCooldown": 1,
+          "ramDamage": 6,
+          "ramSelfDamage": 0.35,
+          "wagonHp": 110,
+          "capacity": 3,
+          "actorHp": 55,
+          "actorDamage": 8.67,
+          "actorSpeed": 2.2,
+          "actorRange": 2.6,
+          "actorCooldown": 0.625,
+          "actorLimit": 30,
+          "monsterLimit": 80,
+          "buildingHp": 150,
+          "buildingCount": 5,
+          "buildingRegen": 0.35,
+          "buildingSpawnRate": 1.2,
+          "production": true,
+          "useBudget": true,
+          "vortexRadius": 1.2,
+          "buildingPopInterval": 60,
+          "manualProduction": true
+        },
+        "profile": {
+          "budget": 100,
+          "shares": {
+            "hp": 20,
+            "damage": 25,
+            "speed": 15,
+            "range": 20,
+            "rate": 20
+          },
+          "weights": {
+            "hp": 1,
+            "damage": 1.5,
+            "speed": 1,
+            "range": 1.5,
+            "rate": 2
+          }
+        },
+        "monsters": {
+          "crawler": {
+            "name": "Crawler",
+            "hp": 44,
+            "damage": 7.25,
+            "speed": 0.8,
+            "range": 3,
+            "cooldown": 1.2,
+            "size": 0.55
+          },
+          "runner": {
+            "name": "Runner",
+            "hp": 23,
+            "damage": 4.35,
+            "speed": 1.8,
+            "range": 3,
+            "cooldown": 0.7,
+            "size": 0.38
+          },
+          "brute": {
+            "name": "Brute",
+            "hp": 188,
+            "damage": 23.2,
+            "speed": 0.42,
+            "range": 3.5,
+            "cooldown": 1.8,
+            "size": 1
+          },
+          "maw": {
+            "name": "Shambling Maw",
+            "hp": 81,
+            "damage": 13.049999999999999,
+            "speed": 1.2,
+            "range": 3.5,
+            "cooldown": 0.9,
+            "size": 0.85,
+            "behavior": "hunter"
+          },
+          "spitter": {
+            "name": "Bile Spitter",
+            "hp": 60,
+            "damage": 10.15,
+            "speed": 0.6,
+            "range": 5,
+            "cooldown": 1.8,
+            "size": 0.8,
+            "behavior": "siege"
+          },
+          "carapace": {
+            "name": "Corpse Carrier",
+            "hp": 225,
+            "damage": 18.849999999999998,
+            "speed": 0.45,
+            "range": 4,
+            "cooldown": 1.5,
+            "size": 1.1,
+            "behavior": "siege",
+            "armor": 0.4
+          },
+          "cathedral": {
+            "name": "Flesh Cathedral",
+            "hp": 525,
+            "damage": 20.3,
+            "speed": 0.32,
+            "range": 6,
+            "cooldown": 3,
+            "size": 1.85,
+            "elite": true,
+            "behavior": "siege",
+            "splash": 1.6
+          },
+          "widow": {
+            "name": "Threshold Widow",
+            "hp": 325,
+            "damage": 14.5,
+            "speed": 1.45,
+            "range": 4.5,
+            "cooldown": 1.1,
+            "size": 1.5,
+            "elite": true,
+            "behavior": "hunter"
+          }
+        },
+        "vortex": {
+          "rate": 0.96,
+          "startRadius": 1.2
+        },
+        "combatVersion": 2,
+        "balanceVersion": 1,
+        "durationVersion": 1
+      },
+      "waves": {
+        "version": 1,
+        "combatVersion": 2,
+        "vortex": {
+          "rate": 0.96,
+          "startRadius": 1.2,
+          "triggers": [
+            {
+              "waveId": "arrival",
+              "radius": 1.52
+            },
+            {
+              "waveId": "neighbors",
+              "radius": 1.968
+            },
+            {
+              "waveId": "knocks",
+              "radius": 2.416
+            },
+            {
+              "waveId": "walls",
+              "radius": 2.864
+            },
+            {
+              "waveId": "siege",
+              "radius": 3.312
+            },
+            {
+              "waveId": "passage",
+              "radius": 3.76
+            },
+            {
+              "waveId": "fracture",
+              "radius": 4.208
+            },
+            {
+              "waveId": "echo",
+              "radius": 4.656
+            },
+            {
+              "waveId": "door",
+              "radius": 5.104
+            },
+            {
+              "waveId": "threshold",
+              "radius": 5.552
+            }
+          ]
+        },
+        "waves": [
+          {
+            "id": "arrival",
+            "name": "01 · A Noise at the Door",
+            "groups": [
+              {
+                "type": "crawler",
+                "count": 3,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 44,
+                  "damage": 7.25
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 81,
+                  "damage": 13.049999999999999
+                }
+              }
+            ]
+          },
+          {
+            "id": "neighbors",
+            "name": "02 · Voices Outside",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 5,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 25,
+                  "damage": 4.495
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 91,
+                  "damage": 13.499500000000001
+                }
+              }
+            ]
+          },
+          {
+            "id": "knocks",
+            "name": "03 · Another Knock",
+            "groups": [
+              {
+                "type": "crawler",
+                "count": 3,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 54,
+                  "damage": 7.757499999999999
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 3,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 75,
+                  "damage": 10.8605
+                }
+              },
+              {
+                "type": "maw",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 101,
+                  "damage": 13.963500000000002
+                }
+              }
+            ]
+          },
+          {
+            "id": "walls",
+            "name": "04 · The Walls Are Listening",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 5,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 30,
+                  "damage": 4.7995
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 2,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 306,
+                  "damage": 20.836499999999997
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 81,
+                  "damage": 11.2085
+                }
+              }
+            ]
+          },
+          {
+            "id": "siege",
+            "name": "05 · The Boundary",
+            "groups": [
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 89,
+                  "damage": 11.571
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 3,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 333,
+                  "damage": 21.489
+                }
+              },
+              {
+                "type": "runner",
+                "count": 3,
+                "delay": 4,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 34,
+                  "damage": 4.959
+                }
+              }
+            ]
+          },
+          {
+            "id": "passage",
+            "name": "06 · The Passage Narrows",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 6,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 36,
+                  "damage": 5.118499999999999
+                }
+              },
+              {
+                "type": "maw",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 130,
+                  "damage": 15.341
+                }
+              },
+              {
+                "type": "brute",
+                "count": 2,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 300,
+                  "damage": 27.26
+                }
+              }
+            ]
+          },
+          {
+            "id": "fracture",
+            "name": "07 · A Crack in the House",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 6,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 39,
+                  "damage": 5.2635
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 104,
+                  "damage": 12.281500000000001
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 388,
+                  "damage": 22.8085
+                }
+              },
+              {
+                "type": "widow",
+                "count": 1,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 559,
+                  "damage": 17.544999999999998
+                }
+              }
+            ]
+          },
+          {
+            "id": "echo",
+            "name": "08 · Those Who Wait",
+            "groups": [
+              {
+                "type": "maw",
+                "count": 6,
+                "delay": 0,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 150,
+                  "damage": 16.2545
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 5,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 110,
+                  "damage": 12.6295
+                }
+              },
+              {
+                "type": "brute",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 345,
+                  "damage": 28.884
+                }
+              },
+              {
+                "type": "widow",
+                "count": 2,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 598,
+                  "damage": 18.0525
+                }
+              }
+            ]
+          },
+          {
+            "id": "door",
+            "name": "09 · Both Sides of the Door",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 8,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 44,
+                  "damage": 5.568
+                }
+              },
+              {
+                "type": "carapace",
+                "count": 4,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 441,
+                  "damage": 24.128
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 4,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 118,
+                  "damage": 12.992
+                }
+              },
+              {
+                "type": "cathedral",
+                "count": 1,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 1029,
+                  "damage": 25.984
+                }
+              }
+            ]
+          },
+          {
+            "id": "threshold",
+            "name": "10 · The Threshold",
+            "groups": [
+              {
+                "type": "runner",
+                "count": 8,
+                "delay": 0,
+                "interval": 0.8,
+                "stats": {
+                  "hp": 46,
+                  "damage": 5.713
+                }
+              },
+              {
+                "type": "spitter",
+                "count": 6,
+                "delay": 2,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 125,
+                  "damage": 13.354500000000002
+                }
+              },
+              {
+                "type": "brute",
+                "count": 3,
+                "delay": 4,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 390,
+                  "damage": 30.508
+                }
+              },
+              {
+                "type": "widow",
+                "count": 2,
+                "delay": 6,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 676,
+                  "damage": 19.0675
+                }
+              },
+              {
+                "type": "cathedral",
+                "count": 1,
+                "delay": 8,
+                "interval": 1.5,
+                "stats": {
+                  "hp": 1093,
+                  "damage": 26.694499999999998
+                }
+              }
+            ]
+          }
+        ],
+        "playlist": [
+          {
+            "waveId": "arrival",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "neighbors",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "knocks",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "walls",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "siege",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "passage",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "fracture",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "echo",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "door",
+            "mode": "time",
+            "gap": 28
+          },
+          {
+            "waveId": "threshold",
+            "mode": "time",
+            "gap": 28
+          }
+        ]
+      },
+      "bonuses": {
+        "enabled": true,
+        "catalog": [
+          {
+            "id": "giants",
+            "name": "Union of Giants",
+            "icon": "✊",
+            "effect": "actorDamage",
+            "factor": 1.2,
+            "description": "Every soldier hits harder. Future recruits included."
+          },
+          {
+            "id": "factory",
+            "name": "Night Shift",
+            "icon": "⌂",
+            "effect": "production",
+            "factor": 1.5,
+            "description": "Houses recruit faster, up to the population limit."
+          },
+          {
+            "id": "frenzy",
+            "name": "Trigger Fingers",
+            "icon": "ϟ",
+            "effect": "actorRate",
+            "factor": 1.2,
+            "description": "Fire rates soar. Ammunition? We will worry about that later."
+          },
+          {
+            "id": "horizon",
+            "name": "This Neighbourhood Is Ours",
+            "icon": "◎",
+            "effect": "actorRange",
+            "factor": 1.1,
+            "description": "Soldiers reach enemies well beyond their base range."
+          },
+          {
+            "id": "titan",
+            "name": "Unbreakable Tenants",
+            "icon": "♥",
+            "effect": "actorHp",
+            "factor": 1.25,
+            "description": "Multiplies maximum and remaining soldier health."
+          },
+          {
+            "id": "fortress",
+            "name": "Reinforced Denial",
+            "icon": "▣",
+            "effect": "buildingHp",
+            "factor": 2,
+            "description": "Increases maximum and remaining health of standing houses."
+          },
+          {
+            "id": "repair",
+            "name": "It Grows Back",
+            "icon": "✚",
+            "effect": "regen",
+            "factor": 2,
+            "description": "Houses regenerate much faster. Ruins remain ruins."
+          },
+          {
+            "id": "cannon",
+            "name": "Condominium Cannon",
+            "icon": "◆",
+            "effect": "trainDamage",
+            "factor": 1.75,
+            "description": "Multiplies the damage of every locomotive shot."
+          },
+          {
+            "id": "convoy",
+            "name": "Armoured Train",
+            "icon": "▰",
+            "effect": "trainHp",
+            "factor": 1.5,
+            "description": "Multiplies convoy health, including current and future carriages."
+          },
+          {
+            "id": "ram",
+            "name": "Absolute Right of Way",
+            "icon": "➤",
+            "effect": "ram",
+            "factor": 1.25,
+            "description": "Multiplies collision damage against monsters without increasing wear."
+          }
+        ]
+      },
+      "dialogue": {
+        "library": {
+          "version": 1,
+          "characters": {
+            "monsieur": {
+              "name": "YOU · THE GENTLEMAN",
+              "role": "player",
+              "poses": {
+                "neutral": "assets/portraits/monsieur-neutral.png",
+                "satisfied": "assets/portraits/monsieur-satisfied.png",
+                "worried": "assets/portraits/monsieur-worried.png"
+              }
+            },
+            "locataire": {
+              "name": "THE TENANT",
+              "role": "npc",
+              "poses": {
+                "neutral": "assets/portraits/locataire-neutral.png",
+                "hostile": "assets/portraits/locataire-hostile.png",
+                "curious": "assets/portraits/locataire-curious.png"
+              }
+            }
+          },
+          "backplates": {
+            "default": "assets/ui/backplate.svg"
+          },
+          "dialogues": [
+            {
+              "id": "the_line",
+              "title": "The Line",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "You drew a circle, then wrote “our home” inside it.",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "We wanted somewhere to come back to.",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "The Tenant looks at you.",
+                  "choices": [
+                    {
+                      "id": "listen",
+                      "text": "Show me what the line cut through.",
+                      "next": "listened",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "listened",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "claim",
+                      "text": "The walls prove this is our home.",
+                      "next": "claimed",
+                      "effects": [
+                        {
+                          "type": "add",
+                          "key": "tension",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "listened": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "We wanted to come home too."
+                },
+                "claimed": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "hostile",
+                  "backplate": "default",
+                  "text": "A wall only proves you stopped looking behind it."
+                }
+              }
+            },
+            {
+              "id": "the_passage",
+              "title": "The Passage",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "Your houses have walls. Ours had passages.",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "If I open a passage, who protects the people behind me?",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "The door stands before you.",
+                  "choices": [
+                    {
+                      "id": "passage",
+                      "text": "Let us keep a passage between us.",
+                      "next": "opened",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "passage",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "wait",
+                      "text": "Let us wait until the end to decide.",
+                      "next": "closed"
+                    }
+                  ]
+                },
+                "opened": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "A door can protect without being locked on both sides."
+                },
+                "closed": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "Then the end will decide for us."
+                }
+              }
+            },
+            {
+              "id": "the_key",
+              "title": "The Key",
+              "start": "arrival",
+              "nodes": {
+                "arrival": {
+                  "type": "line",
+                  "speaker": "locataire",
+                  "pose": "neutral",
+                  "backplate": "default",
+                  "text": "When the circle reaches both houses, who will have to leave?",
+                  "next": "reply"
+                },
+                "reply": {
+                  "type": "line",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "I no longer want “us” to need an outside.",
+                  "next": "answer"
+                },
+                "answer": {
+                  "type": "choice",
+                  "speaker": "monsieur",
+                  "pose": "worried",
+                  "backplate": "default",
+                  "text": "What do you do with the key?",
+                  "choices": [
+                    {
+                      "id": "invite",
+                      "text": "The door will open both ways.",
+                      "next": "invited",
+                      "effects": [
+                        {
+                          "type": "set",
+                          "key": "invitation",
+                          "value": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": "keep",
+                      "text": "I will keep the key.",
+                      "next": "kept"
+                    }
+                  ]
+                },
+                "invited": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "curious",
+                  "backplate": "default",
+                  "text": "I heard you. Let us see if the house can do the same."
+                },
+                "kept": {
+                  "type": "end",
+                  "speaker": "locataire",
+                  "pose": "hostile",
+                  "backplate": "default",
+                  "text": "A key can also lock in the person holding it."
+                }
+              }
+            }
+          ]
+        },
+        "cues": [
+          {
+            "id": "line",
+            "dialogueId": "the_line",
+            "radius": 2.08
+          },
+          {
+            "id": "passage",
+            "dialogueId": "the_passage",
+            "radius": 4
+          },
+          {
+            "id": "key",
+            "dialogueId": "the_key",
+            "radius": 5.6
+          }
+        ],
+        "choiceScale": 0,
+        "autoAdvanceMs": 0
+      },
+      "endings": {
+        "harmony": {
+          "eyebrow": "THE DOOR OPENS",
+          "title": "A Home Together",
+          "text": "The vortex stops growing. The Gentleman asks: “What if the house was never ours?” The Tenant replies: “It was never ours either. Perhaps it can hold all of us.”",
+          "requiredFlags": [
+            "listened",
+            "passage",
+            "invitation"
+          ],
+          "minBuildings": 1
+        },
+        "force": {
+          "eyebrow": "THE CIRCLE FALLS SILENT",
+          "title": "An Empty Victory",
+          "text": "The final wave was defeated, but the vortex reached its limit. The city disappears beneath the circle. Winning every battle did not save your home.",
+          "waveId": "threshold"
+        },
+        "departure": {
+          "eyebrow": "THE CIRCLE CLOSES",
+          "title": "Towards Another Home",
+          "text": "The vortex reached its limit before the final wave was cleared. The city is swallowed. What remains of home must now be carried by those who remember it."
+        },
+        "defeat": {
+          "eyebrow": "THE TRAIN STOPS",
+          "title": "The Lost Convoy",
+          "text": "The houses leave their lights on for a train that never returns."
+        }
+      },
+      "audio": {
+        "music": 0.1,
+        "effects": 0.1
+      },
+      "soldiers": [
+        {
+          "id": "guardian",
+          "name": "Guardian",
+          "role": "Shields nearby allies from 40% of enemy fire. Protection does not stack.",
+          "color": "#e9b96b",
+          "duration": 10,
+          "stats": {
+            "maxHp": 220,
+            "damage": 7,
+            "speed": 0.8,
+            "range": 1.8,
+            "cooldown": 1.4,
+            "guardRadius": 3
+          }
+        },
+        {
+          "id": "sniper",
+          "name": "Watcher",
+          "role": "Pierces armour. Needs Scout marks to hit fast enemies. Minimum range: 3.",
+          "color": "#91c9ff",
+          "duration": 20,
+          "stats": {
+            "maxHp": 28,
+            "damage": 32,
+            "speed": 1.2,
+            "range": 6,
+            "cooldown": 4,
+            "minRange": 3,
+            "maxTargetSpeed": 1.3,
+            "armorPiercing": 1
+          }
+        },
+        {
+          "id": "gunner",
+          "name": "Gunner",
+          "role": "Rapid fire, short range and modest health.",
+          "color": "#ed94c9",
+          "duration": 12,
+          "stats": {
+            "maxHp": 48,
+            "damage": 3,
+            "speed": 2,
+            "range": 3,
+            "cooldown": 0.22
+          }
+        },
+        {
+          "id": "scout",
+          "name": "Scout",
+          "role": "Marks enemies for 3 seconds: other attackers deal 35% more damage.",
+          "color": "#9de2b1",
+          "duration": 8,
+          "stats": {
+            "maxHp": 65,
+            "damage": 7,
+            "speed": 5.8,
+            "range": 2.4,
+            "cooldown": 0.65,
+            "markDuration": 3
+          }
+        }
+      ]
+    },
+    "summary": [
+      {
+        "id": "random",
+        "survival": 0,
+        "time": 247
+      },
+      {
+        "id": "mixed",
+        "survival": 0.13333333333333333,
+        "time": 272
+      },
+      {
+        "id": "guardian",
+        "survival": 0,
+        "time": 161
+      },
+      {
+        "id": "watcher",
+        "survival": 0,
+        "time": 241
+      },
+      {
+        "id": "gunner",
+        "survival": 0,
+        "time": 199
+      },
+      {
+        "id": "scout",
+        "survival": 0,
+        "time": 187
+      },
+      {
+        "id": "balanced",
+        "survival": 0.5333333333333333,
+        "time": 287
+      },
+      {
+        "id": "ranged",
+        "survival": 0.6666666666666666,
+        "time": 291
+      },
+      {
+        "id": "adaptive",
+        "survival": 0.6333333333333333,
+        "time": 294
+      },
+      {
+        "id": "adaptive-light",
+        "survival": 0.6666666666666666,
+        "time": 295
+      },
+      {
+        "id": "expert-damage",
+        "survival": 0.6,
+        "time": 293
+      },
+      {
+        "id": "expert-defense",
+        "survival": 0.7,
+        "time": 295
+      },
+      {
+        "id": "gunner-damage",
+        "survival": 0,
+        "time": 190
+      },
+      {
+        "id": "gunner-defense",
+        "survival": 0,
+        "time": 191
+      }
+    ]
+  }
+]

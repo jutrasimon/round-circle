@@ -19,7 +19,7 @@
       "actorSpeed": 2.2,
       "actorRange": 2.6,
       "actorCooldown": 0.625,
-      "actorLimit": 28,
+      "actorLimit": 36,
       "monsterLimit": 80,
       "buildingHp": 150,
       "buildingCount": 5,
@@ -51,8 +51,8 @@
     "monsters": {
       "crawler": {
         "name": "Crawler",
-        "hp": 44,
-        "damage": 5.33203125,
+        "hp": 35,
+        "damage": 5,
         "speed": 0.8,
         "range": 3,
         "cooldown": 1.2,
@@ -60,8 +60,8 @@
       },
       "runner": {
         "name": "Runner",
-        "hp": 23,
-        "damage": 3.1992187500000004,
+        "hp": 18,
+        "damage": 3,
         "speed": 1.8,
         "range": 3,
         "cooldown": 0.7,
@@ -69,8 +69,8 @@
       },
       "brute": {
         "name": "Brute",
-        "hp": 188,
-        "damage": 17.0625,
+        "hp": 150,
+        "damage": 16,
         "speed": 0.42,
         "range": 3.5,
         "cooldown": 1.8,
@@ -78,8 +78,8 @@
       },
       "maw": {
         "name": "Shambling Maw",
-        "hp": 81,
-        "damage": 9.59765625,
+        "hp": 65,
+        "damage": 9,
         "speed": 1.2,
         "range": 3.5,
         "cooldown": 0.9,
@@ -88,8 +88,8 @@
       },
       "spitter": {
         "name": "Bile Spitter",
-        "hp": 60,
-        "damage": 7.46484375,
+        "hp": 48,
+        "damage": 7,
         "speed": 0.6,
         "range": 5,
         "cooldown": 1.8,
@@ -98,8 +98,8 @@
       },
       "carapace": {
         "name": "Corpse Carrier",
-        "hp": 225,
-        "damage": 13.86328125,
+        "hp": 180,
+        "damage": 13,
         "speed": 0.45,
         "range": 4,
         "cooldown": 1.5,
@@ -109,8 +109,8 @@
       },
       "cathedral": {
         "name": "Flesh Cathedral",
-        "hp": 525,
-        "damage": 14.9296875,
+        "hp": 420,
+        "damage": 14,
         "speed": 0.32,
         "range": 6,
         "cooldown": 3,
@@ -121,8 +121,8 @@
       },
       "widow": {
         "name": "Threshold Widow",
-        "hp": 325,
-        "damage": 10.6640625,
+        "hp": 260,
+        "damage": 10,
         "speed": 1.45,
         "range": 4.5,
         "cooldown": 1.1,
@@ -199,8 +199,8 @@
             "delay": 0,
             "interval": 1.5,
             "stats": {
-              "hp": 44,
-              "damage": 5.33203125
+              "hp": 35,
+              "damage": 5
             }
           },
           {
@@ -209,8 +209,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 81,
-              "damage": 9.59765625
+              "hp": 65,
+              "damage": 9
             }
           }
         ]
@@ -225,8 +225,8 @@
             "delay": 0,
             "interval": 0.8,
             "stats": {
-              "hp": 25,
-              "damage": 3.3058593749999994
+              "hp": 20,
+              "damage": 3.1
             }
           },
           {
@@ -235,8 +235,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 91,
-              "damage": 9.9282421875
+              "hp": 73,
+              "damage": 9.31
             }
           }
         ]
@@ -251,8 +251,8 @@
             "delay": 0,
             "interval": 1.5,
             "stats": {
-              "hp": 54,
-              "damage": 5.7052734375
+              "hp": 43,
+              "damage": 5.35
             }
           },
           {
@@ -261,8 +261,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 75,
-              "damage": 7.9873828125
+              "hp": 60,
+              "damage": 7.49
             }
           },
           {
@@ -271,8 +271,8 @@
             "delay": 4,
             "interval": 1.5,
             "stats": {
-              "hp": 101,
-              "damage": 10.269492187500001
+              "hp": 81,
+              "damage": 9.63
             }
           }
         ]
@@ -287,8 +287,8 @@
             "delay": 0,
             "interval": 0.8,
             "stats": {
-              "hp": 30,
-              "damage": 3.5298046875
+              "hp": 24,
+              "damage": 3.31
             }
           },
           {
@@ -297,8 +297,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 306,
-              "damage": 15.324257812499997
+              "hp": 245,
+              "damage": 14.37
             }
           },
           {
@@ -307,8 +307,8 @@
             "delay": 4,
             "interval": 1.5,
             "stats": {
-              "hp": 81,
-              "damage": 8.243320312500002
+              "hp": 65,
+              "damage": 7.73
             }
           }
         ]
@@ -323,8 +323,8 @@
             "delay": 0,
             "interval": 1.5,
             "stats": {
-              "hp": 89,
-              "damage": 8.509921875
+              "hp": 71,
+              "damage": 7.98
             }
           },
           {
@@ -333,8 +333,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 333,
-              "damage": 15.804140624999997
+              "hp": 266,
+              "damage": 14.82
             }
           },
           {
@@ -343,8 +343,8 @@
             "delay": 4,
             "interval": 0.8,
             "stats": {
-              "hp": 34,
-              "damage": 3.6471093749999994
+              "hp": 27,
+              "damage": 3.42
             }
           }
         ]
@@ -359,8 +359,8 @@
             "delay": 0,
             "interval": 0.8,
             "stats": {
-              "hp": 36,
-              "damage": 3.7644140624999993
+              "hp": 29,
+              "damage": 3.53
             }
           },
           {
@@ -369,8 +369,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 130,
-              "damage": 11.282578125
+              "hp": 104,
+              "damage": 10.58
             }
           },
           {
@@ -379,8 +379,8 @@
             "delay": 4,
             "interval": 1.5,
             "stats": {
-              "hp": 300,
-              "damage": 20.048437499999995
+              "hp": 240,
+              "damage": 18.8
             }
           }
         ]
@@ -395,8 +395,8 @@
             "delay": 0,
             "interval": 0.8,
             "stats": {
-              "hp": 39,
-              "damage": 3.8710546875
+              "hp": 31,
+              "damage": 3.63
             }
           },
           {
@@ -405,8 +405,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 104,
-              "damage": 9.0324609375
+              "hp": 83,
+              "damage": 8.47
             }
           },
           {
@@ -415,8 +415,8 @@
             "delay": 4,
             "interval": 1.5,
             "stats": {
-              "hp": 388,
-              "damage": 16.7745703125
+              "hp": 310,
+              "damage": 15.73
             }
           },
           {
@@ -425,8 +425,8 @@
             "delay": 6,
             "interval": 1.5,
             "stats": {
-              "hp": 559,
-              "damage": 12.903515624999999
+              "hp": 447,
+              "damage": 12.1
             }
           }
         ]
@@ -441,8 +441,8 @@
             "delay": 0,
             "interval": 1.5,
             "stats": {
-              "hp": 150,
-              "damage": 11.9544140625
+              "hp": 120,
+              "damage": 11.21
             }
           },
           {
@@ -451,8 +451,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 110,
-              "damage": 9.2883984375
+              "hp": 88,
+              "damage": 8.71
             }
           },
           {
@@ -461,8 +461,8 @@
             "delay": 4,
             "interval": 1.5,
             "stats": {
-              "hp": 345,
-              "damage": 21.2428125
+              "hp": 276,
+              "damage": 19.92
             }
           },
           {
@@ -471,8 +471,8 @@
             "delay": 6,
             "interval": 1.5,
             "stats": {
-              "hp": 598,
-              "damage": 13.2767578125
+              "hp": 478,
+              "damage": 12.45
             }
           }
         ]
@@ -487,8 +487,8 @@
             "delay": 0,
             "interval": 0.8,
             "stats": {
-              "hp": 44,
-              "damage": 4.095
+              "hp": 35,
+              "damage": 3.84
             }
           },
           {
@@ -497,8 +497,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 441,
-              "damage": 17.744999999999997
+              "hp": 353,
+              "damage": 16.64
             }
           },
           {
@@ -507,8 +507,8 @@
             "delay": 4,
             "interval": 1.5,
             "stats": {
-              "hp": 118,
-              "damage": 9.555
+              "hp": 94,
+              "damage": 8.96
             }
           },
           {
@@ -517,8 +517,8 @@
             "delay": 6,
             "interval": 1.5,
             "stats": {
-              "hp": 1029,
-              "damage": 19.11
+              "hp": 823,
+              "damage": 17.92
             }
           }
         ]
@@ -533,8 +533,8 @@
             "delay": 0,
             "interval": 0.8,
             "stats": {
-              "hp": 46,
-              "damage": 4.201640625
+              "hp": 37,
+              "damage": 3.94
             }
           },
           {
@@ -543,8 +543,8 @@
             "delay": 2,
             "interval": 1.5,
             "stats": {
-              "hp": 125,
-              "damage": 9.821601562499998
+              "hp": 100,
+              "damage": 9.21
             }
           },
           {
@@ -553,8 +553,8 @@
             "delay": 4,
             "interval": 1.5,
             "stats": {
-              "hp": 390,
-              "damage": 22.437187499999997
+              "hp": 312,
+              "damage": 21.04
             }
           },
           {
@@ -563,8 +563,8 @@
             "delay": 6,
             "interval": 1.5,
             "stats": {
-              "hp": 676,
-              "damage": 14.0232421875
+              "hp": 541,
+              "damage": 13.15
             }
           },
           {
@@ -573,8 +573,8 @@
             "delay": 8,
             "interval": 1.5,
             "stats": {
-              "hp": 1093,
-              "damage": 19.6325390625
+              "hp": 874,
+              "damage": 18.41
             }
           }
         ]
@@ -641,7 +641,7 @@
         "name": "Union of Giants",
         "icon": "✊",
         "effect": "actorDamage",
-        "factor": 1.2,
+        "factor": 1.25,
         "description": "Every soldier hits harder. Future recruits included."
       },
       {
@@ -649,7 +649,7 @@
         "name": "Night Shift",
         "icon": "⌂",
         "effect": "production",
-        "factor": 2,
+        "factor": 1.25,
         "description": "Houses recruit faster, up to the population limit."
       },
       {
@@ -657,7 +657,7 @@
         "name": "Trigger Fingers",
         "icon": "ϟ",
         "effect": "actorRate",
-        "factor": 1.2,
+        "factor": 1.25,
         "description": "Fire rates soar. Ammunition? We will worry about that later."
       },
       {
@@ -665,7 +665,7 @@
         "name": "This Neighbourhood Is Ours",
         "icon": "◎",
         "effect": "actorRange",
-        "factor": 1.1,
+        "factor": 1.25,
         "description": "Soldiers reach enemies well beyond their base range."
       },
       {
@@ -681,7 +681,7 @@
         "name": "Reinforced Denial",
         "icon": "▣",
         "effect": "buildingHp",
-        "factor": 2,
+        "factor": 1.5,
         "description": "Increases maximum and remaining health of standing houses."
       },
       {
@@ -689,7 +689,7 @@
         "name": "It Grows Back",
         "icon": "✚",
         "effect": "regen",
-        "factor": 4,
+        "factor": 1.25,
         "description": "Houses regenerate much faster. Ruins remain ruins."
       },
       {
@@ -697,8 +697,8 @@
         "name": "Condominium Cannon",
         "icon": "◆",
         "effect": "trainDamage",
-        "factor": 3,
-        "description": "Adds locomotive damage based on its starting value. Repeated upgrades add rather than multiply."
+        "factor": 1.5,
+        "description": "Multiplies the damage of every locomotive shot."
       },
       {
         "id": "convoy",
@@ -706,15 +706,15 @@
         "icon": "▰",
         "effect": "trainHp",
         "factor": 1.5,
-        "description": "Adds convoy health based on its starting value, including future carriages. Repeated upgrades add rather than multiply."
+        "description": "Multiplies convoy health, including current and future carriages."
       },
       {
         "id": "ram",
         "name": "Absolute Right of Way",
         "icon": "➤",
         "effect": "ram",
-        "factor": 3,
-        "description": "Adds collision damage based on its starting value, without increasing wear. Repeated upgrades add rather than multiply."
+        "factor": 1.25,
+        "description": "Multiplies collision damage against monsters without increasing wear."
       }
     ]
   },
@@ -976,15 +976,15 @@
       "minBuildings": 1
     },
     "force": {
-      "eyebrow": "FIVE MINUTES · FINAL WAVE DEFEATED",
-      "title": "You Held the Line",
-      "text": "You survived five minutes and defeated the final wave. The vortex still takes the city, but the convoy endured. This is a hard-earned survival victory; a shared home is another kind of triumph.",
+      "eyebrow": "THE CIRCLE FALLS SILENT",
+      "title": "An Empty Victory",
+      "text": "The final wave was defeated, but the vortex reached its limit. The city disappears beneath the circle. Winning every battle did not save your home.",
       "waveId": "threshold"
     },
     "departure": {
-      "eyebrow": "FIVE MINUTES SURVIVED",
-      "title": "You Made It Through",
-      "text": "The convoy survived until the end. Not every wave was cleared, and the vortex takes the city. You held on long enough to carry the memory of home with you."
+      "eyebrow": "THE CIRCLE CLOSES",
+      "title": "Towards Another Home",
+      "text": "The vortex reached its limit before the final wave was cleared. The city is swallowed. What remains of home must now be carried by those who remember it."
     },
     "defeat": {
       "eyebrow": "THE TRAIN STOPS",
@@ -1000,40 +1000,35 @@
     {
       "id": "guardian",
       "name": "Guardian",
-      "role": "Shields nearby allies from 40% of enemy fire. Protection does not stack.",
+      "role": "Slow, tough and built for close combat.",
       "color": "#e9b96b",
-      "duration": 10,
+      "duration": 14,
       "stats": {
         "maxHp": 220,
-        "damage": 14,
+        "damage": 7,
         "speed": 0.8,
         "range": 1.8,
-        "cooldown": 1.4,
-        "guardRadius": 3
+        "cooldown": 1.4
       }
     },
     {
       "id": "sniper",
       "name": "Watcher",
-      "role": "Pierces armour. Half damage without Scout marks; cannot hit fast unmarked enemies. Minimum range: 3.",
+      "role": "Very fragile. Heavy shots at extreme range.",
       "color": "#91c9ff",
       "duration": 20,
       "stats": {
         "maxHp": 28,
-        "damage": 32,
+        "damage": 40,
         "speed": 1.2,
-        "range": 6,
-        "cooldown": 4,
-        "minRange": 3,
-        "maxTargetSpeed": 1.3,
-        "armorPiercing": 1,
-        "unmarkedDamage": 0.5
+        "range": 8,
+        "cooldown": 4
       }
     },
     {
       "id": "gunner",
       "name": "Gunner",
-      "role": "Rapid fire against light enemies. Low-calibre shots struggle against armour.",
+      "role": "Rapid fire, short range and modest health.",
       "color": "#ed94c9",
       "duration": 12,
       "stats": {
@@ -1041,22 +1036,21 @@
         "damage": 4,
         "speed": 2,
         "range": 3,
-        "cooldown": 0.22
+        "cooldown": 0.18
       }
     },
     {
       "id": "scout",
       "name": "Scout",
-      "role": "Marks enemies for 3 s: other profiles and the train deal 35% more damage.",
+      "role": "Quick to recruit and highly mobile.",
       "color": "#9de2b1",
-      "duration": 8,
+      "duration": 6,
       "stats": {
         "maxHp": 65,
-        "damage": 12,
+        "damage": 11,
         "speed": 5.8,
         "range": 2.4,
-        "cooldown": 0.65,
-        "markDuration": 3
+        "cooldown": 0.65
       }
     }
   ]

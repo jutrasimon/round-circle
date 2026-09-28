@@ -7,7 +7,7 @@ test('manual houses remain idle until ordered and finish only one recruit',()=>{
  const s=make(),b=s.buildings[0];advance(s,60);assert.equal(s.actors.length,0);
  assert(s.queueTraining(b.id,'scout'));assert(!s.queueTraining(b.id,'sniper'));
  advance(s,5);assert.equal(s.actors.length,0);assert(b.training.elapsed>4.9);
- advance(s,1.1);assert.equal(s.actors.length,1);assert.equal(s.actors[0].profileId,'scout');assert.equal(b.training,null);
+ advance(s,3.1);assert.equal(s.actors.length,1);assert.equal(s.actors[0].profileId,'scout');assert.equal(b.training,null);
  advance(s,30);assert.equal(s.actors.length,1);assert.equal(s.events.filter(e=>e.type==='training-complete').length,1);
  assert(s.queueTraining(b.id,'guardian'));s.reset();assert(s.buildings.every(b=>!b.training&&!b.readyNotice));
 });

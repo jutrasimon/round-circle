@@ -9,11 +9,11 @@ const seed=[
  {id:'titan',name:'Unbreakable Tenants',icon:'♥',effect:'actorHp',factor:1.5,description:'Multiplies maximum and remaining soldier health.'},
  {id:'fortress',name:'Reinforced Denial',icon:'▣',effect:'buildingHp',factor:2,description:'Increases maximum and remaining health of standing houses.'},
  {id:'repair',name:'It Grows Back',icon:'✚',effect:'regen',factor:2,description:'Houses regenerate much faster. Ruins remain ruins.'},
- {id:'cannon',name:'Condominium Cannon',icon:'◆',effect:'trainDamage',factor:2,description:'Multiplies the damage of every locomotive shot.'},
- {id:'convoy',name:'Armoured Train',icon:'▰',effect:'trainHp',factor:1.5,description:'Multiplies convoy health, including current and future carriages.'},
- {id:'ram',name:'Absolute Right of Way',icon:'➤',effect:'ram',factor:2,description:'Multiplies collision damage against monsters without increasing wear.'}
+ {id:'cannon',name:'Condominium Cannon',icon:'◆',effect:'trainDamage',factor:2,description:"Adds locomotive damage based on its starting value. Repeated upgrades add rather than multiply."},
+ {id:'convoy',name:'Armoured Train',icon:'▰',effect:'trainHp',factor:1.5,description:"Adds convoy health based on its starting value, including future carriages. Repeated upgrades add rather than multiply."},
+ {id:'ram',name:'Absolute Right of Way',icon:'➤',effect:'ram',factor:2,description:"Adds collision damage based on its starting value, without increasing wear. Repeated upgrades add rather than multiply."}
 ];
-function validate(data){if(!Array.isArray(data)||data.length<3||data.length>100)throw Error('Provide 3 to 100 bonuses');const ids=new Set();return data.map(b=>{if(!b||typeof b.id!=='string'||!/^[-\w]{1,60}$/.test(b.id)||ids.has(b.id)||typeof b.name!=='string'||!b.name.trim()||b.name.length>80||typeof b.description!=='string'||b.description.length>500||typeof b.icon!=='string'||b.icon.length>8||!Object.hasOwn(effects,b.effect)||!Number.isFinite(b.factor)||b.factor<1.25||b.factor>10)throw Error('Invalid bonus: name, effect or multiplier (1.25 to 10)');ids.add(b.id);return {...b};});}
+function validate(data){if(!Array.isArray(data)||data.length<3||data.length>100)throw Error('Provide 3 to 100 bonuses');const ids=new Set();return data.map(b=>{if(!b||typeof b.id!=='string'||!/^[-\w]{1,60}$/.test(b.id)||ids.has(b.id)||typeof b.name!=='string'||!b.name.trim()||b.name.length>80||typeof b.description!=='string'||b.description.length>500||typeof b.icon!=='string'||b.icon.length>8||!Object.hasOwn(effects,b.effect)||!Number.isFinite(b.factor)||b.factor<1.1||b.factor>10)throw Error('Invalid bonus: name, effect or multiplier (1.1 to 10)');ids.add(b.id);return {...b};});}
 function migrateCatalog(data){return validate(data.map(b=>({...b,factor:1+(b.factor-1)/2})));}
 class Rewards{
  constructor(sim,{catalog=seed,random=Math.random,onChange=()=>{}}={}){this.sim=sim;this.catalog=validate(catalog);this.random=random;this.onChange=onChange;this.enabled=true;this.reset();}

@@ -48,8 +48,8 @@ test('witness stats and wave definitions drive a fresh simulation',()=>{
  assert.equal(runner.records[0].waveId,'arrival');
  assert.equal(runner.records[0].name,profile.waves.waves[0].name);
  const cathedral=sim.spawn('cathedral');
- assert.equal(cathedral.maxHp,420);
- assert.equal(cathedral.damage,14);
+ assert.equal(cathedral.maxHp,525);
+ assert(Math.abs(cathedral.damage-14.9296875)<1e-8);
 });
 
 test('ending priority follows dialogue, village, final wave and train survival',()=>{

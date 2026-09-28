@@ -1,5 +1,5 @@
-import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=039';
-import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=039';
+import {DialogueEngine,validateLibrary} from './dialogue/src/dialogue-core.js?v=040';
+import {DialogueView,preloadAssets} from './dialogue/src/dialogue-view.js?v=040';
 
 const $=s=>document.querySelector(s);
 const el=(tag,text,parent)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;parent?.append(node);return node;};
@@ -27,7 +27,7 @@ async function install(){
  el('span','THE NEIGHBOURHOOD OWES YOU SOMETHING',panel).className='reward-eyebrow';
  const heading=el('h2','Choose your unfair advantage.',panel);heading.id='reward-title';
  const subtitle=el('p','',panel),cards=el('div',undefined,panel);cards.className='reward-cards';
- el('p','One choice. The whole run. Multipliers stack.',panel).className='reward-footnote';
+ el('p','One choice. The whole run. Each card previews your new total.',panel).className='reward-footnote';
  const bonusSummary=el('p','',bonusTab);bonusSummary.className='feature-summary';
  let dialogEngine=null,view=null,dialogueSpeed=0,lastFocus=null,wasOpen=false,testId=0;
  const dialogueHost=el('div',undefined,stage);
@@ -38,7 +38,7 @@ async function install(){
   if(!pending){if(wasOpen){wasOpen=false;if(dialogEngine?.active)dialogueHost.querySelector('button')?.focus();else lastFocus?.focus();}return;}
   if(!wasOpen){lastFocus=document.activeElement;wasOpen=true;}
   subtitle.textContent=(pending.event.test?'Bonus preview':pending.event.name+' · wave cleared')+' — combat paused';cards.replaceChildren();const revision=rewards.revision;
-  for(const b of pending.choices){const card=button(cards,'',()=>rewards.choose(b.id,revision));card.className='reward-card';el('span',b.icon,card).className='reward-icon';el('strong',b.name,card);el('span','×'+b.factor,card).className='reward-factor';el('span',effects[b.effect]+' ×'+b.factor,card);el('p',b.description,card);el('small','Total: ×'+sim.multiplier(b.effect).toLocaleString('en-CA')+' → ×'+Math.min(1000000,sim.multiplier(b.effect)*b.factor).toLocaleString('en-CA'),card);}
+  for(const b of pending.choices){const card=button(cards,'',()=>rewards.choose(b.id,revision));card.className='reward-card';el('span',b.icon,card).className='reward-icon';el('strong',b.name,card);el('span',window.RoundCircleSimulation.bonusLabel(b.effect,b.factor),card).className='reward-factor';el('span',effects[b.effect]+' '+window.RoundCircleSimulation.bonusLabel(b.effect,b.factor),card);el('p',b.description,card);el('small','Total: ×'+sim.multiplier(b.effect).toLocaleString('en-CA')+' → ×'+sim.previewBonus(b.effect,b.factor).toLocaleString('en-CA'),card);}
   cards.querySelector('button')?.focus();
  }
  overlay.addEventListener('keydown',e=>{if(e.key==='Tab'){const buttons=[...cards.querySelectorAll('button')],i=buttons.indexOf(document.activeElement);e.preventDefault();buttons[(i+(e.shiftKey?2:1))%3]?.focus();}});
@@ -46,11 +46,11 @@ async function install(){
  designer.runner.onWaveComplete=e=>{if(sim.train.hp>0)rewards.offer(e);};designer.runner.isBlocked=()=>!!rewards.pending;
  const previousReset=sim.onReset;sim.onReset=()=>{previousReset?.();dialogEngine?.reset();rewards.reset();};
  el('h2','Delightfully broken bonuses',bonusTab);
- el('p','Bonuses affect current and future units. ×2 then ×2 = ×4. Base stats remain intact. Start clears artifacts. Laboratory cap: ×1,000,000; maximum fire rate: one shot per simulation step. The population limit still applies.',bonusTab);
+ el('p','Bonuses affect current and future units. Soldier and house bonuses multiply: ×2 then ×2 = ×4. Convoy health, cannon and collision bonuses add their base increase: +100% then +100% = ×3 total. Base stats remain intact. Start clears artifacts. Laboratory cap: ×1,000,000; maximum fire rate: one shot per simulation step. The population limit still applies.',bonusTab);
  const enabled=select(bonusTab,'After each wave',[['yes','Offer 3 bonuses'],['no','Disabled']], 'yes');enabled.value=activeRun?activeRun.bonuses.enabled?'yes':'no':saved?.rewardsEnabled===false?'no':'yes';rewards.enabled=enabled.value==='yes';enabled.onchange=()=>rewards.enabled=enabled.value==='yes';
  button(bonusTab,'Preview three bonus choices',()=>{rewards.offer({id:'test-'+(++testId),name:'Testing ground',test:true});});
  let chosen=select(bonusTab,'Bonus to configure',rewards.catalog.map(b=>[b.id,b.name]),rewards.catalog[0].id);
- const multiplier=numeric(bonusTab,'Multiplier',rewards.catalog[0].factor,1.25,10,.25);
+ const multiplier=numeric(bonusTab,'Multiplier',rewards.catalog[0].factor,1.1,10,.05);
  chosen.onchange=()=>multiplier.value=rewards.catalog.find(b=>b.id===chosen.value).factor;
  const saveCatalog=data=>{const valid=validate(data);localStorage.setItem('round-circle-bonuses-v2',JSON.stringify(valid));rewards.catalog=valid;chosen.replaceChildren();for(const b of valid){const o=el('option',b.name,chosen);o.value=b.id;}chosen.onchange();};
  button(bonusTab,'Save multiplier',()=>{const id=chosen.value;saveCatalog(rewards.catalog.map(b=>b.id===id?{...b,factor:Number(multiplier.value)}:b));bonusEditor.value=JSON.stringify(rewards.catalog,null,2);bonusSummary.textContent='Catalog saved. Future offers will use these values.';});
