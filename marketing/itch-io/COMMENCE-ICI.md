@@ -1,15 +1,15 @@
 # Publier Round Circle sur itch.io
 
-Kit préparé pour la version **040**, le 28 septembre 2026. Textes publics en anglais, instructions en français.
+Kit préparé pour la version **041**, le 28 septembre 2026. Textes publics en anglais, instructions en français.
 
 ## Les fichiers utiles
 
-- **`../../releases/round-circle-v040-itch.zip`** : le jeu à téléverser dans itch.io. Ne pas le décompresser pour l'envoi.
+- **`../../releases/round-circle-v041-itch.zip`** : le jeu à téléverser dans itch.io. Ne pas le décompresser pour l'envoi.
 - **`PAGE-EN.md`** : accroche et description à copier.
 - **`assets/`** : couverture et captures pour la page.
 - **`PROMO-EN-FR.md`** : annonces, fiche presse et idée de bande-annonce.
 - **`CREDITS-FR.md`** : les quelques informations de provenance à compléter.
-- **`../../releases/round-circle-v040-marketing-kit.zip`** : tout le kit, y compris l'archive du jeu. **Ne pas envoyer ce gros kit comme jeu HTML5.**
+- **`../../releases/round-circle-v041-marketing-kit.zip`** : tout le kit, y compris l'archive du jeu. **Ne pas envoyer ce gros kit comme jeu HTML5.**
 
 Tu peux préparer toute la page en brouillon avant de la rendre publique. Aucun besoin de toucher au code, à Git ou à un terminal pour ce premier envoi.
 
@@ -42,7 +42,7 @@ Le [guide de création officiel](https://itch.io/docs/creators/getting-started) 
 
 ## 3. Envoyer le jeu
 
-Dans **Uploads**, choisis `round-circle-v040-itch.zip`. Après traitement, coche **This file will be played in the browser** si cette case est proposée. Choisis **Click to launch in fullscreen** dans Embed options. Garde le démarrage sur clic. Pas besoin de SharedArrayBuffer pour ce jeu.
+Dans **Uploads**, choisis `round-circle-v041-itch.zip`. Après traitement, coche **This file will be played in the browser** si cette case est proposée. Choisis **Embed in page** dans Embed options, avec une taille de **1280 × 720**. Le joueur peut activer et quitter le plein écran avec les boutons du jeu. Garde le démarrage sur clic. Pas besoin de SharedArrayBuffer pour ce jeu.
 
 L'archive contient `index.html` à sa racine, le moteur et les ressources. Ne crée pas une archive contenant le dossier `dist` entier comme niveau supplémentaire. Les noms de fichiers et leur casse doivent rester identiques.
 
