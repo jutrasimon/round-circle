@@ -5,7 +5,7 @@ const {recruitmentState,progress}=require('../dist/production-panel.js');
 const {audioSettings}=require('../dist/audio.js');
 const {describe}=require('../dist/finale.js');
 test('old loud preferences migrate to ten percent, quieter and new choices survive',()=>{
- assert.equal(audioSettings().music,.1);assert.equal(audioSettings().effects,.1);
+ assert.equal(audioSettings().music,.61);assert.equal(audioSettings().effects,.1);
  const migrated=audioSettings({volumeVersion:3,music:.46,effects:.56});assert.equal(migrated.music,.1);assert.equal(migrated.effects,.1);
  const quiet=audioSettings({volumeVersion:3,music:0,effects:.03,enabled:false});assert.equal(quiet.music,0);assert.equal(quiet.effects,.03);assert.equal(quiet.enabled,false);
  assert.equal(audioSettings({volumeVersion:4,music:.7}).music,.7);

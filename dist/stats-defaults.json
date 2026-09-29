@@ -133,5 +133,51 @@
   },
   "combatVersion": 2,
   "balanceVersion": 1,
-  "durationVersion": 1
+  "durationVersion": 1,
+  "settings": {
+    "storage": {
+      "round-circle-audio-v1": {
+        "enabled": true,
+        "musicEnabled": true,
+        "effectsEnabled": true,
+        "music": 0.61,
+        "effects": 0.1,
+        "volumeVersion": 4
+      },
+      "round-circle-mix-v1": {
+        "ui": {
+          "file": "arcade/select_1.wav",
+          "volume": 0.5
+        },
+        "shot": {
+          "file": "arcade/fire_2.wav",
+          "volume": 0.37
+        },
+        "impact": {
+          "file": "arcade/hurt_1.wav",
+          "volume": 0.5
+        },
+        "death": {
+          "file": "arcade/explosion_2.wav",
+          "volume": 0.5
+        },
+        "spawn": {
+          "file": "arcade/stat_increase.wav",
+          "volume": 0.5
+        },
+        "wave": {
+          "file": "arcade/lightning.wav",
+          "volume": 0.75
+        },
+        "reward": {
+          "file": "arcade/equip_2.wav",
+          "volume": 0.5
+        },
+        "dialogue": {
+          "file": "arcade/ghostly_laugh.wav",
+          "volume": 0.5
+        }
+      }
+    }
+  }
 }

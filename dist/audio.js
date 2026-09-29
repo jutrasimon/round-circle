@@ -15,11 +15,12 @@ class Gate{
  constructor(){this.last={};this.recent=[];}
  allow(id,time){if(!cues[id]||time-(this.last[id]??-Infinity)<cues[id].gap)return false;this.recent=this.recent.filter(t=>time-t<.1);if(this.recent.length>=4)return false;this.last[id]=time;this.recent.push(time);return true;}
 }
-const defaultFiles={"ui":"select_1","shot":"laser_1","impact":"hurt_1","death":"soft_destruction","spawn":"bubble","wave":"siren","reward":"collect_1","dialogue":"note_C"};
-function mixSettings(saved={}){return Object.fromEntries(Object.keys(cues).map(id=>[id,{file:typeof saved[id]?.file==='string'?saved[id].file:'arcade/'+defaultFiles[id]+'.wav',volume:Number.isFinite(saved[id]?.volume)?Math.max(0,Math.min(1,saved[id].volume)):.5}]));}
+const defaultFiles={"ui":"select_1","shot":"fire_2","impact":"hurt_1","death":"explosion_2","spawn":"stat_increase","wave":"lightning","reward":"equip_2","dialogue":"ghostly_laugh"};
+const defaultVolumes={"ui":0.5,"shot":0.37,"impact":0.5,"death":0.5,"spawn":0.5,"wave":0.75,"reward":0.5,"dialogue":0.5};
+function mixSettings(saved={}){return Object.fromEntries(Object.keys(cues).map(id=>[id,{file:typeof saved[id]?.file==='string'?saved[id].file:'arcade/'+defaultFiles[id]+'.wav',volume:Number.isFinite(saved[id]?.volume)?Math.max(0,Math.min(1,saved[id].volume)):defaultVolumes[id]}]));}
 // Quadratic taper gives fine control at low volume; full scale is capped at half gain.
 function musicGain(value){const level=Number.isFinite(value)?Math.max(0,Math.min(1,value)):0;return .5*level*level;}
-function audioSettings(saved={},defaults={music:.1,effects:.1}){const settings={enabled:saved.enabled!==false,musicEnabled:saved.musicEnabled!==false,effectsEnabled:saved.effectsEnabled!==false,music:defaults.music,effects:defaults.effects,volumeVersion:4};for(const k of ['music','effects'])if(Number.isFinite(saved[k]))settings[k]=Math.max(0,Math.min(saved.volumeVersion>=4?1:.1,saved[k]));return settings;}
+function audioSettings(saved={},defaults={music:.61,effects:.1}){const settings={enabled:saved.enabled!==false,musicEnabled:saved.musicEnabled!==false,effectsEnabled:saved.effectsEnabled!==false,music:defaults.music,effects:defaults.effects,volumeVersion:4};for(const k of ['music','effects'])if(Number.isFinite(saved[k]))settings[k]=Math.max(0,Math.min(saved.volumeVersion>=4?1:.1,saved[k]));return settings;}
 function install(){
  const music=new Audio('assets/audio/fortress-of-bone.mp3');music.loop=true;music.preload='none';music.id='backgroundMusic';music.hidden=true;document.body.append(music);
  let savedAudio={};try{savedAudio=JSON.parse(localStorage.getItem('round-circle-audio-v1'))||{};}catch{}const settings=audioSettings(savedAudio,root.roundCircleLab?.runProfile?.audio);

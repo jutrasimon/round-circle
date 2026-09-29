@@ -25,6 +25,6 @@ function validate(source){
  if(!Array.isArray(endings.harmony.requiredFlags)||!endings.harmony.requiredFlags.length||endings.harmony.requiredFlags.some(flag=>!identifier(flag))||!Number.isInteger(endings.harmony.minBuildings)||endings.harmony.minBuildings<0||endings.harmony.minBuildings>12||!identifier(endings.force.waveId)||!waves.waves.some(w=>w.id===endings.force.waveId))throw Error('Invalid ending conditions');
  return copy({version:1,id:source.id,name:source.name,stats,waves,bonuses,soldiers,audio,dialogue:{library:dialogue.library,cues,choiceScale:dialogue.choiceScale,autoAdvanceMs:dialogue.autoAdvanceMs},endings});
 }
-async function load(url){const response=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Run configuration not found');const source=await response.json(),{validateLibrary}=await import('./dialogue/src/dialogue-core.js?v=041');source.dialogue.library=validateLibrary(source.dialogue.library);return validate(source);}
+async function load(url){const response=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(10000)});if(!response.ok)throw Error('Run configuration not found');const source=await response.json(),{validateLibrary}=await import('./dialogue/src/dialogue-core.js?v=042');source.dialogue.library=validateLibrary(source.dialogue.library);return validate(source);}
 root.RoundCircleRunConfig={validate,load};if(typeof module!=='undefined')module.exports=root.RoundCircleRunConfig;
 })(typeof window!=='undefined'?window:globalThis);
