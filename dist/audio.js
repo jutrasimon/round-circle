@@ -15,8 +15,8 @@ class Gate{
  constructor(){this.last={};this.recent=[];}
  allow(id,time){if(!cues[id]||time-(this.last[id]??-Infinity)<cues[id].gap)return false;this.recent=this.recent.filter(t=>time-t<.1);if(this.recent.length>=4)return false;this.last[id]=time;this.recent.push(time);return true;}
 }
-const defaultFiles={"ui":"select_1","shot":"fire_2","impact":"hurt_1","death":"explosion_2","spawn":"stat_increase","wave":"lightning","reward":"equip_2","dialogue":"ghostly_laugh"};
-const defaultVolumes={"ui":0.5,"shot":0.37,"impact":0.5,"death":0.5,"spawn":0.5,"wave":0.75,"reward":0.5,"dialogue":0.5};
+const defaultFiles={"ui":"select_1","shot":"fire_2","impact":"hurt_1","death":"explosion_2","spawn":"note_C","wave":"lightning","reward":"equip_2","dialogue":"ghostly_laugh"};
+const defaultVolumes={"ui":0.5,"shot":0.37,"impact":0.5,"death":0.5,"spawn":0.25,"wave":0.75,"reward":0.5,"dialogue":0.5};
 function mixSettings(saved={}){return Object.fromEntries(Object.keys(cues).map(id=>[id,{file:typeof saved[id]?.file==='string'?saved[id].file:'arcade/'+defaultFiles[id]+'.wav',volume:Number.isFinite(saved[id]?.volume)?Math.max(0,Math.min(1,saved[id].volume)):defaultVolumes[id]}]));}
 // Quadratic taper gives fine control at low volume; full scale is capped at half gain.
 function musicGain(value){const level=Number.isFinite(value)?Math.max(0,Math.min(1,value)):0;return .5*level*level;}

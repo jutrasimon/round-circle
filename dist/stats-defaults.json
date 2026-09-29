@@ -162,8 +162,8 @@
           "volume": 0.5
         },
         "spawn": {
-          "file": "arcade/stat_increase.wav",
-          "volume": 0.5
+          "file": "arcade/note_C.wav",
+          "volume": 0.25
         },
         "wave": {
           "file": "arcade/lightning.wav",
